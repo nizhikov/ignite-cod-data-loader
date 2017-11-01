@@ -1,0 +1,1898 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <parser_count>10</parser_count>
+    <skip_errors_count>0</skip_errors_count>
+    <allow_overwrite>true</allow_overwrite>
+    <show_stats>true</show_stats>
+    <wait_streamer_flush>true</wait_streamer_flush>
+    <stop_after_disconnect>false</stop_after_disconnect>
+    <default_partitionid>-1</default_partitionid>
+    <ora_owner>dbaosb</ora_owner>
+    <log_table>report_converter</log_table>
+    <ignore_missed_caches>true</ignore_missed_caches>
+    <client id_column="CLIENTID" partition_column="PARTITIONID" ora_template="%ID_MEGA%-%ID_MAJOR%-%ID_MINOR%"/>
+
+    <check_client_pprb>false</check_client_pprb>
+    <km_external_system_code>73</km_external_system_code>
+    <!--magic_client_id>-1</magic_client_id-->
+    <magic_partition_id>-1</magic_partition_id>
+
+    <sequences_cache>DPLEntityIdSequences_DPL_union-module</sequences_cache>
+    <start_seq_value>-9223372036854774808</start_seq_value>
+
+    <tables>
+
+        <table>
+            <name>DICT_TEMPLATESERVICE</name>
+            <cache_name>com.sbt.cdm.api.model.published.template.PublishedTemplateService</cache_name>
+            <key_data_type>java.lang.Long</key_data_type>
+            <object_data_type>com.sbt.cdm.api.model.published.template.PublishedTemplateService</object_data_type>
+            <sequence_name>com.sbt.cdm.api.model.published.template.PublishedTemplateService_$S</sequence_name>
+            <id_column_name>%ID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+        </table>
+
+        <table>
+            <name>DICT_TEMPLATEDYNAMICPARAM</name>
+            <cache_name>com.sbt.cdm.api.model.published.template.PublishedTemplateDynamicParam</cache_name>
+            <key_data_type>java.lang.Long</key_data_type>
+            <object_data_type>com.sbt.cdm.api.model.published.template.PublishedTemplateDynamicParam</object_data_type>
+            <sequence_name>com.sbt.cdm.api.model.published.template.PublishedTemplateDynamicParam_$S</sequence_name>
+            <id_column_name>%ID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+        </table>
+        <table>
+            <name>DICT_PRODUCT</name>
+            <cache_name>com.sbt.cdm.api.model.published.template.PublishedProduct</cache_name>
+            <key_data_type>java.lang.Long</key_data_type>
+            <object_data_type>com.sbt.cdm.api.model.published.template.PublishedProduct</object_data_type>
+            <sequence_name>com.sbt.cdm.api.model.published.template.PublishedProduct_$S</sequence_name>
+            <id_column_name>%ID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+        </table>
+        <table>
+            <name>DICT_TEMPLATESUBPROCESS</name>
+            <cache_name>com.sbt.cdm.api.model.published.template.PublishedTemplateSubProcess</cache_name>
+            <key_data_type>java.lang.Long</key_data_type>
+            <object_data_type>com.sbt.cdm.api.model.published.template.PublishedTemplateSubProcess</object_data_type>
+            <sequence_name>com.sbt.cdm.api.model.published.template.PublishedTemplateSubProcess_$S</sequence_name>
+            <id_column_name>%ID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+        </table>
+
+        <table>
+            <name>DEPARTMENT</name>
+            <cache_name>com.sbt.cdm.api.model.published.dictionary.PublishedDepartments</cache_name>
+            <key_data_type>java.lang.Long</key_data_type>
+            <object_data_type>com.sbt.cdm.api.model.published.dictionary.PublishedDepartments</object_data_type>
+            <sequence_name>Departments_$S</sequence_name>
+            <id_column_name>%ID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+        </table>
+
+        <table>
+            <name>DICTCATEGORY</name>
+            <cache_name>com.sbt.cdm.api.model.published.dictionary.PublishedDictObjectCategoryType</cache_name>
+            <key_data_type>java.lang.Long</key_data_type>
+            <object_data_type>com.sbt.cdm.api.model.published.dictionary.PublishedDictObjectCategoryType</object_data_type>
+            <sequence_name>com.sbt.cdm.api.model.published.dictionary.PublishedDictObjectCategoryType_$S</sequence_name>
+            <id_column_name>%ID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+        </table>
+
+        <table>
+            <name>MEASURE</name>
+            <cache_name>com.sbt.cdm.api.model.published.dictionary.PublishedMeasure</cache_name>
+            <key_data_type>java.lang.Long</key_data_type>
+            <object_data_type>com.sbt.cdm.api.model.published.dictionary.PublishedMeasure</object_data_type>
+            <sequence_name>com.sbt.cdm.api.model.published.dictionary.PublishedMeasure_$S</sequence_name>
+            <id_column_name>%ID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+        </table>
+
+        <table>
+            <name>DICTPARAM</name>
+            <cache_name>com.sbt.cdm.api.model.published.dictionary.PublishedParam</cache_name>
+            <key_data_type>java.lang.Long</key_data_type>
+            <object_data_type>com.sbt.cdm.api.model.published.dictionary.PublishedParam</object_data_type>
+            <sequence_name>Param_$S</sequence_name>
+            <id_column_name>%ID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+        </table>
+
+        <table>
+            <name>STATUS</name>
+            <cache_name>com.sbt.cdm.api.model.published.dictionary.PublishedDictStatus</cache_name>
+            <key_data_type>java.lang.Long</key_data_type>
+            <object_data_type>com.sbt.cdm.api.model.published.dictionary.PublishedDictStatus</object_data_type>
+            <sequence_name>com.sbt.cdm.api.model.published.dictionary.PublishedDictStatus_$S</sequence_name>
+            <id_column_name>%ID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+        </table>
+        <table>
+            <name>OBJECTTYPE</name>
+            <cache_name>com.sbt.cdm.api.model.published.dictionary.PublishedObjectType</cache_name>
+            <key_data_type>java.lang.Long</key_data_type>
+            <object_data_type>com.sbt.cdm.api.model.published.dictionary.PublishedObjectType</object_data_type>
+            <sequence_name>com.sbt.cdm.api.model.published.dictionary.PublishedObjectType_$S</sequence_name>
+            <id_column_name>%ID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+        </table>
+        <table>
+            <name>DICTDATATYPE</name>
+            <cache_name>com.sbt.cdm.api.model.published.dictionary.PublishedDictDataType</cache_name>
+            <key_data_type>java.lang.Long</key_data_type>
+            <object_data_type>com.sbt.cdm.api.model.published.dictionary.PublishedDictDataType</object_data_type>
+            <sequence_name>com.sbt.cdm.api.model.published.dictionary.PublishedDictDataType_$S</sequence_name>
+            <id_column_name>%ID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+        </table>
+
+        <table>
+            <name>PLASTICCARDTYPE</name>
+            <cache_name>com.sbt.cdm.api.model.published.dictionary.PublishedPlasticCardType</cache_name>
+            <key_data_type>java.lang.Long</key_data_type>
+            <object_data_type>com.sbt.cdm.api.model.published.dictionary.PublishedPlasticCardType</object_data_type>
+            <sequence_name>com.sbt.cdm.api.model.published.dictionary.PublishedPlasticCardType_$S</sequence_name>
+            <id_column_name>%ID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+        </table>
+
+
+        <table>
+            <name>SERVICEZONE</name>
+            <cache_name>com.sbt.bm.ucp.published.api.dictionary.PublishedServiceZone</cache_name>
+            <key_data_type>java.lang.Long</key_data_type>
+            <object_data_type>com.sbt.bm.ucp.published.api.dictionary.PublishedServiceZone</object_data_type>
+            <sequence_name>com.sbt.bm.ucp.published.api.dictionary.PublishedServiceZone_$S</sequence_name>
+            <id_column_name>%ID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+        </table>
+
+        <table>
+            <name>PARTY</name>
+            <cache_name>com.sbt.bm.ucp.published.api.common.PublishedParty</cache_name>
+            <key_data_type>java.lang.Long</key_data_type>
+            <object_data_type>com.sbt.bm.ucp.published.api.common.PublishedParty</object_data_type>
+            <sequence_name>com.sbt.bm.ucp.published.api.dictionary.PublishedParty_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+        </table>
+
+        <table>
+            <name>INDIVIDUAL</name>
+            <cache_name>com.sbt.bm.ucp.published.api.retail.PublishedIndividual</cache_name>
+            <key_data_type>java.lang.Long</key_data_type>
+            <object_data_type>com.sbt.bm.ucp.published.api.retail.PublishedIndividual</object_data_type>
+            <sequence_name>com.sbt.bm.ucp.published.api.retail.PublishedIndividual_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+        </table>
+
+        <table>
+            <name>EQUIVALENT</name>
+            <cache_name>DEquivalent_DPL_union-module</cache_name>
+            <key_data_type>java.lang.Long</key_data_type>
+            <object_data_type>com.sbt.bm.ucp.common.dpl.model.party.equivalent.DEquivalent</object_data_type>
+            <sequence_name>DEquivalent_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+        </table>
+
+        <table>
+            <name>DIDENTIFIERTYPE</name>
+            <cache_name>DIdentifierType_DPL_union-module</cache_name>
+            <key_data_type>java.lang.Long</key_data_type>
+            <object_data_type>com.sbt.bm.ucp.common.dpl.model.dictionary.DIdentifierType</object_data_type>
+            <sequence_name>DIdentifierType_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+        </table>
+
+        <table>
+            <name>CONTRACT</name>
+            <cache_name>com.sbt.cdm.api.model.published.instance.PublishedContract</cache_name>
+            <continues_mode>true</continues_mode>
+            <gather_stats>true</gather_stats>
+            <key_data_type>com.sbt.dpl.gridgain.AffinityParticleKey</key_data_type>
+            <object_data_type>com.sbt.cdm.api.model.published.instance.PublishedContract</object_data_type>
+            <sequence_name>com.sbt.cdm.api.model.published.instance.PublishedContract_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%.%CLIENTID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+            <query_out>
+                <![CDATA[to_char(p_row.id,'FM999999999999999999999999999')||'|'||
+                to_char(p_row.partitionid,'FM999999999999999999999999999')||'|'||
+                to_char(p_row.clientid,'FM999999999999999999999999999')||'|'||
+                '|'||
+                to_char(p_row.owner,'FM999999999999999999999999999')||'|'||
+                p_row.products||'|'||
+                p_row.a_number||'|'||
+                p_row.type||'|'||
+                p_row.code||'|'||
+                p_row.name||'|'||
+                to_char(p_row.status,'FM999999999999999999999999999')||'|'||
+                '|'||
+                p_row.Signatories||'|'||
+                '|||'||
+                to_char(p_row.signDate,'dd.mm.yyyy hh24:mi:ss')||'|'||
+                to_char(p_row.endDate,'dd.mm.yyyy hh24:mi:ss')||'|'||
+                '||'||
+                p_row.relatedcontract||'|'||
+                p_row.Parameters||'|'||
+                p_row.category||'|'||
+                p_row.reason
+                to_char(p_row.servicezone)]]>
+            </query_out>
+        </table>
+
+        <table>
+            <name>PRODUCT</name>
+            <cache_name>com.sbt.cdm.api.model.published.instance.PublishedProductParty</cache_name>
+            <continues_mode>true</continues_mode>
+            <gather_stats>true</gather_stats>
+            <key_data_type>com.sbt.dpl.gridgain.AffinityParticleKey</key_data_type>
+            <object_data_type>com.sbt.cdm.api.model.published.instance.PublishedProductParty</object_data_type>
+            <sequence_name>com.sbt.cdm.api.model.published.instance.PublishedProductParty_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%.%CLIENTID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+            <query_out>
+                <![CDATA[ to_char(p_row.id,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.partitionid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.clientid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.templateid)||'|'||
+            to_char(p_row.product,'FM999999999999999999999999999')||'|'||
+            '|'||
+            to_char(p_row.owner,'FM999999999999999999999999999')||'|'||
+            p_row.type||'|'||
+            p_row.code||'|'||
+            p_row.name||'|'||
+            to_char(p_row.status,'FM999999999999999999999999999')||'|'||
+            p_row.states||'|'||
+            to_char(p_row.agreement,'FM999999999999999999999999999')||'|'||
+            p_row.registers||'|'||
+            '||'||
+            p_row.PerformedServices||'|'||
+            p_row.operationRun||'|'||
+            p_row.accessTools||'|'||
+            p_row.ProductIdentifiers||'|'||
+            '||'||
+            to_char(p_row.beginDate,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.endDate,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            '|'||
+            p_row.productPartyRoles||'|'||
+            p_row.relatedproducts||'|'||
+            p_row.a_comment||'|'||
+            '|'||
+            to_char(p_row.division,'FM999999999999999999999999999')||'|'||
+            '|'||
+            p_row.Parameters||'|'||
+            p_row.category||'|'||
+            p_row.reason||'|'||
+            p_row.documents)||'|'||
+            to_char(p_row.servicezone]]>
+            </query_out>
+        </table>
+
+        <table>
+            <name>PRODUCTDYNAMICPARAM</name>
+            <cache_name>com.sbt.cdm.api.model.published.instance.PublishedProductDynamicParam</cache_name>
+            <continues_mode>true</continues_mode>
+            <gather_stats>true</gather_stats>
+            <key_data_type>com.sbt.dpl.gridgain.AffinityParticleKey</key_data_type>
+            <object_data_type>com.sbt.cdm.api.model.published.instance.PublishedProductDynamicParam</object_data_type>
+            <sequence_name>ProductDynamicParam_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%.%CLIENTID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+        </table>
+
+        <table>
+            <name>CONTRACTDYNAMICPARAM</name>
+            <cache_name>com.sbt.cdm.api.model.published.instance.PublishedContractDynamicParam</cache_name>
+            <continues_mode>true</continues_mode>
+            <gather_stats>true</gather_stats>
+            <key_data_type>com.sbt.dpl.gridgain.AffinityParticleKey</key_data_type>
+            <object_data_type>com.sbt.cdm.api.model.published.instance.PublishedContractDynamicParam</object_data_type>
+            <sequence_name>ContractDynamicParam_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%.%CLIENTID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+        </table>
+
+        <table>
+            <name>PRODUCTREGISTR</name>
+            <cache_name>com.sbt.cdm.api.model.published.instance.PublishedProductRegister</cache_name>
+            <continues_mode>true</continues_mode>
+            <gather_stats>true</gather_stats>
+            <key_data_type>com.sbt.dpl.gridgain.AffinityParticleKey</key_data_type>
+            <object_data_type>com.sbt.cdm.api.model.published.instance.PublishedProductRegister</object_data_type>
+            <sequence_name>com.sbt.cdm.api.model.published.instance.PublishedProductRegister_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%.%CLIENTID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+            <query_out>
+                <![CDATA[to_char(p_row.id,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.partitionid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.clientid,'FM999999999999999999999999999')||'|'||
+            '|'||
+            to_char(p_row.registertype,'FM999999999999999999999999999')||'|'||
+            p_row.code||'|'||
+            p_row.name||'|'||
+            to_char(p_row.status,'FM999999999999999999999999999')||'|'||
+            '|'|| --states
+            p_row.registerNumber||'|'||
+            to_char(p_row.product,'FM999999999999999999999999999')||'|'||
+            '|'|| --assets
+            to_char(p_row.measure,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.departmentService,'FM999999999999999999999999999')||'|'||
+            p_row.curBalances||'|'||
+            p_row.avalBalances||'|'||
+            p_row.curValue||'|'||
+            to_char(p_row.beginDate,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            '|'|| --endDate
+            to_char(p_row.parentRegister,'FM999999999999999999999999999')||'|'||
+            p_row.subRegisters||'|'||
+            p_row.Parameters||'|'||
+            p_row.category||'|'||
+            p_row.reason||'|'||
+            to_char(p_row.lastavalregisterbalance,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.lastcurregisterbalance,'FM999999999999999999999999999')||'|'||
+            to_clob(p_row.registerrec)||'|'||
+            to_char(p_row.servicezone)]]>
+            </query_out>
+        </table>
+
+        <table>
+            <name>PRODUCTREGISTRDYNAMICPARAM</name>
+            <cache_name>com.sbt.cdm.api.model.published.instance.PublishedProductRegisterDynamicParam</cache_name>
+            <continues_mode>true</continues_mode>
+            <gather_stats>true</gather_stats>
+            <key_data_type>com.sbt.dpl.gridgain.AffinityParticleKey</key_data_type>
+            <object_data_type>com.sbt.cdm.api.model.published.instance.PublishedProductRegisterDynamicParam</object_data_type>
+            <sequence_name>ProductRegisterDynamicParam_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%.%CLIENTID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+        </table>
+
+        <table>
+            <name>CONTRACTPRODUCT</name>
+            <cache_name>com.sbt.cdm.api.model.published.instance.PublishedContractProduct</cache_name>
+            <continues_mode>true</continues_mode>
+            <gather_stats>true</gather_stats>
+            <key_data_type>com.sbt.dpl.gridgain.AffinityParticleKey</key_data_type>
+            <object_data_type>com.sbt.cdm.api.model.published.instance.PublishedContractProduct</object_data_type>
+            <sequence_name>com.sbt.cdm.api.model.published.instance.PublishedContractProduct_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%.%CLIENTID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+            <query_out>
+                <![CDATA[to_char(p_row.id,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.partitionid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.clientid,'FM999999999999999999999999999')||'|'||
+            '|'||
+            to_char(p_row.contract,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.product,'FM999999999999999999999999999')||'|'||
+            p_row.code||'|'||
+            to_char(p_row.productRoleType,'FM999999999999999999999999999')||'|'||
+            p_row.name||'|'||
+            '||'||
+            p_row.category||'|'||
+            to_char(p_row.servicezone)]]>
+            </query_out>
+        </table>
+
+        <table>
+            <name>CONTRACTLINK</name>
+            <cache_name>com.sbt.cdm.api.model.published.instance.PublishedContractLink</cache_name>
+            <continues_mode>true</continues_mode>
+            <gather_stats>true</gather_stats>
+            <key_data_type>com.sbt.dpl.gridgain.AffinityParticleKey</key_data_type>
+            <object_data_type>com.sbt.cdm.api.model.published.instance.PublishedContractLink</object_data_type>
+            <sequence_name>com.sbt.cdm.api.model.published.instance.PublishedContractLink_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%.%CLIENTID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+            <query_out>
+                <![CDATA[to_char(p_row.Id,'FM999999999999999999999999999')||'|'||
+          to_char(p_row.partitionid,'FM999999999999999999999999999')||'|'||
+          to_char(p_row.clientid,'FM999999999999999999999999999')||'|'||
+          to_char(p_row.templateId,'FM999999999999999999999999999')||'|'||
+          to_char(p_row.code)||'|'||
+          to_char(p_row.name)||'|'||
+          to_char(p_row.contract,'FM999999999999999999999999999')||'|'||
+          to_char(p_row.relatedRole,'FM999999999999999999999999999')||'|'||
+          to_char(p_row.category)||'|'||
+          to_char(p_row.beginDate,'dd.mm.yyyy hh24:mi:ss')||'|'||
+          to_char(p_row.endDate,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.servicezone)]]>
+            </query_out>
+        </table>
+
+        <table>
+            <name>SBERBOOK</name>
+            <cache_name>com.sbt.cdm.api.model.published.instance.PublishedSberBook</cache_name>
+            <continues_mode>true</continues_mode>
+            <gather_stats>true</gather_stats>
+            <key_data_type>com.sbt.dpl.gridgain.AffinityParticleKey</key_data_type>
+            <object_data_type>com.sbt.cdm.api.model.published.instance.PublishedSberBook</object_data_type>
+            <sequence_name>com.sbt.cdm.api.model.published.instance.PublishedSberBook_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%.%CLIENTID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+            <query_out>
+                <![CDATA[ to_char(p_row.id,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.partitionid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.clientid,'FM999999999999999999999999999')||'|'||
+            '|'||
+            to_char(p_row.product,'FM999999999999999999999999999')||'|'||
+            p_row.accessToolType||'|'||
+            p_row.code||'|'||
+            p_row.Name||'|'||
+            to_char(p_row.dateRelease,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.beginDate,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            '|'|| --endDate
+            to_char(p_row.status,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.state,'FM999999999999999999999999999')||'|'||
+            --to_char(p_row.role,'FM999999999999999999999999999')||'|'||
+            '|'|| --Parameters
+            p_row.numberMask||'|'||
+            p_row.dupsBookNum||'|'||
+            to_char(p_row.lineNum,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.unseenOpCnt,'FM999999999999999999999999999')||'|'||
+             p_row.category||'|'||
+            to_char(p_row.servicezone)]]>
+            </query_out>
+        </table>
+
+        <table>
+            <name>PARTYPRODUCTIDENTIFIER</name>
+            <cache_name>com.sbt.cdm.api.model.published.instance.PublishedPartyProductIdentifier</cache_name>
+            <continues_mode>true</continues_mode>
+            <gather_stats>true</gather_stats>
+            <key_data_type>com.sbt.dpl.gridgain.AffinityParticleKey</key_data_type>
+            <object_data_type>com.sbt.cdm.api.model.published.instance.PublishedPartyProductIdentifier</object_data_type>
+            <sequence_name>com.sbt.cdm.api.model.published.instance.PublishedPartyProductIdentifier_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%.%CLIENTID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+            <query_out>
+                <![CDATA[to_char(p_row.id,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.partitionid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.clientid,'FM999999999999999999999999999')||'|'||
+            '|'||
+            to_char(p_row.product,'FM999999999999999999999999999')||'|'||
+            p_row.identifierType||'|'||
+            p_row.code||'|'||
+            p_row.name||'|'||
+            to_char(p_row.beginDate,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            p_row.value||'|'||
+            p_row.category||'|'||
+            to_char(p_row.servicezone)]]>
+            </query_out>
+        </table>
+
+        <table>
+            <name>PLASTICCARD</name>
+            <cache_name>com.sbt.cdm.api.model.published.instance.PublishedPlasticCard</cache_name>
+            <continues_mode>true</continues_mode>
+            <gather_stats>true</gather_stats>
+            <key_data_type>com.sbt.dpl.gridgain.AffinityParticleKey</key_data_type>
+            <object_data_type>com.sbt.cdm.api.model.published.instance.PublishedPlasticCard</object_data_type>
+            <sequence_name>com.sbt.cdm.api.model.published.instance.PublishedPlasticCard_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%.%CLIENTID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+            <query_out>
+                <![CDATA[to_char(p_row.id,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.partitionid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.clientid,'FM999999999999999999999999999')||'|'||
+            '|'||
+            to_char(p_row.product,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.accessToolType,'FM999999999999999999999999999')||'|'||
+            p_row.code||'|'||
+            p_row.Name||'|'||
+            to_char(p_row.dateRelease,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.beginDate,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.endDate,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.status,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.state,'FM999999999999999999999999999')||'|'||
+            p_row.numbermask||'|'||
+            p_row.plasticCardType||'|'||
+            '|'||
+            p_row.ipsCode||'|'||
+            '|||'||
+            p_row.embossName||'|'||
+            to_char(p_row.cardOwner,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.role,'FM999999999999999999999999999')||'|'||
+            '|'||
+            p_row.Parameters||'|'||
+            p_row.category||'|'||
+            to_char(p_row.servicezone)]]>
+            </query_out>
+        </table>
+
+        <table>
+            <name>ACCESSTOOL</name>
+            <cache_name>com.sbt.cdm.api.model.published.instance.PublishedAccessTool</cache_name>
+            <continues_mode>true</continues_mode>
+            <gather_stats>true</gather_stats>
+            <key_data_type>com.sbt.dpl.gridgain.AffinityParticleKey</key_data_type>
+            <object_data_type>com.sbt.cdm.api.model.published.instance.PublishedAccessTool</object_data_type>
+            <sequence_name>com.sbt.cdm.api.model.published.instance.PublishedAccessTool_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%.%CLIENTID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+            <query_out>
+                <![CDATA[to_char(p_row.id,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.partitionid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.clientid,'FM999999999999999999999999999')||'|'||
+            '|'||
+            to_char(p_row.product,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.sberbookid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.plasticcardid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.accesstooltype,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.status,'FM999999999999999999999999999')||'|'||
+            p_row.parameters||'|'||
+            p_row.category||'|'||
+            to_char(p_row.servicezone)]]>
+            </query_out>
+        </table>
+
+        <table>
+            <name>ACCESSTOOLDYNAMICPARAM</name>
+            <cache_name>com.sbt.cdm.api.model.published.instance.PublishedAccessToolDynamicParam</cache_name>
+            <continues_mode>true</continues_mode>
+            <gather_stats>true</gather_stats>
+            <key_data_type>com.sbt.dpl.gridgain.AffinityParticleKey</key_data_type>
+            <object_data_type>com.sbt.cdm.api.model.published.instance.PublishedAccessToolDynamicParam</object_data_type>
+            <sequence_name>AccessToolDynamicParam_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%.%CLIENTID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+        </table>
+
+        <table>
+            <name>PERFORMEDSERVICE</name>
+            <cache_name>com.sbt.cdm.api.model.published.instance.PublishedPerformedService</cache_name>
+            <continues_mode>true</continues_mode>
+            <gather_stats>true</gather_stats>
+            <key_data_type>com.sbt.dpl.gridgain.AffinityParticleKey</key_data_type>
+            <object_data_type>com.sbt.cdm.api.model.published.instance.PublishedPerformedService</object_data_type>
+            <sequence_name>com.sbt.cdm.api.model.published.instance.PublishedPerformedService_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%.%CLIENTID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+            <ora_partitioned>true</ora_partitioned>
+            <query_out>
+                <![CDATA[to_char(p_row.id)||'|'||
+            to_char(p_row.partitionid)||'|'||
+            to_char(p_row.clientid)||'|'||
+            '|'||
+            to_char(p_row.type)||'|'||
+            p_row.code||'|'||
+            p_row.name||'|'||
+            to_char(p_row.owner)||'|'||
+            p_row.parties||'|'||
+            to_char(p_row.product)||'|'||
+            '|'|| -- Request
+            to_char(p_row.process)||'|'||
+            '|'|| -- custService
+            p_row.operations||'|'||
+            '|'|| -- serviceRegisters
+            to_char(p_row.beginDate,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.endDate,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            '|||'|| -- createdRequests, Documents , accessToolLnks
+            to_char(p_row.status)||'|'||
+            p_row.states||'|'||
+            '||'|| -- transactionTags, accEvents
+            to_char(p_row.division)||'|'||
+            p_row.parameters||'|'||
+            p_row.category||'|'||
+            to_char(p_row.servicezone)]]>
+            </query_out>
+        </table>
+
+        <table>
+            <name>SERVICEDYNAMICPARAM</name>
+            <cache_name>com.sbt.cdm.api.model.published.instance.PublishedPerformedServiceDynamicParam</cache_name>
+            <continues_mode>true</continues_mode>
+            <gather_stats>true</gather_stats>
+            <key_data_type>com.sbt.dpl.gridgain.AffinityParticleKey</key_data_type>
+            <object_data_type>com.sbt.cdm.api.model.published.instance.PublishedPerformedServiceDynamicParam</object_data_type>
+            <sequence_name>PerformedServiceDynamicParam_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%.%CLIENTID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+        </table>
+
+        <table>
+            <name>PERFORMEDOPERATION</name>
+            <cache_name>com.sbt.cdm.api.model.published.instance.PublishedPerformedOperation</cache_name>
+            <continues_mode>true</continues_mode>
+            <gather_stats>true</gather_stats>
+            <key_data_type>com.sbt.dpl.gridgain.AffinityParticleKey</key_data_type>
+            <object_data_type>com.sbt.cdm.api.model.published.instance.PublishedPerformedOperation</object_data_type>
+            <sequence_name>com.sbt.cdm.api.model.published.instance.PublishedPerformedOperation_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%.%CLIENTID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+            <ora_partitioned>true</ora_partitioned>
+            <query_out>
+                <![CDATA[ to_char(p_row.id)||'|'||
+            to_char(p_row.partitionid)||'|'||
+            to_char(p_row.clientid)||'|'||
+            '|'||
+            to_char(p_row.process)||'|'||
+            p_row.type||'|'||
+            p_row.code||'|'||
+            --to_char(p_row.code)||'|'||
+            p_row.name||'|'||
+            to_char(p_row.status)||'|'||
+            p_row.states||'|'||
+            to_char(p_row.service)||'|'||
+            to_char(p_row.client)||'|'||
+            to_char(p_row.product)||'|'||
+            to_char(p_row.contract)||'|'||
+            to_char(p_row.register)||'|'||
+            to_char(p_row.beginDate,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.endDate,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.division)||'|'||
+            p_row.Parameters||'|'||
+            p_row.category||'|'||
+            to_char(p_row.registerrec)||'|'||
+            to_char(p_row.servicezone)]]>
+            </query_out>
+        </table>
+
+
+        <table>
+            <name>OPERATIONDYNAMICPARAM</name>
+            <cache_name>com.sbt.cdm.api.model.published.instance.PublishedPerformedOperationDynamicParam</cache_name>
+            <continues_mode>true</continues_mode>
+            <gather_stats>true</gather_stats>
+            <key_data_type>com.sbt.dpl.gridgain.AffinityParticleKey</key_data_type>
+            <object_data_type>com.sbt.cdm.api.model.published.instance.PublishedPerformedOperationDynamicParam</object_data_type>
+            <sequence_name>PerformedOperationDynamicParam_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%.%CLIENTID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+        </table>
+
+        <table>
+            <name>PROCESS</name>
+            <cache_name>com.sbt.cdm.api.model.published.instance.PublishedSubProcess</cache_name>
+            <continues_mode>true</continues_mode>
+            <gather_stats>true</gather_stats>
+            <key_data_type>com.sbt.dpl.gridgain.AffinityParticleKey</key_data_type>
+            <object_data_type>com.sbt.cdm.api.model.published.instance.PublishedSubProcess</object_data_type>
+            <sequence_name>com.sbt.cdm.api.model.published.instance.PublishedSubProcess_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%.%CLIENTID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+            <ora_partitioned>true</ora_partitioned>
+            <query_out>
+                <![CDATA[to_char(p_row.id)||'|'||
+            to_char(p_row.partitionid)||'|'||
+            to_char(p_row.clientid)||'|'||
+            '|'||
+            to_char(p_row.code)||'|'||
+            p_row.name||'|'||
+            to_char(p_row.status)||'|'||
+            to_char(p_row.beginDate,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.endDate,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            p_row.operations||'|'||
+            '|'|| -- appModule
+            p_row.Parameters||'|'||
+            p_row.category]]>
+            </query_out>
+        </table>
+
+        <table>
+            <name>PROCESSDYNAMICPARAM</name>
+            <cache_name>com.sbt.cdm.api.model.published.instance.PublishedSubProcessDynamicParam</cache_name>
+            <continues_mode>true</continues_mode>
+            <gather_stats>true</gather_stats>
+            <key_data_type>com.sbt.dpl.gridgain.AffinityParticleKey</key_data_type>
+            <object_data_type>com.sbt.cdm.api.model.published.instance.PublishedSubProcessDynamicParam</object_data_type>
+            <sequence_name>SubProcessDynamicParam_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%.%CLIENTID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+        </table>
+
+        <table>
+            <name>PRODUCTREGISTERREC</name>
+            <cache_name>com.sbt.cdm.api.model.published.instance.PublishedProductRegisterRec</cache_name>
+            <continues_mode>true</continues_mode>
+            <gather_stats>true</gather_stats>
+            <key_data_type>com.sbt.dpl.gridgain.AffinityParticleKey</key_data_type>
+            <object_data_type>com.sbt.cdm.api.model.published.instance.PublishedProductRegisterRec</object_data_type>
+            <sequence_name>com.sbt.cdm.api.model.published.instance.PublishedProductRegisterRec_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%.%CLIENTID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+            <ora_partitioned>true</ora_partitioned>
+            <query_out>
+                <![CDATA[to_char(p_row.id)||'|'||
+            to_char(p_row.partitionid)||'|'||
+            to_char(p_row.clientid)||'|'||
+            '|'||
+            p_row.code||'|'||
+            p_row.name||'|'||
+            to_char(p_row.register)||'|'||
+            to_char(p_row.operation)||'|'||
+            to_char(p_row.a_date,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.restIn,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.restOut,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.TurnOn,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.TurnOut,'FM9999999999999999999999999.09999999')||'|'||
+            p_row.category||'|'||
+            to_char(p_row.type)||'|'||
+            to_char(p_row.curBalance,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.availBalance,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.amount,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.servicezone)]]>
+
+            </query_out>
+        </table>
+
+        <table>
+            <name>SIGNATORE</name>
+            <cache_name>com.sbt.cdm.api.model.published.instance.PublishedSignatory</cache_name>
+            <continues_mode>true</continues_mode>
+            <gather_stats>true</gather_stats>
+            <key_data_type>com.sbt.dpl.gridgain.AffinityParticleKey</key_data_type>
+            <object_data_type>com.sbt.cdm.api.model.published.instance.PublishedSignatory</object_data_type>
+            <sequence_name>com.sbt.cdm.api.model.published.instance.PublishedSignatory_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%.%CLIENTID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+            <query_out>
+                <![CDATA[ to_char(p_row.id,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.partitionid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.clientid,'FM999999999999999999999999999')||'|'||
+            '|'||
+            to_char(p_row.contract,'FM999999999999999999999999999')||'|'||
+            p_row.code||'|'||
+            p_row.displayName||'|'||
+            to_char(p_row.owner,'FM999999999999999999999999999')||'|'
+            ||'|'||
+            p_row.typeid||'|'||
+             p_row.category||'|'||
+            to_char(p_row.servicezone)]]>
+            </query_out>
+        </table>
+
+        <table>
+            <name>PRODUCTPARTYROLEINST</name>
+            <cache_name>com.sbt.cdm.api.model.published.instance.PublishedProductPartyRoleInst</cache_name>
+            <continues_mode>true</continues_mode>
+            <gather_stats>true</gather_stats>
+            <key_data_type>com.sbt.dpl.gridgain.AffinityParticleKey</key_data_type>
+            <object_data_type>com.sbt.cdm.api.model.published.instance.PublishedProductPartyRoleInst</object_data_type>
+            <sequence_name>com.sbt.cdm.api.model.published.instance.PublishedProductPartyRoleInst_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%.%CLIENTID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+            <query_out>
+                <![CDATA[ to_char(p_row.id,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.partitionid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.clientid,'FM999999999999999999999999999')||'|'||
+            '|'||
+            to_char(p_row.product,'FM999999999999999999999999999')||'|'||
+            p_row.code||'|'||
+            p_row.displayName||'|'||
+            to_char(p_row.party,'FM999999999999999999999999999')||'|'||
+            p_row.Parameters||'|'||
+            p_row.productPartyRoleType||'|'||
+            p_row.category||'|'||
+            to_char(p_row.servicezone)]]>
+            </query_out>
+        </table>
+
+
+        <table>
+            <name>DOCUMENT</name>
+            <cache_name>com.sbt.cdm.api.model.published.instance.PublishedDocument</cache_name>
+            <continues_mode>true</continues_mode>
+            <gather_stats>true</gather_stats>
+            <key_data_type>com.sbt.dpl.gridgain.AffinityParticleKey</key_data_type>
+            <object_data_type>com.sbt.cdm.api.model.published.instance.PublishedDocument</object_data_type>
+            <sequence_name>com.sbt.cdm.api.model.published.instance.PublishedDocument_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%.%CLIENTID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+            <query_out>
+                <![CDATA[to_char(p_row.id,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.partitionid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.clientid,'FM999999999999999999999999999')||'|'||
+            '|'||
+            p_row.type||'|'||
+            p_row.code||'|'||
+            p_row.name||'|'||
+            to_char(p_row.client,'FM999999999999999999999999999')||'|'||
+            p_row.docnum||'|'||
+            to_char(p_row.createdate,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            '|'||
+            p_row.Parameters||'|'||
+            '|||' ||
+            to_char(p_row.status,'FM999999999999999999999999999')||'|'||
+            p_row.category||'|'||
+            to_char(p_row.servicezone)]]>
+            </query_out>
+        </table>
+
+        <table>
+            <name>SERVICEPARTY</name>
+            <cache_name>com.sbt.cdm.api.model.published.instance.PublishedPerformedServiceParty</cache_name>
+            <continues_mode>true</continues_mode>
+            <gather_stats>true</gather_stats>
+            <key_data_type>com.sbt.dpl.gridgain.AffinityParticleKey</key_data_type>
+            <object_data_type>com.sbt.cdm.api.model.published.instance.PublishedPerformedServiceParty</object_data_type>
+            <sequence_name>com.sbt.cdm.api.model.published.instance.PublishedPerformedServiceParty_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%.%CLIENTID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+            <ora_partitioned>true</ora_partitioned>
+            <query_out>
+                <![CDATA[to_char(p_row.id)||'|'||
+            to_char(p_row.partitionid)||'|'||
+            to_char(p_row.clientid)||'|'||
+            '|'||
+            to_char(p_row.service)||'|'||
+            p_row.code||'|'||
+            p_row.displayName||'|'||
+            to_char(p_row.party)||'|'||
+            p_row.Parameters||'|'||
+            p_row.servicePartyRoleType||'|'||
+            p_row.category||'|'||
+            to_char(p_row.servicezone)]]>
+            </query_out>
+        </table>
+
+        <table>
+            <name>DOCUMENTDYNAMICPARAM</name>
+            <cache_name>com.sbt.cdm.api.model.published.instance.PublishedDocumentDynamicParam</cache_name>
+            <continues_mode>true</continues_mode>
+            <gather_stats>true</gather_stats>
+            <key_data_type>com.sbt.dpl.gridgain.AffinityParticleKey</key_data_type>
+            <object_data_type>com.sbt.cdm.api.model.published.instance.PublishedDocumentDynamicParam</object_data_type>
+            <sequence_name>DocumentDynamicParam_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%.%CLIENTID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+        </table>
+
+        <table>
+            <name>DEPOSITPARAM</name>
+            <cache_name>com.sbt.cdm.api.model.extension.PublishedDeposit</cache_name>
+            <continues_mode>true</continues_mode>
+            <gather_stats>true</gather_stats>
+            <key_data_type>com.sbt.dpl.gridgain.AffinityParticleKey</key_data_type>
+            <object_data_type>com.sbt.cdm.api.model.extension.PublishedDeposit</object_data_type>
+            <sequence_name>com.sbt.cdm.api.model.extension.PublishedDeposit_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%.%CLIENTID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+            <query_out>
+                <![CDATA[to_char(p_row.id,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.partitionid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.clientid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.productid,'FM999999999999999999999999999')||'|'||
+            to_char(decode(p_row.R_FLAG_KRED,0,0,1,1,null,null,null))||'|'||
+            to_char(p_row.R_TYPE_REC,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_ACCOUNT)||'|'||
+            to_char(p_row.D_ADDSTATE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_ALLHISTFLAG)||'|'||
+            to_char(p_row.D_ALONEOPNO,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_ARRESTSTATE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_ASSIGNDAY,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.D_ASSMINBALANCE,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_BALANCEF,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_INTEREST,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_BRANCHNO,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_CAPITALDAY,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.D_CAPTURED)||'|'||
+            to_char(p_row.D_CAPYEAR,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_CASHSOURCE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_CLIENTKIND,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_CURRENCY,'FM999999999999999999999999999')||'|'||
+            to_char(decode(p_row.D_DEBTFLAG,0,0,1,1,null,null,null))||'|'||
+            to_char(p_row.D_DEPOFLAGS,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_DEPOSITRATE,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(decode(p_row.D_DIRTY,0,0,1,1,null,null,null))||'|'||
+            to_char(p_row.D_EXPMINBALANCE,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_EXPROVERDRAFT,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_EXPROVERDRAFTINT,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_FIRSTTWODAY,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.D_ID_MEGA,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_INTERESTF,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_ISPROLONGATION)||'|'||
+            to_char(p_row.D_KIND,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_LASTKEYKIND,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_LASTOPNO,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_LASTVISITDAY,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.D_LEGACY,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(decode(p_row.D_LOSS_RIGHTS,0,0,1,1,null,null,null))||'|'||
+            to_char(p_row.D_MAXAMOUNT,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_MAXAMOUNTRATE,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_MAXOPTRANSDAY,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.D_MBRANCHALLOWED)||'|'||
+            to_char(p_row.D_MBRANCHDEFAULT,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_OFFICE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_OPCASH,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_OPCASHREZERV,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_OPDAY,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.D_OPENCASH,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_OPENCONTROL,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_OPENKIND,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_OPKIND,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_OPNO,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_OPTRANSDAY,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.D_OVERDRAFT_MinBalanceMonth,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_OVERDRAFT_BalanceOwnProlong,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_OVERDRAFT,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_OVERDRAFTINT,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_P39CASHPREV,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_P39CASHYEAR,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_P39DAY,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.D_P39DAYPREV,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.D_PARTRATE,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_PASSWORD)||'|'||
+            to_char(p_row.D_PASSWORDNO,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_PAYROLLDAY,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.D_PAYROLLDAY_PayAddFirst,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.D_PERCENTSRATE,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_PERMFLAGS)||'|'||
+            to_char(p_row.D_PROLONGDAY,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.D_RATESOURCE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_RESIDENT,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_RSVDEPO,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_STATE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_SUBKIND,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_SUBSCRIBERS,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_TERM,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_TERMSOK,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_TXBRANCHNO,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_TXCLERK,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_TXOFFICE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_TXOPCNT,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_V_SERV,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.M_OMS_MODE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.DepositLastkey,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.DepositOprow,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.AtSubscribeAccnt)||'|'||
+            to_char(p_row.category)||'|'||
+            to_char(p_row.servicezone)]]>
+            </query_out>
+        </table>
+
+        <table>
+            <name>DCARDPARAM</name>
+            <cache_name>DCard_DPL_union-module</cache_name>
+            <continues_mode>true</continues_mode>
+            <gather_stats>true</gather_stats>
+            <key_data_type>com.sbt.dpl.gridgain.AffinityParticleKey</key_data_type>
+            <object_data_type>com.sbt.cdm.model.extension.deposit.DCard</object_data_type>
+            <sequence_name>DCard_DPL_union-module_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%.%CLIENTID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+            <query_out>
+                <![CDATA[ to_char(p_row.id,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.partitionid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.clientid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.plasticcardid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_AIRCODE)||'|'||
+            to_char(p_row.D_AIRNUMBER)||'|'||
+            to_char(p_row.D_AUTOPAYMENT_STATE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_AUTOPAYMENT_SUMMA,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_BLOCKCODE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_BLOCKDATE,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.D_BRANCHNO,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_CARDMADEENDDATE,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.D_CARDMADELOADDATE,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.D_CARDMADENUMBER)||'|'||
+            to_char(p_row.D_CHANGE_BRANCHNO,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_CHANGE_CLERK,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_CHANGE_DAY,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.D_CHANGE_OFFICE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_CHANGE_TYPE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_CLAIMDATE,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.D_CLAIMIASK,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_CLIENT,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_CODECARD,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_CODEFORTARIFF,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_CODETARIFFCHANGE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_CONTRDATE,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.D_CURISSUE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_DAYLIMCARD,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_DEPOKIND,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_DEPOSUBKIND,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_DRN)||'|'||
+            to_char(p_row.D_ENDCONTRDATE,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.D_HASHCARD)||'|'||
+            to_char(p_row.D_HELPDATE,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.D_HOLDERCODE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_ID_MEGA,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_INSURCARD,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_ISCHANGE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_ISCLNPRESENT,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_ISSALARY,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_ISSUEBY,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_ISVIP,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_LIMCARD,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_MARKLOCK,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_MARKLOCKDATE,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.D_MARKLOCKSTR)||'|'||
+            to_char(p_row.D_MB_OPERATOR,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_MB_PHONE)||'|'||
+            to_char(p_row.D_MB_TYPE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_MONTHLIMCARD,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_NUMBANCARD,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_NUMCARD)||'|'||
+            to_char(p_row.D_NUMCARDCLAIM)||'|'||
+            to_char(p_row.D_NUMCARDOLD)||'|'||
+            to_char(p_row.D_NUMCONTRCARD,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_NUMPAYCARD,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_OFFICE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_OVERDRAFT,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_PAYISSUE,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_PRESENCEALLOW,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_PRESENCECLAIM,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_QUAOPERCARD,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_REASONCHANGE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_RETURNDATE,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.D_RPTALLOW,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_RPTINTERNET,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_RPTPOST,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_SIN)||'|'||
+            to_char(p_row.D_SNILS)||'|'||
+            to_char(p_row.D_SUBCARD,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_SUMBANCARD,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_SUMPAYCARD,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_TARIFFSERVCUR,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_TARIFFSERVNEXT,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_TEXTCONTROL)||'|'||
+            to_char(p_row.D_TYPE_SBNKD,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_TYPECARD,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_UEC_CLAIM_NUMBER)||'|'||
+            to_char(p_row.D_UEC_CLAIM_SERIES)||'|'||
+            to_char(p_row.D_USEBIO,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_USEPIN,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.DcardDcardMain,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.category)||'|'||
+            to_char(p_row.servicezone)]]>
+            </query_out>
+        </table>
+
+        <table>
+            <name>CARDTODEPOTOPARAM</name>
+            <cache_name>CardToDepoTo_DPL_union-module</cache_name>
+            <continues_mode>true</continues_mode>
+            <gather_stats>true</gather_stats>
+            <key_data_type>com.sbt.dpl.gridgain.AffinityParticleKey</key_data_type>
+            <object_data_type>com.sbt.cdm.model.extension.deposit.CardToDepoTo</object_data_type>
+            <sequence_name>CardToDepoTo_DPL_union-module_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%.%CLIENTID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+            <query_out>
+                <![CDATA[to_char(p_row.id,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.partitionid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.clientid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.productid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_BRANCHNO,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_CARDTO)||'|'||
+            to_char(p_row.D_CLERK,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_DAY,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.D_DEPOTO)||'|'||
+            to_char(p_row.D_ID_MEGA,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_JRNNO,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_OFFICE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_STATE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.A_BRANCHNO,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.A_CARDTO)||'|'||
+            to_char(p_row.A_CLERK,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.A_DAY,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.A_DEPOTO)||'|'||
+            to_char(p_row.A_ID_MEGA,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.A_JRNNO,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.A_OFFICE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.A_CLERKFIO)||'|'||
+            to_char(p_row.category)||'|'||
+            to_char(p_row.A_isactual,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.A_id_mega_change,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.A_branchno_change,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.A_office_change,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.A_OFFICE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.A_day_change,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.servicezone)]]>
+            </query_out>
+        </table>
+
+        <table>
+            <name>DEPOHISTPARAM</name>
+            <cache_name>DepoHist_DPL_union-module</cache_name>
+            <continues_mode>true</continues_mode>
+            <gather_stats>true</gather_stats>
+            <key_data_type>com.sbt.dpl.gridgain.AffinityParticleKey</key_data_type>
+            <object_data_type>com.sbt.cdm.model.extension.deposit.DepoHist</object_data_type>
+            <sequence_name>DepoHist_DPL_union-module_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%.%CLIENTID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+            <ora_partitioned>true</ora_partitioned>
+            <query_out>
+                <![CDATA[to_char(p_row.id,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.partitionid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.clientid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.performedoperationid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.C_ATMID)||'|'||
+            to_char(p_row.C_AUTHCODE)||'|'||
+            to_char(p_row.C_AUTHKIND,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.C_CARDNO)||'|'||
+            to_char(p_row.C_MERCHANTNO)||'|'||
+            to_char(p_row.C_TXCASH,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.C_TXCURRENCY,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.C_TXID,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.C_TXTIME,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.D_ASSIGNDAY,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.D_ASSMINBALANCE,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_BALANCE,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_BALANCEF_BalanceOwn,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_BALANCEF_Subsidy,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_BRANCHNO,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_CARDRPTDAY,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.D_CASHSOURCE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_CHEQUECNT,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_CLERK,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_CONVER_CURRENCY,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_CONVER_OPCASH,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_CREDITACCOUNT)||'|'||
+            to_char(p_row.D_DEBITACCOUNT)||'|'||
+            to_char(p_row.D_DEPOSITRATE,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_EXPIRATIONDAY,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.D_EXPMINBALANCE,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_EXPROVERDRAFT,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_EXPROVERDRAFTINT,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_EXTERNALKIND,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_FLAG_CASH,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_GRANT_OPER,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_HEIRNO,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_ID_MEGA,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_INSERTTIME,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.D_INTEREST,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_INTERESTF,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_ISCASHDISPENSER,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_ISMANUAL,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_ISMOFFICE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_JRNNO,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_MAXAMOUNT,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_MAXAMOUNTRATE,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_N_DPRICE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_OFFCASHBALANCE,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_OFFCASHBALANCEB,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_OFFICE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_OFFICETRANSDAY,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.D_OPCASH,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_OPCASHCOST,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_OPCODE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_OPDAY,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.D_OPENCASH,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_OPKIND,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_OPNO,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_OPTRANSDAY,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.D_ORDERNO)||'|'||
+            to_char(p_row.D_OVERDRAFT_MinBalanceMonth,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_OVERDRAFT_BalanceOwnProlong,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_OVERDRAFT,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_OVERDRAFTINT,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_PAIRACCOUNT)||'|'||
+            to_char(p_row.D_PARTRATE,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_PAYROLLDAY,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.D_PAYROLLDAY_PayAddFirst,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.D_PERCENTSRATE,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_PINACCEPTFLAG,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_PROLONGDAY,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.D_RATESOURCE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_REASON,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_SBOOKENDDAY,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.D_SOURCEDOCDAY,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.D_SOURCEDOCNO)||'|'||
+            to_char(p_row.D_SOURCEDOCORIGINATOR)||'|'||
+            to_char(p_row.D_STATE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_SUBSYS,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_SUMOBNALOPERATION,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_TAXABLEPROFIT,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_TAXABLEPROFITCOST,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_TERMSOK,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_TURNCODE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_USEDTAXEXEMPTIONS,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_V_HZAP2,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_WARRANTKIND,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_WARRANTNO)||'|'||
+            to_char(p_row.O_INFO)||'|'||
+            to_char(p_row.O_OPDAY,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.O_OPNO,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.O_ORDNO)||'|'||
+            to_char(p_row.O_SSAGENCY)||'|'||
+            to_char(p_row.O_SSN)||'|'||
+            to_char(p_row.O_V_DNUM1,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.O_V_DSUM1,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.O_V_DSUM2,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.O_V_DSUM3,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.O_V_DSUM4,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.O_V_DSUM5,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.O_V_DSUM6,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.O_V_DSUM7,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.category)||'|'||
+            to_char(p_row.D_RG_CP_BALANCE,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_RG_CP_OPCASH,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_RG_SPR_BALANCE,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_RG_SPR_OPCASH,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_RG_CN1_BALANCE,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_RG_CN1_OPCASH,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_RG_CN2_BALANCE,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_RG_CN2_OPCASH,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_ENROLL_TYPE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.servicezone)]]>
+            </query_out>
+        </table>
+
+        <table>
+            <name>HSDEPOSITPARAM</name>
+            <cache_name>com.sbt.cdm.api.model.extension.PublishedHsDeposit</cache_name>
+            <continues_mode>true</continues_mode>
+            <gather_stats>true</gather_stats>
+            <key_data_type>com.sbt.dpl.gridgain.AffinityParticleKey</key_data_type>
+            <object_data_type>com.sbt.cdm.api.model.extension.PublishedHsDeposit</object_data_type>
+            <sequence_name>com.sbt.cdm.api.model.extension.PublishedHsDeposit_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%.%CLIENTID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+            <query_out>
+                <![CDATA[to_char(p_row.id,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.partitionid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.clientid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.contractid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.H_AGR_SERIES)||'|'||
+            to_char(p_row.H_AGREEMENTS)||'|'||
+            to_char(p_row.H_AUTHORITY)||'|'||
+            to_char(p_row.H_ID_MEGA,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.H_OTHER_ACCOUNT,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.H_PROC_COUNT,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.H_STATE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.H_SUBSIDY_AMOUNT,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.H_SUBSIDY_AMOUNT_USD,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.H_TYPE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.H_OTHER_ACCOUNT_BRANCH,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.H_OTHER_ACCOUNT_OFFICE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.productid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.category)||'|'||
+            to_char(p_row.servicezone)]]>
+            </query_out>
+        </table>
+
+        <table>
+            <name>EDBOPARAM</name>
+            <cache_name>Edbo_DPL_union-module</cache_name>
+            <continues_mode>true</continues_mode>
+            <gather_stats>true</gather_stats>
+            <key_data_type>com.sbt.dpl.gridgain.AffinityParticleKey</key_data_type>
+            <object_data_type>com.sbt.cdm.model.extension.deposit.Edbo</object_data_type>
+            <sequence_name>Edbo_DPL_union-module_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%.%CLIENTID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+            <query_out>
+                <![CDATA[to_char(p_row.id,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.partitionid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.clientid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.contractid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.E_BRANCHNO,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.E_CLERK_KOD,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.E_EDBO_BRANCH,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.E_EMAIL)||'|'||
+            to_char(p_row.E_ID_MEGA,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.E_MOBOPER)||'|'||
+            to_char(p_row.E_MOBPHONE)||'|'||
+            to_char(p_row.E_OFFICE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.E_PHONE)||'|'||
+            to_char(p_row.E_STATE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.E_TYPE_MESSAGE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.E_TYPE_SBNKD,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.category)||'|'||
+            to_char(p_row.servicezone)]]>
+            </query_out>
+        </table>
+
+        <table>
+            <name>DEPOMESSPARAM</name>
+            <cache_name>DepoMessage_DPL_union-module</cache_name>
+            <continues_mode>true</continues_mode>
+            <gather_stats>true</gather_stats>
+            <key_data_type>com.sbt.dpl.gridgain.AffinityParticleKey</key_data_type>
+            <object_data_type>com.sbt.cdm.model.extension.deposit.DepoMessage</object_data_type>
+            <sequence_name>DepoMessage_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%.%CLIENTID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+        </table>
+
+        <table>
+            <name>DEPOBUILDPARAM</name>
+            <cache_name>DepoBuild_DPL_union-module</cache_name>
+            <continues_mode>true</continues_mode>
+            <gather_stats>true</gather_stats>
+            <key_data_type>com.sbt.dpl.gridgain.AffinityParticleKey</key_data_type>
+            <object_data_type>com.sbt.cdm.model.extension.deposit.DepoBuild</object_data_type>
+            <sequence_name>DepoBuild_DPL_union-module_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%.%CLIENTID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+            <query_out>
+                <![CDATA[ to_char(p_row.id,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.partitionid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.clientid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.documentid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_COST_OBJ,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_DATE_PACT,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.D_ID_OBJ,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_ISACTUAL,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_NUMBER_AREA,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_NUMBER_PACT)||'|'||
+            to_char(p_row.D_PERIOD,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.Deposit,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.category)||'|'||
+            to_char(p_row.servicezone)]]>
+            </query_out>
+        </table>
+
+        <table>
+            <name>HSAGREEMENTPARAM</name>
+            <cache_name>HsAgreement_DPL_union-module</cache_name>
+            <continues_mode>true</continues_mode>
+            <gather_stats>true</gather_stats>
+            <key_data_type>com.sbt.dpl.gridgain.AffinityParticleKey</key_data_type>
+            <object_data_type>com.sbt.cdm.model.extension.deposit.HsAgreement</object_data_type>
+            <sequence_name>HsAgreement_DPL_union-module_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%.%CLIENTID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+            <query_out>
+                <![CDATA[ to_char(p_row.id,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.partitionid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.clientid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.documentid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.H_AGREEMENT_SUM,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.H_AREA,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.H_CERTIFICATE_BY)||'|'||
+            to_char(p_row.H_CERTIFICATE_DATE,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.H_CERTIFICATE_NO)||'|'||
+            to_char(p_row.H_TOWN)||'|'||
+            to_char(p_row.Deposit,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.category)||'|'||
+            to_char(p_row.servicezone)]]>
+            </query_out>
+        </table>
+
+        <table>
+            <name>HSCERTIFICATEPARAM</name>
+            <cache_name>HsCertificate_DPL_union-module</cache_name>
+            <continues_mode>true</continues_mode>
+            <gather_stats>true</gather_stats>
+            <key_data_type>com.sbt.dpl.gridgain.AffinityParticleKey</key_data_type>
+            <object_data_type>com.sbt.cdm.model.extension.deposit.HsCertificate</object_data_type>
+            <sequence_name>HsCertificate_DPL_union-module_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%.%CLIENTID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+            <query_out>
+                <![CDATA[to_char(p_row.id,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.partitionid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.clientid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.documentid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.H_ADDNUMBER,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.H_AREA,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.H_AUTHORITY)||'|'||
+            to_char(p_row.H_BANKACCOUNT)||'|'||
+            to_char(p_row.H_BANKBIC)||'|'||
+            to_char(p_row.H_BANKNAME)||'|'||
+            to_char(p_row.H_DOCDATE,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.H_DOCNUMBER)||'|'||
+            to_char(p_row.H_DOCORIGINATOR)||'|'||
+            to_char(p_row.H_EXECDATE,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.H_EXECORDER)||'|'||
+            to_char(p_row.H_F190NUMBER,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.H_FILIAL,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.H_FNUMBER,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.H_ID_MEGA,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.H_ISCHECKED,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.H_KBK)||'|'||
+            to_char(p_row.H_KPP)||'|'||
+            to_char(p_row.H_OKTMO)||'|'||
+            to_char(p_row.H_OSB,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.H_PAYMENTSUM,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.H_PURPOSE)||'|'||
+            to_char(p_row.H_RECACCOUNT)||'|'||
+            to_char(p_row.H_RECINN)||'|'||
+            to_char(p_row.H_RECNAME)||'|'||
+            to_char(p_row.H_RECTYPE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.H_SSCODE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.H_STATE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.H_TOWN)||'|'||
+            to_char(p_row.H_YIP)||'|'||
+            to_char(p_row.HscertificateAgreement,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.Deposit,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.category)||'|'||
+            to_char(p_row.servicezone)]]>
+            </query_out>
+        </table>
+
+        <table>
+            <name>CARDSERVICEDEBTPARAM</name>
+            <cache_name>CardServiceDebt_DPL_union-module</cache_name>
+            <continues_mode>true</continues_mode>
+            <gather_stats>true</gather_stats>
+            <key_data_type>com.sbt.dpl.gridgain.AffinityParticleKey</key_data_type>
+            <object_data_type>com.sbt.cdm.model.extension.deposit.CardServiceDebt</object_data_type>
+            <sequence_name>CardServiceDebt_DPL_union-module_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%.%CLIENTID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+            <query_out>
+                <![CDATA[to_char(p_row.id,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.partitionid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.clientid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.performedoperationid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.C_DAY,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.C_TXKIND,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.C_DEBTCASH,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.C_PAYCASH,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.C_CANCELCASH,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.C_RETURNCASH,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.C_DEBTFLAG,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.category)||'|'||
+            to_char(p_row.servicezone)]]>
+            </query_out>
+        </table>
+
+        <table>
+            <name>DEPORELATIONPARAM</name>
+            <cache_name>DepoRelation_DPL_union-module</cache_name>
+            <continues_mode>true</continues_mode>
+            <gather_stats>true</gather_stats>
+            <key_data_type>com.sbt.dpl.gridgain.AffinityParticleKey</key_data_type>
+            <object_data_type>com.sbt.cdm.model.extension.deposit.DepoRelation</object_data_type>
+            <sequence_name>DepoRelation_DPL_union-module_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%.%CLIENTID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+            <query_out>
+                <![CDATA[to_char(p_row.id,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.partitionid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.clientid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.performedoperationid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_BRANCHNO,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_DATE_CHANGE,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.D_FIO)||'|'||
+            to_char(p_row.D_FLAG_KRED,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_ID_MEGA,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_OFFICE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_TYPE_REC,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.category)||'|'||
+            to_char(p_row.servicezone)]]>
+            </query_out>
+        </table>
+
+        <table>
+            <name>DEPOREZERVPARAM</name>
+            <cache_name>DepoRezerv_DPL_union-module</cache_name>
+            <continues_mode>true</continues_mode>
+            <gather_stats>true</gather_stats>
+            <key_data_type>com.sbt.dpl.gridgain.AffinityParticleKey</key_data_type>
+            <object_data_type>com.sbt.cdm.model.extension.deposit.DepoRezerv</object_data_type>
+            <sequence_name>DepoRezerv_DPL_union-module_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%.%CLIENTID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+            <query_out>
+                <![CDATA[ to_char(p_row.id,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.partitionid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.clientid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.performedoperationid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_BRANCHNO,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_CLERK,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_DAYFACT,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.D_DAYREZERV,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.D_ID_MEGA,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_INITIATOR)||'|'||
+            to_char(p_row.D_JRNNO,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_OFFICE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_OPCASHREZERV,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_REZERVID,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_STATE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.category)||'|'||
+            to_char(p_row.servicezone)]]>
+            </query_out>
+        </table>
+
+        <table>
+            <name>HISTBOOKNOPARAM</name>
+            <cache_name>HistSBookNo_DPL_union-module</cache_name>
+            <continues_mode>true</continues_mode>
+            <gather_stats>true</gather_stats>
+            <key_data_type>com.sbt.dpl.gridgain.AffinityParticleKey</key_data_type>
+            <object_data_type>com.sbt.cdm.model.extension.deposit.HistSBookNo</object_data_type>
+            <sequence_name>HistSBookNo_DPL_union-module_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%.%CLIENTID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+            <query_out>
+                <![CDATA[to_char(p_row.id,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.partitionid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.clientid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.performedoperationid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.H_BALANCE,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.H_BRANCHNO,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.H_CANCEL_CLERK,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.H_CANCEL_DATE,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.H_CANCEL_FIRSTNAME_CLERK)||'|'||
+            to_char(p_row.H_CANCEL_SECONDNAME_CLERK)||'|'||
+            to_char(p_row.H_CANCEL_SURNAME_CLERK)||'|'||
+            to_char(p_row.H_DATE_CLOSE,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.H_DECLARATION_BRANCHNO,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.H_DECLARATION_CLERK,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.H_DECLARATION_DATE_LOST,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.H_DECLARATION_FIRSTNAME)||'|'||
+            to_char(p_row.H_DECLARATION_KIND,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.H_DECLARATION_NO)||'|'||
+            to_char(p_row.H_DECLARATION_OFFICE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.H_DECLARATION_SECONDNAME)||'|'||
+            to_char(p_row.H_DECLARATION_SURNAME)||'|'||
+            to_char(p_row.H_DECLARATION_VALID,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.H_DOCUMENTKIND,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.H_DUBLE_CLERK,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.H_DUBLE_DATE,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.H_DUBLE_FIRSTNAME_CLERK)||'|'||
+            to_char(p_row.H_DUBLE_SECONDNAME_CLERK)||'|'||
+            to_char(p_row.H_DUBLE_SURNAME_CLERK)||'|'||
+            to_char(p_row.H_KIND,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.H_NO)||'|'||
+            to_char(p_row.H_PRINTABLENO)||'|'||
+            to_char(p_row.H_PRINTABLENO_NEW)||'|'||
+            to_char(p_row.H_SBOOKNO)||'|'||
+            to_char(p_row.H_SBOOKNO_DUBLE)||'|'||
+            to_char(p_row.H_SERIES)||'|'||
+            to_char(p_row.category)||'|'||
+            to_char(p_row.servicezone)]]>
+            </query_out>
+        </table>
+
+        <table>
+            <name>MBVEVENTSPARAM</name>
+            <cache_name>MbvEvents_DPL_union-module</cache_name>
+            <continues_mode>true</continues_mode>
+            <gather_stats>true</gather_stats>
+            <key_data_type>com.sbt.dpl.gridgain.AffinityParticleKey</key_data_type>
+            <object_data_type>com.sbt.cdm.model.extension.deposit.MbvEvents</object_data_type>
+            <sequence_name>MbvEvents_DPL_union-module_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%.%CLIENTID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+            <query_out>
+                <![CDATA[to_char(p_row.id,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.partitionid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.clientid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.performedoperationid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.M_BALANCE,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.M_BIRTHDAY_NEW,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.M_BIRTHDAY_OLD,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.M_BRANCHNO,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.M_CREATETIME,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.M_CURRENCY,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.M_DBRANCHNO,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.M_DOFFICE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.M_EXCEEDSUM,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.M_EXTERNALKIND,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.M_FNUMBER,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.M_HISTSTATE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.M_IDOC_ACC_H2_MAJOR,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.M_IDOC_ACC_H2_MINOR,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.M_ISARRESTED,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.M_ISBANKSERVCOMM,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.M_ISDULCHANGED,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.M_ISF190,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.M_ISINTERESTCHANGED,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.M_ISOPENED,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.M_ISPERMCHANGED,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.M_ISSVBOOKDUPL,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.M_ISTERMINATED,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.M_ISTHIRDPARTYTYPE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.M_ISUDBOCHANGED,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.M_JRNNO,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.M_OFFICE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.M_OLDPRCNTRATE,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.M_OPCASH,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.M_OPNO,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.M_PERSON_NEW,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.M_PERSON_OLD,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.M_PRCNTRATE,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.M_QCNO,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.M_SSCODE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.M_STATE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.M_TRANSDAY,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.M_TURNCODE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.category)||'|'||
+            to_char(p_row.servicezone)]]>
+            </query_out>
+        </table>
+
+        <table>
+            <name>OPERDEPOBUILDPARAM</name>
+            <cache_name>OperDepoBuild_DPL_union-module</cache_name>
+            <continues_mode>true</continues_mode>
+            <gather_stats>true</gather_stats>
+            <key_data_type>com.sbt.dpl.gridgain.AffinityParticleKey</key_data_type>
+            <object_data_type>com.sbt.cdm.model.extension.deposit.OperDepoBuild</object_data_type>
+            <sequence_name>OperDepoBuild_DPL_union-module_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%.%CLIENTID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+            <query_out>
+                <![CDATA[ to_char(p_row.id,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.partitionid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.clientid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.performedoperationid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_COST_OBJ,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.D_DATE_PACT,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.D_ID_OBJ,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_ISACTUAL,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_NUMBER_AREA,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.D_NUMBER_PACT)||'|'||
+            to_char(p_row.D_PERIOD,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.category)||'|'||
+            to_char(p_row.servicezone)]]>
+            </query_out>
+        </table>
+
+        <table>
+            <name>ACCCLOSEPROLONGPARAM</name>
+            <cache_name>AccCloseProlong_DPL_union-module</cache_name>
+            <continues_mode>true</continues_mode>
+            <gather_stats>true</gather_stats>
+            <key_data_type>com.sbt.dpl.gridgain.AffinityParticleKey</key_data_type>
+            <object_data_type>com.sbt.cdm.model.extension.deposit.AccCloseProlong</object_data_type>
+            <sequence_name>AccCloseProlong_DPL_union-module_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%.%CLIENTID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+            <query_out>
+                <![CDATA[ to_char(p_row.id,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.partitionid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.clientid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.productid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.A_BRANCHNO,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.A_CARDTO)||'|'||
+            to_char(p_row.A_CLERK,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.A_DAY,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.A_DEPOTO)||'|'||
+            to_char(p_row.A_ID_MEGA,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.A_JRNNO,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.A_OFFICE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.A_CLERKFIO)||'|'||
+            to_char(p_row.category)||'|'||
+            to_char(p_row.A_isactual,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.A_id_mega_change,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.A_branchno_change,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.A_office_change,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.A_OFFICE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.A_day_change,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.servicezone)]]>
+            </query_out>
+        </table>
+
+        <table>
+            <name>ACCREDITIVEPARAM</name>
+            <cache_name>Accreditive_DPL_union-module</cache_name>
+            <continues_mode>true</continues_mode>
+            <gather_stats>true</gather_stats>
+            <key_data_type>com.sbt.dpl.gridgain.AffinityParticleKey</key_data_type>
+            <object_data_type>com.sbt.cdm.model.extension.deposit.Accreditive</object_data_type>
+            <sequence_name>Accreditive_DPL_union-module_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%.%CLIENTID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+            <query_out>
+                <![CDATA[ to_char(p_row.id,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.partitionid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.clientid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.documentid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.A_PAYDOCNO)||'|'||
+            to_char(p_row.A_PAYDOCDATE,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.A_PAYER_ACCOUNT)||'|'||
+            to_char(p_row.A_PAYEE_ACCOUNT)||'|'||
+            to_char(p_row.A_ACCR_SUM,'FM9999999999999999999999999.09999999')||'|'||
+            to_char(p_row.A_PL_CLOSEDATE,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.A_ACT_CLOSEDATE,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.A_DEPOSIT_ACCOUNT)||'|'||
+            to_char(p_row.A_OFFBAL_ACCOUNT)||'|'||
+            to_char(p_row.A_STATUS,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.A_LETTER_NO)||'|'||
+            to_char(p_row.A_BRANCH,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.A_OFFICE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.A_CREATE_DATE,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.A_RESERVE_ID,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.A_PURPOSE)||'|'||
+            to_char(p_row.A_PAYMENT_DOC)||'|'||
+            to_char(p_row.A_PAYMENT_COND)||'|'||
+            to_char(p_row.A_ADD_COND)||'|'||
+            to_char(p_row.A_ACCREDITIVE_TYPE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.A_PAYEE_NAME)||'|'||
+            to_char(p_row.A_PAYEE_INN)||'|'||
+            to_char(p_row.A_GARAGE_ADDRESS)||'|'||
+            to_char(p_row.A_CONTRACT_NUMBER)||'|'||
+            to_char(p_row.A_CONTRACT_DATE,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.A_PAYEE_KPP)||'|'||
+            to_char(p_row.A_PROLONGATION_DATE,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.A_COVERAGE_TYPE,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.A_PAYMENT_DOC_NEW)||'|'||
+            to_char(p_row.A_IS_ACTUAL,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.A_CHANGE_DATE,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.category)||'|'||
+            to_char(p_row.servicezone)]]>
+            </query_out>
+        </table>
+
+        <table>
+            <name>PINPKPARAM</name>
+            <cache_name>PinPK_DPL_union-module</cache_name>
+            <continues_mode>true</continues_mode>
+            <gather_stats>true</gather_stats>
+            <key_data_type>com.sbt.dpl.gridgain.AffinityParticleKey</key_data_type>
+            <object_data_type>com.sbt.cdm.model.extension.deposit.PinPK</object_data_type>
+            <sequence_name>PinPK_DPL_union-module_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%.%CLIENTID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+            <query_out>
+                <![CDATA[ to_char(p_row.id,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.partitionid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.clientid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.performedoperationid,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.P_AUTH_DAY,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.P_AUTHCODE)||'|'||
+            to_char(p_row.P_CARDNO)||'|'||
+            to_char(p_row.P_CLIENT_FIO)||'|'||
+            to_char(p_row.P_EXP_DATE,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.P_ID_MEGA,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.P_OPDAY,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.P_OPNO,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.P_PAYMASTER_CLERK,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.P_PAYMASTER_DAY,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.P_PAYMASTER_FIO)||'|'||
+            to_char(p_row.P_VALID_CLERK,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.P_VALID_DAY,'dd.mm.yyyy hh24:mi:ss')||'|'||
+            to_char(p_row.P_VALID_FIO)||'|'||
+            to_char(p_row.PinpkDcard)||'|'||
+            to_char(p_row.PinpkDeposit,'FM999999999999999999999999999')||'|'||
+            to_char(p_row.category)||'|'||
+            to_char(p_row.servicezone)]]>
+            </query_out>
+        </table>
+
+        <table>
+            <name>SPCOMMISSIONINVDET</name>
+            <cache_name>com.sbt.cdm.api.model.extension.PublishedSPCommissionInvoiceDetail</cache_name>
+            <continues_mode>true</continues_mode>
+            <gather_stats>true</gather_stats>
+            <key_data_type>com.sbt.dpl.gridgain.AffinityParticleKey</key_data_type>
+            <object_data_type>com.sbt.cdm.api.model.extension.PublishedSPCommissionInvoiceDetail</object_data_type>
+            <sequence_name>com.sbt.cdm.api.model.extension.PublishedSPCommissionInvoiceDetail_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%.%CLIENTID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+        </table>
+
+        <table>
+            <name>SPCOMMISSIONINV</name>
+            <cache_name>com.sbt.cdm.api.model.extension.PublishedSPCommissionInvoice</cache_name>
+            <continues_mode>true</continues_mode>
+            <gather_stats>true</gather_stats>
+            <key_data_type>com.sbt.dpl.gridgain.AffinityParticleKey</key_data_type>
+            <object_data_type>com.sbt.cdm.api.model.extension.PublishedSPCommissionInvoice</object_data_type>
+            <sequence_name>com.sbt.cdm.api.model.extension.PublishedSPCommissionInvoice_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%.%CLIENTID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+        </table>
+
+        <table>
+            <name>SPCOMMISSIONWRITEOFFDET</name>
+            <cache_name>com.sbt.cdm.api.model.extension.PublishedSPCommissionWriteOffDetail</cache_name>
+            <continues_mode>true</continues_mode>
+            <gather_stats>true</gather_stats>
+            <key_data_type>com.sbt.dpl.gridgain.AffinityParticleKey</key_data_type>
+            <object_data_type>com.sbt.cdm.api.model.extension.PublishedSPCommissionWriteOffDetail</object_data_type>
+            <sequence_name>com.sbt.cdm.api.model.extension.PublishedSPCommissionWriteOffDetail_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%.%CLIENTID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+        </table>
+
+        <table>
+            <name>SPCOMMISSIONWRITEOFFHIST</name>
+            <cache_name>com.sbt.cdm.api.model.extension.PublishedSPCommissionWriteOffHistory</cache_name>
+            <continues_mode>true</continues_mode>
+            <gather_stats>true</gather_stats>
+            <key_data_type>com.sbt.dpl.gridgain.AffinityParticleKey</key_data_type>
+            <object_data_type>com.sbt.cdm.api.model.extension.PublishedSPCommissionWriteOffHistory</object_data_type>
+            <sequence_name>com.sbt.cdm.api.model.extension.PublishedSPCommissionWriteOffHistory_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%.%CLIENTID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+        </table>
+
+        <table>
+            <name>SPPERFORMEDSERVICE</name>
+            <cache_name>com.sbt.cdm.api.model.extension.PublishedSPPerformedService</cache_name>
+            <continues_mode>true</continues_mode>
+            <gather_stats>true</gather_stats>
+            <key_data_type>com.sbt.dpl.gridgain.AffinityParticleKey</key_data_type>
+            <object_data_type>com.sbt.cdm.api.model.extension.PublishedSPPerformedService</object_data_type>
+            <sequence_name>com.sbt.cdm.api.model.extension.PublishedSPPerformedService_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%.%CLIENTID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+        </table>
+
+        <table>
+            <name>SPPRODUCTPARTY</name>
+            <cache_name>com.sbt.cdm.api.model.extension.PublishedSPProductParty</cache_name>
+            <continues_mode>true</continues_mode>
+            <gather_stats>true</gather_stats>
+            <key_data_type>com.sbt.dpl.gridgain.AffinityParticleKey</key_data_type>
+            <object_data_type>com.sbt.cdm.api.model.extension.PublishedSPProductParty</object_data_type>
+            <sequence_name>com.sbt.cdm.api.model.extension.PublishedSPProductParty_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%.%CLIENTID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+        </table>
+
+        <table>
+            <name>SPWRITEOFFTOOL</name>
+            <cache_name>com.sbt.cdm.api.model.extension.PublishedSPWriteOffTool</cache_name>
+            <continues_mode>true</continues_mode>
+            <gather_stats>true</gather_stats>
+            <key_data_type>com.sbt.dpl.gridgain.AffinityParticleKey</key_data_type>
+            <object_data_type>com.sbt.cdm.api.model.extension.PublishedSPWriteOffTool</object_data_type>
+            <sequence_name>com.sbt.cdm.api.model.extension.PublishedSPWriteOffTool_$S</sequence_name>
+            <id_column_name>%ID%.%PARTITIONID%.%CLIENTID%</id_column_name>
+            <use_kmd>true</use_kmd>
+            <ver>6.4</ver>
+        </table>
+
+    </tables>
+
+</configuration>

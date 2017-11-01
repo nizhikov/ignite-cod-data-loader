@@ -1,0 +1,567 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+    <loader enabled="true">
+        <type>
+
+            <filesWithId enabled="true">
+                <continuous>false</continuous> <!-- работа в непрерывном режиме -->
+
+                <oraInData enabled="false">
+                    <oraurl>jdbc:oracle:thin:@10.68.24.101:1521:dbdpc</oraurl>
+                    <fileStartId>./ora_start_id.txt</fileStartId>
+                    <user>dbaosb</user>
+                    <password>dbaosb</password>
+                </oraInData>
+
+                <baseDir>{{ utils_parent_dir }}/{{ utils_dir }}/data/</baseDir> <!-- если заполнено, то будет использоваться для всех типов файлов, иначе используется настройки по каждому типу -->
+                <numLog></numLog> <!-- если необходимо запускать несколько сессий лоадера поставить номер для разделения логов-->
+                <version_kmd>6.4</version_kmd> <!-- будет искать в gg_eip.xml настройки с такой версией -->
+                <clientFromGrid fileClients="clients.txt" partid="-1" rootid="-1">false</clientFromGrid> <!-- если true будет искать клиентов в гриде по UNTB -->
+
+                <dictFromGrid enabled="true" saveNotExists="true">
+                    <dict name="department">com.sbt.cdm.api.model.published.dictionary.PublishedDepartments</dict>
+                    <dict name="type">com.sbt.cdm.api.model.published.dictionary.PublishedObjectType</dict>
+                    <dict name="measure">com.sbt.cdm.api.model.published.dictionary.PublishedMeasure</dict>
+                    <dict name="status">com.sbt.cdm.api.model.published.dictionary.PublishedDictStatus</dict>
+                    <dict name="reason">com.sbt.cdm.api.model.published.dictionary.PublishedDictReason</dict>
+                    <dict name="category">com.sbt.cdm.api.model.published.dictionary.PublishedDictObjectCategoryType</dict>
+                    <dict name="product">com.sbt.cdm.api.model.published.template.PublishedProduct</dict>
+                    <dict name="process">com.sbt.cdm.api.model.published.template.PublishedTemplateSubProcess</dict>
+                    <dict name="state">com.sbt.cdm.api.model.published.dictionary.PublishedDictState</dict>
+                </dictFromGrid>
+
+                <!-- Список идентификаторов клиента (через запятую), которых не грузим в грид -->
+                <ignore_clients_id>-2</ignore_clients_id>
+
+                <!-- esli true будет обновлять счетчики в гриде по загружаемым данным -->
+                <setGridSequence>true</setGridSequence>
+
+                <!--если true будем собирать данные для восстановления и пытаться восстановить загрузку с момента останова-->
+                <resumable fileResume="resume.txt" freq_log="80000">false</resumable>
+
+
+
+                <files>
+                    <!--
+                        file - инстанс загрузчика. Открываются последовательно. Т.е. один file отработал, запускается следующий. Т.к. один Ignite на один Runtime
+                        taskName - имя кэша в который грузить. Кэш должен быть в гриде. Иначе загрузка останавливается.
+                        baseDir - директория где искать файлы для загрузки. Последний слэш обязателен
+                        filesMask - маска файлов для поиска в baseDir. Можно использовать подкаталоги
+                        transform - Имя преобразователя. Хардкод. Совпадает с именем кэша
+                    -->
+
+
+                    <!-- Dictionary/NSI files (in case EKPIT's data hadn't been loaded) -->
+<!--
+                    <file checked="true">
+                        <taskName>DICT_TEMPLATEDYNAMICPARAM</taskName>
+                        <tableName>DICT_TEMPLATEDYNAMICPARAM</tableName>
+                        <baseDir>c:\11\txt\</baseDir>
+                        <filesMask>**/*PublishedTemplateDynamicParam.*</filesMask>
+                        <transform>DICT_TEMPLATEDYNAMICPARAM</transform>
+                        <isdict>true</isdict>
+                    </file>
+                    <file checked="true">
+                        <taskName>DICT_PRODUCT</taskName>
+                        <tableName>DICT_PRODUCT</tableName>
+                        <baseDir>c:\11\txt\</baseDir>
+                        <filesMask>**/*DICT_TEMPLATEPRODUCT.*</filesMask>
+                        <transform>DICT_PRODUCT</transform>
+                        <isdict>true</isdict>
+                    </file>
+                    <file checked="true">
+                        <taskName>DICT_TEMPLATESUBPROCESS</taskName>
+                        <tableName>DICT_TEMPLATESUBPROCESS</tableName>
+                        <baseDir>c:\11\txt\</baseDir>
+                        <filesMask>**/*DICT_SUBPROCESS.*</filesMask>
+                        <transform>DICT_TEMPLATESUBPROCESS</transform>
+                        <isdict>true</isdict>
+                    </file>
+
+                    <file checked="true">
+                        <taskName>OBJECTTYPE</taskName>
+                        <tableName>OBJECTTYPE</tableName>
+                        <baseDir>c:\11\txt\</baseDir>
+                        <filesMask>**/EIP_*DICT_TYPE.TXT</filesMask>
+                        <transform>OBJECTTYPE</transform>
+                        <isdict>OBJECTTYPE</isdict>
+                    </file>
+
+
+                    <file checked="true">
+                        <taskName>DEPARTMENT</taskName>
+                        <tableName>DEPARTMENT</tableName>
+                        <baseDir>c:\11\txt\</baseDir>
+                        <filesMask>**/EIP_*DICT_DEPARTMENT.TXT</filesMask>
+                        <transform>DEPARTMENT</transform>
+                        <isdict>true</isdict>
+                    </file>
+
+
+                    <file checked="true">
+                        <taskName>DICTDATATYPE</taskName>
+                        <tableName>DICTDATATYPE</tableName>
+                        <baseDir>/app/gg/loader/data/</baseDir>
+                        <filesMask>**/EIP_*DICT_DATATYPE.TXT</filesMask>
+                        <transform>DICTDATATYPE</transform>
+                        <isdict>true</isdict>
+                    </file>
+
+                    <file checked="true">
+                        <taskName>MEASURE</taskName>
+                        <tableName>MEASURE</tableName>
+                        <baseDir>c:\11\txt\</baseDir>
+                        <filesMask>**/EIP_*DICT_CURRENCY.TXT</filesMask>
+                        <transform>MEASURE</transform>
+                        <isdict>true</isdict>
+                    </file>
+
+                    <file checked="true">
+                        <taskName>DICTPARAM</taskName>
+                        <tableName>DICTPARAM</tableName>
+                        <baseDir>c:\11\txt\</baseDir>
+                        <filesMask>**/EIP_*DICT_PARAM.TXT</filesMask>
+                        <transform>DICTPARAM</transform>
+                        <isdict>true</isdict>
+                    </file>
+
+
+                    <file checked="true">
+                        <taskName>DICTCATEGORY</taskName>
+                        <tableName>DICTCATEGORY</tableName>
+                        <baseDir>c:\11\txt\</baseDir>
+                        <filesMask>**/EIP_*DICT_CATEGORY.TXT</filesMask>
+                        <transform>DICTCATEGORY</transform>
+                        <isdict>true</isdict>
+                    </file>
+
+
+                    <file checked="true">
+                        <taskName>STATUS</taskName>
+                        <tableName>STATUS</tableName>
+                        <baseDir>c:\11\txt\</baseDir>
+                        <filesMask>**/EIP_*DICT_STATUS.TXT</filesMask>
+                        <transform>STATUS</transform>
+                        <isdict>true</isdict>
+                    </file>
+
+
+                    <file checked="true">
+                        <taskName>PARTY</taskName>
+                        <tableName>PARTY</tableName>
+                        <baseDir>c:\11\txt\</baseDir>
+                        <filesMask>**/EIP_*_PARTY_FIO*.txt</filesMask>
+                        <transform>PARTY</transform>
+                    </file>
+
+                    <file checked="true">
+                        <taskName>SERVICEZONE</taskName>
+                        <tableName>SERVICEZONE</tableName>
+                        <baseDir>c:\11\txt\</baseDir>
+                        <filesMask>**/EIP_*_SERVICEZONE.txt</filesMask>
+                        <transform>SERVICEZONE</transform>
+                    </file>
+-->
+                    <!-- end Dictionary/NSI files -->
+
+                    <!-- Deposit files -->
+                    <file checked="true">
+                        <taskName>ACCREDITIVE</taskName>
+                        <tableName>ACCREDITIVEPARAM</tableName>
+                        <baseDir>c:\11\txt\</baseDir>
+                        <filesMask>**/EIP_*_ACCREDITIVEPARAM_*.txt</filesMask>
+                        <transform>ACCREDITIVE</transform>
+                    </file>
+
+                    <file checked="true">
+                        <taskName>ACCCLOSEPROLONG</taskName>
+                        <tableName>ACCCLOSEPROLONGPARAM</tableName>
+                        <baseDir>c:\11\txt\</baseDir>
+                        <filesMask>**/EIP_*_ACCCLOSEPROLONGPARAM_*.txt</filesMask>
+                        <transform>ACCCLOSEPROLONG</transform>
+                    </file>
+
+                    <file checked="true">
+                        <taskName>CONTRACTLINK</taskName>
+                        <tableName>CONTRACTLINK</tableName>
+                        <baseDir>c:\11\txt\</baseDir>
+                        <filesMask>**/EIP_*_CONTRACTLINK_*.txt</filesMask>
+                        <transform>CONTRACTLINK</transform>
+                    </file>
+
+                    <file checked="true">
+                        <taskName>PINPK</taskName>
+                        <tableName>PINPKPARAM</tableName>
+                        <baseDir>c:\11\txt\</baseDir>
+                        <filesMask>**/EIP_*_PINPKPARAM*.TXT</filesMask>
+                        <transform>PINPK</transform>
+                    </file>
+
+                    <file checked="true">
+                        <taskName>OPERDEPOBUILD</taskName>
+                        <tableName>OPERDEPOBUILDPARAM</tableName>
+                        <baseDir>c:\11\txt\</baseDir>
+                        <filesMask>**/EIP_*_OPERDEPOBUILDPARAM*.TXT</filesMask>
+                        <transform>OPERDEPOBUILD</transform>
+                    </file>
+
+                    <file checked="true">
+                        <taskName>MBVEVENTS</taskName>
+                        <tableName>MBVEVENTSPARAM</tableName>
+                        <baseDir>c:\11\txt\</baseDir>
+                        <filesMask>**/EIP_*_MBVEVENTSPARAM*.TXT</filesMask>
+                        <transform>MBVEVENTS</transform>
+                    </file>
+
+                    <file checked="true">
+                        <taskName>HISTBOOKNO</taskName>
+                        <tableName>HISTBOOKNOPARAM</tableName>
+                        <baseDir>c:\11\txt\</baseDir>
+                        <filesMask>**/EIP_*_HISTBOOKNOPARAM*.TXT</filesMask>
+                        <transform>HISTBOOKNO</transform>
+                    </file>
+
+                    <file checked="true">
+                        <taskName>DEPOREZERV</taskName>
+                        <tableName>DEPOREZERVPARAM</tableName>
+                        <baseDir>c:\11\txt\</baseDir>
+                        <filesMask>**/EIP_*_DEPOREZERVPARAM*.TXT</filesMask>
+                        <transform>DEPOREZERV</transform>
+                    </file>
+
+                    <file checked="true">
+                        <taskName>DEPORELATION</taskName>
+                        <tableName>DEPORELATIONPARAM</tableName>
+                        <baseDir>c:\11\txt\</baseDir>
+                        <filesMask>**/EIP_*_DEPORELATIONPARAM*.TXT</filesMask>
+                        <transform>DEPORELATION</transform>
+                    </file>
+
+                    <file checked="true">
+                        <taskName>CARDSERVICEDEBT</taskName>
+                        <tableName>CARDSERVICEDEBTPARAM</tableName>
+                        <baseDir>c:\11\txt\</baseDir>
+                        <filesMask>**/EIP_*_CARDSERVICEDEBTPARAM*.TXT</filesMask>
+                        <transform>CARDSERVICEDEBT</transform>
+                    </file>
+
+                    <file checked="true">
+                        <taskName>HSCERTIFICATE</taskName>
+                        <tableName>HSCERTIFICATEPARAM</tableName>
+                        <baseDir>c:\11\txt\</baseDir>
+                        <filesMask>**/EIP_*_HSCERTIFICATEPARAM*.TXT</filesMask>
+                        <transform>HSCERTIFICATE</transform>
+                    </file>
+
+                    <file checked="true">
+                        <taskName>HSAGREEMENT</taskName>
+                        <tableName>HSAGREEMENTPARAM</tableName>
+                        <baseDir>c:\11\txt\</baseDir>
+                        <filesMask>**/EIP_*_HSAGREEMENTPARAM*.TXT</filesMask>
+                        <transform>HSAGREEMENT</transform>
+                    </file>
+
+                    <file checked="true">
+                        <taskName>DEPOBUILD</taskName>
+                        <tableName>DEPOBUILDPARAM</tableName>
+                        <baseDir>c:\11\txt\</baseDir>
+                        <filesMask>**/EIP_*_DEPOBUILDPARAM*.TXT</filesMask>
+                        <transform>DEPOBUILD</transform>
+                    </file>
+
+                    <file checked="true">
+                        <taskName>EDBO</taskName>
+                        <tableName>EDBOPARAM</tableName>
+                        <baseDir>c:\11\txt\</baseDir>
+                        <filesMask>**/EIP_*_EDBOPARAM*.TXT</filesMask>
+                        <transform>EDBO</transform>
+                    </file>
+
+                    <file checked="true">
+                        <taskName>HSDEPOSIT</taskName>
+                        <tableName>HSDEPOSITPARAM</tableName>
+                        <baseDir>c:\11\txt\</baseDir>
+                        <filesMask>**/EIP_*_HSDEPOSITPARAM*.TXT</filesMask>
+                        <transform>HSDEPOSIT</transform>
+                    </file>
+
+                    <file checked="true">
+                        <taskName>DEPOSIT</taskName>
+                        <tableName>DEPOSITPARAM</tableName>
+                        <baseDir>c:\11\txt\</baseDir>
+                        <filesMask>**/EIP_*_DEPOSITPARAM*.TXT</filesMask>
+                        <transform>DEPOSIT</transform>
+                    </file>
+
+                    <file checked="true">
+                        <taskName>DCARD</taskName>
+                        <tableName>DCARDPARAM</tableName>
+                        <baseDir>c:\11\txt\</baseDir>
+                        <filesMask>**/EIP_*_DCARDPARAM*.TXT</filesMask>
+                        <transform>DCARD</transform>
+                    </file>
+
+                    <file checked="true">
+                        <taskName>CARDTODEPOTO</taskName>
+                        <tableName>CARDTODEPOTOPARAM</tableName>
+                        <baseDir>c:\11\txt\</baseDir>
+                        <filesMask>**/EIP_*_CARDTODEPOTOPARAM*.TXT</filesMask>
+                        <transform>CARDTODEPOTO</transform>
+                    </file>
+
+
+                    <file checked="true">
+                        <taskName>CONTRACT</taskName>
+                        <tableName>CONTRACT</tableName>
+                        <baseDir>c:\11\txt\</baseDir>
+                        <filesMask>**/EIP_*_CONTRACT_*.txt</filesMask>
+                        <transform>CONTRACT</transform>
+                    </file>
+
+                    <file checked="true">
+                        <taskName>PRODUCTPARTY</taskName>
+                        <tableName>PRODUCT</tableName>
+                        <baseDir>c:\11\txt\</baseDir>
+                        <filesMask>**/EIP_*_PRODUCT_*.txt</filesMask>
+                        <transform>PRODUCTPARTY</transform>
+                    </file>
+
+                    <file checked="true">
+                        <taskName>PRODUCTREGISTR</taskName>
+                        <tableName>PRODUCTREGISTR</tableName>
+                        <baseDir>/c:\11\txt\</baseDir>
+                        <filesMask>**/EIP_*_PRODUCTREGISTR_*.txt</filesMask>
+                        <transform>PRODUCTREGISTR</transform>
+                    </file>
+
+                    <file checked="true">
+                        <taskName>SBERBOOK</taskName>
+                        <tableName>SBERBOOK</tableName>
+                        <baseDir>c:\11\txt\</baseDir>
+                        <filesMask>**/EIP_*_SBERBOOK_*.txt</filesMask>
+                        <transform>SBERBOOK</transform>
+                    </file>
+
+                    <file checked="true">
+                        <taskName>PLASTICCARD</taskName>
+                        <tableName>PLASTICCARD</tableName>
+                        <baseDir>c:\11\txt\</baseDir>
+                        <filesMask>**/EIP_*_PLASTICCARD_*.txt</filesMask>
+                        <transform>PLASTICCARD</transform>
+                    </file>
+
+                    <file checked="true">
+                        <taskName>ACCESSTOOL</taskName>
+                        <tableName>ACCESSTOOL</tableName>
+                        <baseDir>c:\11\txt\</baseDir>
+                        <filesMask>**/EIP_*_ACCESSTOOL_*.txt</filesMask>
+                        <transform>ACCESSTOOL</transform>
+                    </file>
+
+                    <file checked="true">
+                        <taskName>SIGNATORY</taskName>
+                        <tableName>SIGNATORE</tableName>
+                        <baseDir>c:\11\txt\</baseDir>
+                        <filesMask>**/EIP_*_SIGNATORE_*.txt</filesMask>
+                        <transform>SIGNATORY</transform>
+                    </file>
+
+                    <file checked="true">
+                        <taskName>CONTRACTPRODUCT</taskName>
+                        <tableName>CONTRACTPRODUCT</tableName>
+                        <baseDir>c:\11\txt\</baseDir>
+                        <filesMask>**/EIP_*_CONTRACTPRODUCT_*.txt</filesMask>
+                        <transform>CONTRACTPRODUCT</transform>
+                    </file>
+
+                    <file checked="true">
+                        <taskName>DOCUMENT</taskName>
+                        <tableName>DOCUMENT</tableName>
+                        <baseDir>c:\11\txt\</baseDir>
+                        <filesMask>**/EIP_*DOCUMENT_*.txt</filesMask>
+                        <transform>DOCUMENT</transform>
+                    </file>
+
+
+                    <file checked="true">
+                        <taskName>PARTYPRODUCTIDENTIFIER</taskName>
+                        <tableName>PARTYPRODUCTIDENTIFIER</tableName>
+                        <baseDir>c:\11\txt\</baseDir>
+                        <filesMask>**/EIP_*_PARTYPRODUCTIDENTIFIER_*.txt</filesMask>
+                        <transform>PARTYPRODUCTIDENTIFIER</transform>
+                    </file>
+
+                    <file checked="true">
+                        <taskName>SERVICEPARTY</taskName>
+                        <tableName>SERVICEPARTY</tableName>
+                        <baseDir>c:\11\txt\</baseDir>
+                        <filesMask>**/EIP_*_SERVICEPARTY_*.txt</filesMask>
+                        <transform>SERVICEPARTY</transform>
+                    </file>
+
+
+                    <file checked="true">
+                        <taskName>PERFORMEDSERVICE</taskName>
+                        <tableName>PERFORMEDSERVICE</tableName>
+                        <baseDir>/c:\11\txt\</baseDir>
+                        <filesMask>**/EIP_*_PERFORMEDSERVICE_*.txt</filesMask>
+                        <transform>PERFORMEDSERVICE</transform>
+                    </file>
+
+                    <file checked="true">
+                        <taskName>PERFORMEDOPERATION</taskName>
+                        <tableName>PERFORMEDOPERATION</tableName>
+                        <baseDir>/c:\11\txt\</baseDir>
+                        <filesMask>**/EIP_*_PERFORMEDOPERATION_*.txt</filesMask>
+                        <transform>PERFORMEDOPERATION</transform>
+                    </file>
+
+                    <file checked="true">
+                        <taskName>PROCESS</taskName>
+                        <tableName>PROCESS</tableName>
+                        <baseDir>/c:\11\txt\</baseDir>
+                        <filesMask>**/EIP_*_PROCESS_*.txt</filesMask>
+                        <transform>PROCESS</transform>
+                    </file>
+
+                    <file checked="true">
+                        <taskName>PRODUCTREGISTERREC</taskName>
+                        <tableName>PRODUCTREGISTERREC</tableName>
+                        <baseDir>c:\11\txt\</baseDir>
+                        <filesMask>**/EIP_*_PRODUCTREGISTERREC_*.txt</filesMask>
+                        <transform>PRODUCTREGISTERREC</transform>
+                    </file>
+
+                    <file checked="true">
+                        <taskName>PRODUCTPARTYROLE</taskName>
+                        <tableName>PRODUCTPARTYROLEINST</tableName>
+                        <baseDir>c:\11\txt\</baseDir>
+                        <filesMask>**/EIP_*_PRODUCTPARTYROLEINST_*.txt</filesMask>
+                        <transform>PRODUCTPARTYROLE</transform>
+                    </file>
+
+                    <file checked="true">
+                        <taskName>DEPOHIST</taskName>
+                        <tableName>DEPOHISTPARAM</tableName>
+                        <baseDir>c:\11\txt\</baseDir>
+                        <filesMask>**/EIP_*DEPOHISTPARAM*.TXT</filesMask>
+                        <transform>DEPOHIST</transform>
+                    </file>
+                    <!-- end Deposit files -->
+
+                    <!-- PU files -->
+                    <file checked="true">
+                        <taskName>SPCOMMISSIONINVDET</taskName>
+                        <tableName>SPCOMMISSIONINVDET</tableName>
+                        <baseDir>c:\11\txt\</baseDir>
+                        <filesMask>**/EIP_*SPCOMMISSIONINVOICEDETAIL_*.txt</filesMask>
+                        <transform>SPCOMMISSIONINVDET</transform>
+                    </file>
+
+                    <file checked="true">
+                        <taskName>SPCOMMISSIONINV</taskName>
+                        <tableName>SPCOMMISSIONINV</tableName>
+                        <baseDir>c:\11\txt\</baseDir>
+                        <filesMask>**/EIP_*SPCOMMISSIONINVOICE_*.txt</filesMask>
+                        <transform>SPCOMMISSIONINV</transform>
+                    </file>
+
+                    <file checked="true">
+                        <taskName>SPCOMMISSIONWRITEOFFDET</taskName>
+                        <tableName>SPCOMMISSIONWRITEOFFDET</tableName>
+                        <baseDir>c:\11\txt\</baseDir>
+                        <filesMask>**/EIP_*SPCOMMISSIONWRITEOFFDETAIL_*.txt</filesMask>
+                        <transform>SPCOMMISSIONWRITEOFFDET</transform>
+                    </file>
+
+                    <file checked="true">
+                        <taskName>SPCOMMISSIONWRITEOFFHIST</taskName>
+                        <tableName>SPCOMMISSIONWRITEOFFHIST</tableName>
+                        <baseDir>c:\11\txt\</baseDir>
+                        <filesMask>**/EIP_*SPCOMMISSIONWRITEOFFHISTORY_*.txt</filesMask>
+                        <transform>SPCOMMISSIONWRITEOFFHIST</transform>
+                    </file>
+
+                    <file checked="true">
+                        <taskName>SPPERFORMEDSERVICE</taskName>
+                        <tableName>SPPERFORMEDSERVICE</tableName>
+                        <baseDir>c:\11\txt\</baseDir>
+                        <filesMask>**/EIP_*SPPERFORMEDSERVICE_*.txt</filesMask>
+                        <transform>SPPERFORMEDSERVICE</transform>
+                    </file>
+
+                    <file checked="true">
+                        <taskName>SPPRODUCTPARTY</taskName>
+                        <tableName>SPPRODUCTPARTY</tableName>
+                        <baseDir>c:\11\txt\</baseDir>
+                        <filesMask>**/EIP_*SPPRODUCTPARTY_*.txt</filesMask>
+                        <transform>SPPRODUCTPARTY</transform>
+                    </file>
+
+                    <file checked="true">
+                        <taskName>SPWRITEOFFTOOL</taskName>
+                        <tableName>SPWRITEOFFTOOL</tableName>
+                        <baseDir>c:\11\txt\</baseDir>
+                        <filesMask>**/EIP_*SPWRITEOFFTOOL_*.txt</filesMask>
+                        <transform>SPWRITEOFFTOOL</transform>
+                    </file>
+                    <!-- end PU files -->
+
+
+                </files>
+
+
+                <!--
+                        loaderSize  - количество читающих файлы процесов. Оптимально 4-5
+                        uploaderSize - количество загрузчиков в грид. Оптимально 3
+                -->
+                <loaderSize>16</loaderSize>
+                <transformerSize>16</transformerSize>
+                <uploaderSize>1</uploaderSize> <!-- 1 -->
+
+            </filesWithId>
+        </type>
+        <!-- 
+                Настройки Ignite. Указать файл с описанием настройки клиента Ignite и расположение файла лицензии.
+                UPD: Файл лицензии указывать в настройке клиента Ignite
+                <property name="pluginConfigurations">
+                        <list>
+                                <bean class="org.gridgain.grid.configuration.GridGainConfiguration">
+                                        <property name="rollingUpdatesEnabled" value="true" /> 
+                                        <property name="licenseUrl" value="/home/ftp_user/loader/gridgain-license.xml" /> 
+                                </bean>
+                        </list>
+                </property>
+        -->
+        <ignite>
+            <igniteConfigUrl>./config/eip-config-simple-dpl.xml</igniteConfigUrl>
+            <igniteLicenceUrl>./config/gridgain-license.xml</igniteLicenceUrl>
+            <dplConfigUrl>./config/gg-eip.xml</dplConfigUrl>
+            <autoFlushFrequency>0</autoFlushFrequency>
+            <allowOverwrite>false</allowOverwrite>
+            <perNodeParallelOperations>4</perNodeParallelOperations>
+            <perNodeBufferSize>10000</perNodeBufferSize>
+            <receiverUpdater></receiverUpdater> <!-- по умолчанию batched, второй вариант batchedSorted -->
+        </ignite>
+
+        <loadconfig>
+            <!--
+            Общие параметры загрузчика и нормализатора
+            idMega - Код ТБ. Сейчас не используется, т.к. ID приходит в файле
+            useStreamer - Использовать стример для загрузки. Иначе put в кэш. Стример быстрее.
+            singleQueue - Использовать одну очередь между обработчиками и загрузчиками в грид. Иначе очередь именуется по имени кэша. Рудимент, т.к. сейчас загрузка идет в один кэш. Оставить true
+            useLocalBatching - накапливать объекты до вызова put в кэш. Прибавки скорости незамечено. Оставить false
+            oneClientIgnite - если true используется одно клиентское подключение для всех кэшей
+            -->
+            <idMega>13</idMega>
+            <useStreamer>true</useStreamer>
+            <singleQueue>true</singleQueue>
+            <useLocalBatching>false</useLocalBatching>
+            <!--2016.03.18-->
+            <fileEncoding>Cp1251</fileEncoding>
+            <oneClientIgnite>true</oneClientIgnite>
+        </loadconfig>
+    </loader>
+
+</config>

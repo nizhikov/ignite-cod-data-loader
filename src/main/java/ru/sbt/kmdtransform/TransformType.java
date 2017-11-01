@@ -1,0 +1,7 @@
+package ru.sbt.kmdtransform;
+
+/**
+ */
+public enum TransformType {
+    LONG, ROOT, PARTITION, INTEGER, BIGDECIMAL, DATE_TIME, CSL_PARTICLES, COMPOSEKEY, BOOLEAN, OBJ_TYPE, CSL_AFFINITYPARTICLES, CSL_DICTS, STRING
+}
