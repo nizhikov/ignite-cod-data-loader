@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="walArchivePath" class="java.lang.String">
+        <constructor-arg index="0" value="/gridgain/sas/storage/walArchive" />
+    </bean>
+
+    <bean id="walStorePath" class="java.lang.String">
+        <constructor-arg index="0" value="/gridgain/sas/storage/walStore" />
+    </bean>
+
+    <bean id="snapshotsPath" class="java.lang.String">
+        <constructor-arg index="0" value="/opt/pprb/server/work/snapshot" />
+    </bean>
+
+    <bean id="igniteConfiguration" class="org.apache.ignite.configuration.IgniteConfiguration">
+        <property name="failureDetectionTimeout" value="1800000"/>
+        <property name="metricsLogFrequency" value="30000"/>
+        <property name="publicThreadPoolSize" value="256"/>
+        <property name="systemThreadPoolSize" value="256"/>
+
+        <property name="peerClassLoadingEnabled" value="true"/>
+
+        <property name="binaryConfiguration">
+            <ref bean="binaryConfiguration"/>
+        </property>
+
+        <property name="communicationSpi">
+            <ref bean="tcpCommunicationSpi"/>
+        </property>
+
+        <property name="discoverySpi">
+            <ref bean="discoverySpi"/>
+        </property>
+
+        <property name="connectorConfiguration">
+            <ref bean="connectorConfiguration"/>
+        </property>
+
+        <property name="memoryConfiguration">
+            <ref bean="memoryConfiguration"/>
+        </property>
+
+        <property name="transactionConfiguration">
+            <ref bean="transactionConfiguration"/>
+        </property>
+
+        <property name="atomicConfiguration">
+            <ref bean="atomicConfiguration"/>
+        </property>
+
+        <property name="persistentStoreConfiguration">
+            <ref bean="persistentStoreConfiguration"/>
+        </property>
+
+        <property name="pluginConfigurations">
+            <list>
+                <ref bean="gridGainConfiguration"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="tcpCommunicationSpi" class="org.apache.ignite.spi.communication.tcp.TcpCommunicationSpi">
+        <property name="sharedMemoryPort" value="-1"/>
+        <property name="connectTimeout" value="20000"/>
+        <property name="maxConnectTimeout" value="60000"/>
+        <property name="reconnectCount" value="2"/>
+        <property name="idleConnectionTimeout" value="600000"/>
+        <property name="socketWriteTimeout" value="30000"/>
+        <property name="selectorsCount" value="18"/>
+        <property name="connectionsPerNode" value="1"/>
+        <property name="messageQueueLimit" value="0"/>
+    </bean>
+
+    <bean id="discoverySpi" class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
+        <property name="ipFinder">
+            <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.multicast.TcpDiscoveryMulticastIpFinder">
+                <property name="addresses">
+                    <list>
+                        <value>127.0.0.1:47500..47509</value>
+                    </list>
+                </property>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="binaryConfiguration" class="org.apache.ignite.configuration.BinaryConfiguration">
+        <property name="compactFooter" value="true"/>
+    </bean>
+
+    <bean id="connectorConfiguration" class="org.apache.ignite.configuration.ConnectorConfiguration">
+        <property name="idleTimeout" value="180000"/>
+    </bean>
+
+    <bean id="memoryConfiguration" class="org.apache.ignite.configuration.MemoryConfiguration">
+        <property name="pageSize" value="#{4 * 1024}"/>
+        <property name="defaultMemoryPolicyName" value="dpl_mem_plc"/>
+        <property name="memoryPolicies">
+            <list>
+                <ref bean="memoryPolicyConfiguration"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="memoryPolicyConfiguration" class="org.apache.ignite.configuration.MemoryPolicyConfiguration">
+        <property name="name" value="dpl_mem_plc"/>
+    </bean>
+
+    <bean id="persistentStoreConfiguration" class="org.apache.ignite.configuration.PersistentStoreConfiguration">
+        <property name="checkpointingFrequency" value="10000"/>
+        <property name="WalHistorySize" value="100"/>
+        <property name="walMode" value="BACKGROUND"/>
+        <property name="walArchivePath" ref="walArchivePath" />
+        <property name="walStorePath" ref="walStorePath" />
+        <property name="tlbSize" value="10485760"/>
+    </bean>
+
+    <bean id="transactionConfiguration" class="org.apache.ignite.configuration.TransactionConfiguration">
+        <property name="defaultTxIsolation" value="READ_COMMITTED"/>
+        <property name="defaultTxTimeout" value="300000"/>
+    </bean>
+
+    <bean id="atomicConfiguration" class="org.apache.ignite.configuration.AtomicConfiguration">
+        <property name="atomicSequenceReserveSize" value="50000"/>
+        <property name="cacheMode" value="REPLICATED"/>
+    </bean>
+
+    <bean id="gridGainConfiguration" class="org.gridgain.grid.configuration.GridGainConfiguration">
+        <property name="snapshotConfiguration">
+            <bean class="org.gridgain.grid.configuration.SnapshotConfiguration">
+                <property name="SnapshotsPath" ref="snapshotsPath" />
+            </bean>
+        </property>
+    </bean>
+</beans>
