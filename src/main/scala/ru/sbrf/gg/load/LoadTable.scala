@@ -1,107 +1,169 @@
 package ru.sbrf.gg.load
 
-import java.io.{File, FileInputStream, InputStream}
-import java.util.Enumeration
-import java.util.zip.{ZipEntry, ZipFile}
+import java.io.{File, InputStream}
+import java.lang.reflect.Field
+import java.util
+import java.util.concurrent.ExecutorService
 
+import com.sbt.dpl.gridgain.AffinityParticleKey
+import org.apache.ignite.{Ignite, IgniteCache}
 import org.slf4j.LoggerFactory
+import ru.sbt.kmdtransform._
+
+import scala.xml.{Node, XML}
 
 /**
   */
-class LoadTable(local: Boolean, tableName: String, dataRoot: String) {
+class LoadTable(local: Boolean, tableName: String, dataRoot: String, pool: ExecutorService, val ignite: Ignite) {
+    val logResolution: Long = System.getProperty("LOG_RESOLUTION", "100000").toLong
+
+    val batchSize: Int = System.getProperty("BATCH_SIZE", "10000").toInt
+
     private val logger = LoggerFactory.getLogger(this.getClass)
 
-    val tables = List(
-        "EIP_DBAOSB_DEPOHISTPARAM",
-        "EIP_DBAOSB_HSCERTIFICATEPARAM",
-        "EIP_DBAOSB_PERFORMEDOPERATION",
-        "EIP_DBAOSB_CONTRACTPRODUCT",
-        "EIP_DBAOSB_PRODUCT",
-        "EIP_DBAOSB_DOCUMENT",
-        "EIP_DBAOSB_PRODUCTPARTYROLEINST",
-        "EIP_DBAOSB_PARTYPRODUCTIDENTIFIER",
-        "EIP_DBAOSB_HSDEPOSITPARAM",
-        "EIP_DBAOSB_PRODUCTREGISTR",
-        "EIP_DBAOSB_DEPORELATIONPARAM",
-        "EIP_DBAOSB_MBVEVENTSPARAM",
-        "EIP_DBAOSB_PRODUCTREGISTERREC",
-        "EIP_DBAOSB_DEPOREZERVPARAM",
-        "EIP_DBAOSB_ACCREDITIVEPARAM",
-        "EIP_DBAOSB_DCARDPARAM",
-        "EIP_DBAOSB_HISTBOOKNOPARAM",
-        "EIP_DBAOSB_CARDSERVICEDEBTPARAM",
-        "EIP_DBAOSB_CONTRACTLINK",
-        "EIP_DBAOSB_PINPKPARAM",
-        "EIP_DBAOSB_CONTRACT",
-        "EIP_DBAOSB_PLASTICCARD",
-        "EIP_DBAOSB_PERFORMEDSERVICE",
-        "EIP_DBAOSB_DEPOSITPARAM",
-        "EIP_DBAOSB_DEPOBUILDPARAM",
-        "EIP_DBAOSB_PROCESS",
-        "EIP_DBAOSB_ACCESSTOOL",
-        "EIP_DBAOSB_OPERDEPOBUILDPARAM",
-        "EIP_DBAOSB_CARDTODEPOTOPARAM",
-        "EIP_DBAOSB_ACCCLOSEPROLONGPARAM",
-        "EIP_DBAOSB_SIGNATORE",
-        "EIP_DBAOSB_HSAGREEMENTPARAM",
-        "EIP_DBAOSB_EDBOPARAM",
-        "EIP_DBAOSB_SBERBOOK",
-        "EIP_DBAOSB_SERVICEPARTY")
-
-    def load = {
+    def load(): Unit = {
         logger.info(s"LoadTable.load: local=$local, tableName=$tableName, dataRoot=$dataRoot")
 
-        printlnTables
+        val tableInfo = findTableInfo(tableName)
 
-        tables.foreach(loadTable)
-    }
+        val cache: IgniteCache[Any, Any] = ignite.getOrCreateCache(tableInfo.cacheName)
 
-    private def loadTable(tableName: String) = {
         val fileIterator = if (new File(dataRoot).isDirectory)
             directoryIterator(dataRoot)
         else
             zipIterator(dataRoot)
 
-        fileIterator.filter(_._1.startsWith(tableName)).foreach { case (name, stream) ⇒
-            logger.info(s"Loading file $name - start")
-            val reader = new CSVReader(stream, '|') //TODO: close me
+        val tableFiles = fileIterator.filter { case (name, stream) ⇒
+            name.matches(tableInfo.fileMask)
+        }
+
+        if (tableFiles.nonEmpty) {
+            tableFiles.foreach { case (name, stream) ⇒
+                pool.submit(new Runnable {
+                    override def run(): Unit =
+                        try {
+                            loadFile(name, stream, tableInfo, cache)
+                        } catch {
+                            case e: Exception ⇒ logger.error(s"Error loading file $name:", e)
+                        }
+                })
+            }
+
+            logger.info(s"All files for $tableName submitted for load")
+        } else
+            logger.warn(s"No files for table $tableName")
+    }
+
+    private def loadFile(name: String, stream: InputStream, tableInfo: TableInfo, cache: IgniteCache[Any, Any]): Unit = {
+        logger.info(s"Start loading file $name")
+        closeAfter(stream) { stream ⇒
+            val reader = new CSVReader(stream, "\\|", "Cp1251")
 
             var lineCount = 0
-            for(line ← reader) {
+
+            var batch = new util.HashMap[Any, Any]()
+
+            for (line ← reader) {
                 lineCount += 1
-                if (lineCount % 1000 == 0)
+                if (lineCount % logResolution == 0)
                     logger.info(s"Loading file $name - $lineCount")
+
+                if (lineCount % batchSize == 0 && lineCount != 0) {
+                    logger.debug(s"Inserting batch into $tableName, $name - " + lineCount)
+                    val start = System.nanoTime()
+                    cache.putAll(batch)
+                    logger.info(s"Batch inserted into $tableName, $name - " + lineCount +
+                        s", timeElapsed - ${(System.nanoTime() - start)/1000000.0} msec")
+                    batch = new util.HashMap[Any, Any]()
+                }
+
+                batch.put(buildKey(line, tableInfo.key, tableInfo.value), buildObject(line, tableInfo.value))
             }
+
+            if (lineCount % batchSize != 0 && lineCount != 0)
+                cache.putAll(batch)
+
+            logger.info(s"File $name loaded - $lineCount")
         }
     }
 
-    private def printlnTables = {
-        val fileIterator = if (new File(dataRoot).isDirectory)
-            directoryIterator(dataRoot)
-        else
-            zipIterator(dataRoot)
+    private def findTableInfo(tableName: String): TableInfo = {
+        def findTransform0(fileTag: Node): TableInfo = {
+            val name = (fileTag \ "tableName").text
 
-        val tables = fileIterator.filter(_._1.contains('_')).map(file ⇒ file._1.substring(0, file._1.lastIndexOf('_'))).toSet
-        logger.info(s"==== KNOWN TABLES START - ${tables.size} ====")
-        //tables.foreach(logger.info)
-        tables.foreach(println)
-        logger.info(s"====         KNOWN TABLES END            ====")
-    }
+            val transformConfig = XML.load(
+                getClass.getResourceAsStream("/distrib_src_main_resource_config_gg-eip.xml"))
 
-    private def directoryIterator(dir: String): Iterator[(String, InputStream)] =
-        new File(dir).list().iterator.map ( f ⇒ (f, new FileInputStream(f)) )
+            val table = (transformConfig \ "tables" \ "table").find(node ⇒ (node \ "name").text == name)
 
-    def zipIterator(zip: String): Iterator[(String, InputStream)] = {
-        val zipFile = new ZipFile(zip)
-        val entries: Enumeration[_ <: ZipEntry] = zipFile.entries
+            table match {
+                case Some(t) ⇒
+                    val keyType = Class.forName((t \ "key_data_type").text)
+                    val valueType = Class.forName((t \ "object_data_type").text)
 
-        new Iterator[(String, InputStream)] {
-            override def hasNext = entries.hasMoreElements
+                    val fileMask = (fileTag \ "filesMask").text.replaceAll("\\*", ".*")
 
-            override def next = {
-                val entry = entries.nextElement
-                (entry.getName, zipFile.getInputStream(entry))
+                    TableInfo(keyType, valueType, (t \ "cache_name").text, fileMask)
+                case None ⇒
+                    throw new RuntimeException(s"Transform config for table $tableName not found")
             }
         }
+
+        val loaderConfig = XML.load(
+            getClass.getResourceAsStream("/distrib_src_main_resource_config_LoaderConfig.xml"))
+
+        val fileTags = loaderConfig \ "loader" \ "type" \ "filesWithId" \ "files" \ "file"
+
+        val name2find = tableName.substring(tableName.lastIndexOf('_') + 1)
+
+        fileTags.find { node ⇒ name2find == (node \ "tableName").text } match {
+            case Some(fileTag) ⇒
+                findTransform0(fileTag)
+            case None ⇒
+                throw new RuntimeException(s"Settings for table $tableName not found")
+        }
+    }
+
+    def buildKey(line: Array[String], key: Class[_], value: Class[_]): Any = {
+        if (key != classOf[AffinityParticleKey])
+            throw new RuntimeException("Not AffinityParticle Key!!!")
+
+        val id = value.getFields.find(_.isAnnotationPresent(classOf[IdField])).map { f ⇒
+            fieldValue(line, f).asInstanceOf[Long]
+        }.getOrElse(throw new RuntimeException(s"Can't find IdField annotation for $value"))
+
+        val partitionId  = value.getFields.find(_.isAnnotationPresent(classOf[PartField])).map { f ⇒
+            fieldValue(line, f).asInstanceOf[Long]
+        }.getOrElse(throw new RuntimeException(s"Can't find PartField annotation for $value"))
+
+        val rootId  = value.getFields.find(_.isAnnotationPresent(classOf[RootField])).map { f ⇒
+            fieldValue(line, f).asInstanceOf[Long]
+        }.getOrElse(throw new RuntimeException(s"Can't find RootField annotation for $value"))
+
+        new AffinityParticleKey(id, partitionId, rootId)
+    }
+
+    def buildObject[T](line: Array[String], valueClazz: Class[T]): T = {
+        val result = valueClazz.newInstance
+
+        val fields = valueClazz.getFields.filter(f ⇒ f.isAnnotationPresent(classOf[InitOrder]))
+
+        fields.foreach { f ⇒ f.set(result, fieldValue(line, f)) }
+
+        result
+    }
+
+    def fieldValue(line: Array[String], field: Field): Any = {
+        var fieldValueStr = line(field.getAnnotation(classOf[InitOrder]).value().toInt - 1)
+
+        if (fieldValueStr == null || fieldValueStr == "" && field.isAnnotationPresent(classOf[Default]))
+            fieldValueStr = field.getAnnotation(classOf[Default]).value()
+
+        if (!field.isAnnotationPresent(classOf[DataType]))
+            throw new RuntimeException(s"there is no DatType annotation for field ${field.getName} " +
+                s"of class ${field.getDeclaringClass.getName}")
+
+        val dataType = field.getAnnotation(classOf[DataType]).value()
+        dataType.fromStr(fieldValueStr)
     }
 }

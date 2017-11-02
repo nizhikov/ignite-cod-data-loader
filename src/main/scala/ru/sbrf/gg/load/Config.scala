@@ -8,8 +8,9 @@ case class Config(
     serversFile: Option[String] = None,
 
     local: Boolean = true,
-    tableName: Option[String] = None,
-    dataRoot: Option[String] = None)
+    dataRoot: Option[String] = None,
+    poolSize: Option[Int] = None,
+    tablesIndexes: Set[Int] = Set(1))
 {}
 
 object Config {

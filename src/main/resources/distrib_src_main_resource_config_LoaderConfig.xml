@@ -58,7 +58,7 @@
                         <taskName>DICT_TEMPLATEDYNAMICPARAM</taskName>
                         <tableName>DICT_TEMPLATEDYNAMICPARAM</tableName>
                         <baseDir>c:\11\txt\</baseDir>
-                        <filesMask>**/*PublishedTemplateDynamicParam.*</filesMask>
+                        <filesMask>*PublishedTemplateDynamicParam.*</filesMask>
                         <transform>DICT_TEMPLATEDYNAMICPARAM</transform>
                         <isdict>true</isdict>
                     </file>
@@ -66,7 +66,7 @@
                         <taskName>DICT_PRODUCT</taskName>
                         <tableName>DICT_PRODUCT</tableName>
                         <baseDir>c:\11\txt\</baseDir>
-                        <filesMask>**/*DICT_TEMPLATEPRODUCT.*</filesMask>
+                        <filesMask>*DICT_TEMPLATEPRODUCT.*</filesMask>
                         <transform>DICT_PRODUCT</transform>
                         <isdict>true</isdict>
                     </file>
@@ -74,7 +74,7 @@
                         <taskName>DICT_TEMPLATESUBPROCESS</taskName>
                         <tableName>DICT_TEMPLATESUBPROCESS</tableName>
                         <baseDir>c:\11\txt\</baseDir>
-                        <filesMask>**/*DICT_SUBPROCESS.*</filesMask>
+                        <filesMask>*DICT_SUBPROCESS.*</filesMask>
                         <transform>DICT_TEMPLATESUBPROCESS</transform>
                         <isdict>true</isdict>
                     </file>
@@ -83,7 +83,7 @@
                         <taskName>OBJECTTYPE</taskName>
                         <tableName>OBJECTTYPE</tableName>
                         <baseDir>c:\11\txt\</baseDir>
-                        <filesMask>**/EIP_*DICT_TYPE.TXT</filesMask>
+                        <filesMask>EIP_*DICT_TYPE.TXT</filesMask>
                         <transform>OBJECTTYPE</transform>
                         <isdict>OBJECTTYPE</isdict>
                     </file>
@@ -93,7 +93,7 @@
                         <taskName>DEPARTMENT</taskName>
                         <tableName>DEPARTMENT</tableName>
                         <baseDir>c:\11\txt\</baseDir>
-                        <filesMask>**/EIP_*DICT_DEPARTMENT.TXT</filesMask>
+                        <filesMask>EIP_*DICT_DEPARTMENT.TXT</filesMask>
                         <transform>DEPARTMENT</transform>
                         <isdict>true</isdict>
                     </file>
@@ -103,7 +103,7 @@
                         <taskName>DICTDATATYPE</taskName>
                         <tableName>DICTDATATYPE</tableName>
                         <baseDir>/app/gg/loader/data/</baseDir>
-                        <filesMask>**/EIP_*DICT_DATATYPE.TXT</filesMask>
+                        <filesMask>EIP_*DICT_DATATYPE.TXT</filesMask>
                         <transform>DICTDATATYPE</transform>
                         <isdict>true</isdict>
                     </file>
@@ -112,7 +112,7 @@
                         <taskName>MEASURE</taskName>
                         <tableName>MEASURE</tableName>
                         <baseDir>c:\11\txt\</baseDir>
-                        <filesMask>**/EIP_*DICT_CURRENCY.TXT</filesMask>
+                        <filesMask>EIP_*DICT_CURRENCY.TXT</filesMask>
                         <transform>MEASURE</transform>
                         <isdict>true</isdict>
                     </file>
@@ -121,7 +121,7 @@
                         <taskName>DICTPARAM</taskName>
                         <tableName>DICTPARAM</tableName>
                         <baseDir>c:\11\txt\</baseDir>
-                        <filesMask>**/EIP_*DICT_PARAM.TXT</filesMask>
+                        <filesMask>EIP_*DICT_PARAM.TXT</filesMask>
                         <transform>DICTPARAM</transform>
                         <isdict>true</isdict>
                     </file>
@@ -131,7 +131,7 @@
                         <taskName>DICTCATEGORY</taskName>
                         <tableName>DICTCATEGORY</tableName>
                         <baseDir>c:\11\txt\</baseDir>
-                        <filesMask>**/EIP_*DICT_CATEGORY.TXT</filesMask>
+                        <filesMask>EIP_*DICT_CATEGORY.TXT</filesMask>
                         <transform>DICTCATEGORY</transform>
                         <isdict>true</isdict>
                     </file>
@@ -141,7 +141,7 @@
                         <taskName>STATUS</taskName>
                         <tableName>STATUS</tableName>
                         <baseDir>c:\11\txt\</baseDir>
-                        <filesMask>**/EIP_*DICT_STATUS.TXT</filesMask>
+                        <filesMask>EIP_*DICT_STATUS.TXT</filesMask>
                         <transform>STATUS</transform>
                         <isdict>true</isdict>
                     </file>
@@ -151,7 +151,7 @@
                         <taskName>PARTY</taskName>
                         <tableName>PARTY</tableName>
                         <baseDir>c:\11\txt\</baseDir>
-                        <filesMask>**/EIP_*_PARTY_FIO*.txt</filesMask>
+                        <filesMask>EIP_*_PARTY_FIO*.txt</filesMask>
                         <transform>PARTY</transform>
                     </file>
 
@@ -159,7 +159,7 @@
                         <taskName>SERVICEZONE</taskName>
                         <tableName>SERVICEZONE</tableName>
                         <baseDir>c:\11\txt\</baseDir>
-                        <filesMask>**/EIP_*_SERVICEZONE.txt</filesMask>
+                        <filesMask>EIP_*_SERVICEZONE.txt</filesMask>
                         <transform>SERVICEZONE</transform>
                     </file>
 -->
@@ -170,7 +170,7 @@
                         <taskName>ACCREDITIVE</taskName>
                         <tableName>ACCREDITIVEPARAM</tableName>
                         <baseDir>c:\11\txt\</baseDir>
-                        <filesMask>**/EIP_*_ACCREDITIVEPARAM_*.txt</filesMask>
+                        <filesMask>EIP_*_ACCREDITIVEPARAM_*.txt</filesMask>
                         <transform>ACCREDITIVE</transform>
                     </file>
 
@@ -178,7 +178,7 @@
                         <taskName>ACCCLOSEPROLONG</taskName>
                         <tableName>ACCCLOSEPROLONGPARAM</tableName>
                         <baseDir>c:\11\txt\</baseDir>
-                        <filesMask>**/EIP_*_ACCCLOSEPROLONGPARAM_*.txt</filesMask>
+                        <filesMask>EIP_*_ACCCLOSEPROLONGPARAM_*.txt</filesMask>
                         <transform>ACCCLOSEPROLONG</transform>
                     </file>
 
@@ -186,7 +186,7 @@
                         <taskName>CONTRACTLINK</taskName>
                         <tableName>CONTRACTLINK</tableName>
                         <baseDir>c:\11\txt\</baseDir>
-                        <filesMask>**/EIP_*_CONTRACTLINK_*.txt</filesMask>
+                        <filesMask>EIP_*_CONTRACTLINK_*.txt</filesMask>
                         <transform>CONTRACTLINK</transform>
                     </file>
 
@@ -194,7 +194,7 @@
                         <taskName>PINPK</taskName>
                         <tableName>PINPKPARAM</tableName>
                         <baseDir>c:\11\txt\</baseDir>
-                        <filesMask>**/EIP_*_PINPKPARAM*.TXT</filesMask>
+                        <filesMask>EIP_*_PINPKPARAM*.TXT</filesMask>
                         <transform>PINPK</transform>
                     </file>
 
@@ -202,7 +202,7 @@
                         <taskName>OPERDEPOBUILD</taskName>
                         <tableName>OPERDEPOBUILDPARAM</tableName>
                         <baseDir>c:\11\txt\</baseDir>
-                        <filesMask>**/EIP_*_OPERDEPOBUILDPARAM*.TXT</filesMask>
+                        <filesMask>EIP_*_OPERDEPOBUILDPARAM*.TXT</filesMask>
                         <transform>OPERDEPOBUILD</transform>
                     </file>
 
@@ -210,7 +210,7 @@
                         <taskName>MBVEVENTS</taskName>
                         <tableName>MBVEVENTSPARAM</tableName>
                         <baseDir>c:\11\txt\</baseDir>
-                        <filesMask>**/EIP_*_MBVEVENTSPARAM*.TXT</filesMask>
+                        <filesMask>EIP_*_MBVEVENTSPARAM*.TXT</filesMask>
                         <transform>MBVEVENTS</transform>
                     </file>
 
@@ -218,7 +218,7 @@
                         <taskName>HISTBOOKNO</taskName>
                         <tableName>HISTBOOKNOPARAM</tableName>
                         <baseDir>c:\11\txt\</baseDir>
-                        <filesMask>**/EIP_*_HISTBOOKNOPARAM*.TXT</filesMask>
+                        <filesMask>EIP_*_HISTBOOKNOPARAM*.TXT</filesMask>
                         <transform>HISTBOOKNO</transform>
                     </file>
 
@@ -226,7 +226,7 @@
                         <taskName>DEPOREZERV</taskName>
                         <tableName>DEPOREZERVPARAM</tableName>
                         <baseDir>c:\11\txt\</baseDir>
-                        <filesMask>**/EIP_*_DEPOREZERVPARAM*.TXT</filesMask>
+                        <filesMask>EIP_*_DEPOREZERVPARAM*.TXT</filesMask>
                         <transform>DEPOREZERV</transform>
                     </file>
 
@@ -234,7 +234,7 @@
                         <taskName>DEPORELATION</taskName>
                         <tableName>DEPORELATIONPARAM</tableName>
                         <baseDir>c:\11\txt\</baseDir>
-                        <filesMask>**/EIP_*_DEPORELATIONPARAM*.TXT</filesMask>
+                        <filesMask>EIP_*_DEPORELATIONPARAM*.TXT</filesMask>
                         <transform>DEPORELATION</transform>
                     </file>
 
@@ -242,7 +242,7 @@
                         <taskName>CARDSERVICEDEBT</taskName>
                         <tableName>CARDSERVICEDEBTPARAM</tableName>
                         <baseDir>c:\11\txt\</baseDir>
-                        <filesMask>**/EIP_*_CARDSERVICEDEBTPARAM*.TXT</filesMask>
+                        <filesMask>EIP_*_CARDSERVICEDEBTPARAM*.TXT</filesMask>
                         <transform>CARDSERVICEDEBT</transform>
                     </file>
 
@@ -250,7 +250,7 @@
                         <taskName>HSCERTIFICATE</taskName>
                         <tableName>HSCERTIFICATEPARAM</tableName>
                         <baseDir>c:\11\txt\</baseDir>
-                        <filesMask>**/EIP_*_HSCERTIFICATEPARAM*.TXT</filesMask>
+                        <filesMask>EIP_*_HSCERTIFICATEPARAM*.TXT</filesMask>
                         <transform>HSCERTIFICATE</transform>
                     </file>
 
@@ -258,7 +258,7 @@
                         <taskName>HSAGREEMENT</taskName>
                         <tableName>HSAGREEMENTPARAM</tableName>
                         <baseDir>c:\11\txt\</baseDir>
-                        <filesMask>**/EIP_*_HSAGREEMENTPARAM*.TXT</filesMask>
+                        <filesMask>EIP_*_HSAGREEMENTPARAM*.TXT</filesMask>
                         <transform>HSAGREEMENT</transform>
                     </file>
 
@@ -266,7 +266,7 @@
                         <taskName>DEPOBUILD</taskName>
                         <tableName>DEPOBUILDPARAM</tableName>
                         <baseDir>c:\11\txt\</baseDir>
-                        <filesMask>**/EIP_*_DEPOBUILDPARAM*.TXT</filesMask>
+                        <filesMask>EIP_*_DEPOBUILDPARAM*.TXT</filesMask>
                         <transform>DEPOBUILD</transform>
                     </file>
 
@@ -274,7 +274,7 @@
                         <taskName>EDBO</taskName>
                         <tableName>EDBOPARAM</tableName>
                         <baseDir>c:\11\txt\</baseDir>
-                        <filesMask>**/EIP_*_EDBOPARAM*.TXT</filesMask>
+                        <filesMask>EIP_*_EDBOPARAM*.TXT</filesMask>
                         <transform>EDBO</transform>
                     </file>
 
@@ -282,7 +282,7 @@
                         <taskName>HSDEPOSIT</taskName>
                         <tableName>HSDEPOSITPARAM</tableName>
                         <baseDir>c:\11\txt\</baseDir>
-                        <filesMask>**/EIP_*_HSDEPOSITPARAM*.TXT</filesMask>
+                        <filesMask>EIP_*_HSDEPOSITPARAM*.TXT</filesMask>
                         <transform>HSDEPOSIT</transform>
                     </file>
 
@@ -290,7 +290,7 @@
                         <taskName>DEPOSIT</taskName>
                         <tableName>DEPOSITPARAM</tableName>
                         <baseDir>c:\11\txt\</baseDir>
-                        <filesMask>**/EIP_*_DEPOSITPARAM*.TXT</filesMask>
+                        <filesMask>EIP_*_DEPOSITPARAM*.TXT</filesMask>
                         <transform>DEPOSIT</transform>
                     </file>
 
@@ -298,7 +298,7 @@
                         <taskName>DCARD</taskName>
                         <tableName>DCARDPARAM</tableName>
                         <baseDir>c:\11\txt\</baseDir>
-                        <filesMask>**/EIP_*_DCARDPARAM*.TXT</filesMask>
+                        <filesMask>EIP_*_DCARDPARAM*.TXT</filesMask>
                         <transform>DCARD</transform>
                     </file>
 
@@ -306,7 +306,7 @@
                         <taskName>CARDTODEPOTO</taskName>
                         <tableName>CARDTODEPOTOPARAM</tableName>
                         <baseDir>c:\11\txt\</baseDir>
-                        <filesMask>**/EIP_*_CARDTODEPOTOPARAM*.TXT</filesMask>
+                        <filesMask>EIP_*_CARDTODEPOTOPARAM*.TXT</filesMask>
                         <transform>CARDTODEPOTO</transform>
                     </file>
 
@@ -315,7 +315,7 @@
                         <taskName>CONTRACT</taskName>
                         <tableName>CONTRACT</tableName>
                         <baseDir>c:\11\txt\</baseDir>
-                        <filesMask>**/EIP_*_CONTRACT_*.txt</filesMask>
+                        <filesMask>EIP_*_CONTRACT_*.txt</filesMask>
                         <transform>CONTRACT</transform>
                     </file>
 
@@ -323,7 +323,7 @@
                         <taskName>PRODUCTPARTY</taskName>
                         <tableName>PRODUCT</tableName>
                         <baseDir>c:\11\txt\</baseDir>
-                        <filesMask>**/EIP_*_PRODUCT_*.txt</filesMask>
+                        <filesMask>EIP_*_PRODUCT_*.txt</filesMask>
                         <transform>PRODUCTPARTY</transform>
                     </file>
 
@@ -331,7 +331,7 @@
                         <taskName>PRODUCTREGISTR</taskName>
                         <tableName>PRODUCTREGISTR</tableName>
                         <baseDir>/c:\11\txt\</baseDir>
-                        <filesMask>**/EIP_*_PRODUCTREGISTR_*.txt</filesMask>
+                        <filesMask>EIP_*_PRODUCTREGISTR_*.txt</filesMask>
                         <transform>PRODUCTREGISTR</transform>
                     </file>
 
@@ -339,7 +339,7 @@
                         <taskName>SBERBOOK</taskName>
                         <tableName>SBERBOOK</tableName>
                         <baseDir>c:\11\txt\</baseDir>
-                        <filesMask>**/EIP_*_SBERBOOK_*.txt</filesMask>
+                        <filesMask>EIP_*_SBERBOOK_*.txt</filesMask>
                         <transform>SBERBOOK</transform>
                     </file>
 
@@ -347,7 +347,7 @@
                         <taskName>PLASTICCARD</taskName>
                         <tableName>PLASTICCARD</tableName>
                         <baseDir>c:\11\txt\</baseDir>
-                        <filesMask>**/EIP_*_PLASTICCARD_*.txt</filesMask>
+                        <filesMask>EIP_*_PLASTICCARD_*.txt</filesMask>
                         <transform>PLASTICCARD</transform>
                     </file>
 
@@ -355,7 +355,7 @@
                         <taskName>ACCESSTOOL</taskName>
                         <tableName>ACCESSTOOL</tableName>
                         <baseDir>c:\11\txt\</baseDir>
-                        <filesMask>**/EIP_*_ACCESSTOOL_*.txt</filesMask>
+                        <filesMask>EIP_*_ACCESSTOOL_*.txt</filesMask>
                         <transform>ACCESSTOOL</transform>
                     </file>
 
@@ -363,7 +363,7 @@
                         <taskName>SIGNATORY</taskName>
                         <tableName>SIGNATORE</tableName>
                         <baseDir>c:\11\txt\</baseDir>
-                        <filesMask>**/EIP_*_SIGNATORE_*.txt</filesMask>
+                        <filesMask>EIP_*_SIGNATORE_*.txt</filesMask>
                         <transform>SIGNATORY</transform>
                     </file>
 
@@ -371,7 +371,7 @@
                         <taskName>CONTRACTPRODUCT</taskName>
                         <tableName>CONTRACTPRODUCT</tableName>
                         <baseDir>c:\11\txt\</baseDir>
-                        <filesMask>**/EIP_*_CONTRACTPRODUCT_*.txt</filesMask>
+                        <filesMask>EIP_*_CONTRACTPRODUCT_*.txt</filesMask>
                         <transform>CONTRACTPRODUCT</transform>
                     </file>
 
@@ -379,7 +379,7 @@
                         <taskName>DOCUMENT</taskName>
                         <tableName>DOCUMENT</tableName>
                         <baseDir>c:\11\txt\</baseDir>
-                        <filesMask>**/EIP_*DOCUMENT_*.txt</filesMask>
+                        <filesMask>EIP_*DOCUMENT_*.txt</filesMask>
                         <transform>DOCUMENT</transform>
                     </file>
 
@@ -388,7 +388,7 @@
                         <taskName>PARTYPRODUCTIDENTIFIER</taskName>
                         <tableName>PARTYPRODUCTIDENTIFIER</tableName>
                         <baseDir>c:\11\txt\</baseDir>
-                        <filesMask>**/EIP_*_PARTYPRODUCTIDENTIFIER_*.txt</filesMask>
+                        <filesMask>EIP_*_PARTYPRODUCTIDENTIFIER_*.txt</filesMask>
                         <transform>PARTYPRODUCTIDENTIFIER</transform>
                     </file>
 
@@ -396,7 +396,7 @@
                         <taskName>SERVICEPARTY</taskName>
                         <tableName>SERVICEPARTY</tableName>
                         <baseDir>c:\11\txt\</baseDir>
-                        <filesMask>**/EIP_*_SERVICEPARTY_*.txt</filesMask>
+                        <filesMask>EIP_*_SERVICEPARTY_*.txt</filesMask>
                         <transform>SERVICEPARTY</transform>
                     </file>
 
@@ -405,7 +405,7 @@
                         <taskName>PERFORMEDSERVICE</taskName>
                         <tableName>PERFORMEDSERVICE</tableName>
                         <baseDir>/c:\11\txt\</baseDir>
-                        <filesMask>**/EIP_*_PERFORMEDSERVICE_*.txt</filesMask>
+                        <filesMask>EIP_*_PERFORMEDSERVICE_*.txt</filesMask>
                         <transform>PERFORMEDSERVICE</transform>
                     </file>
 
@@ -413,7 +413,7 @@
                         <taskName>PERFORMEDOPERATION</taskName>
                         <tableName>PERFORMEDOPERATION</tableName>
                         <baseDir>/c:\11\txt\</baseDir>
-                        <filesMask>**/EIP_*_PERFORMEDOPERATION_*.txt</filesMask>
+                        <filesMask>EIP_*_PERFORMEDOPERATION_*.txt</filesMask>
                         <transform>PERFORMEDOPERATION</transform>
                     </file>
 
@@ -421,7 +421,7 @@
                         <taskName>PROCESS</taskName>
                         <tableName>PROCESS</tableName>
                         <baseDir>/c:\11\txt\</baseDir>
-                        <filesMask>**/EIP_*_PROCESS_*.txt</filesMask>
+                        <filesMask>EIP_*_PROCESS_*.txt</filesMask>
                         <transform>PROCESS</transform>
                     </file>
 
@@ -429,7 +429,7 @@
                         <taskName>PRODUCTREGISTERREC</taskName>
                         <tableName>PRODUCTREGISTERREC</tableName>
                         <baseDir>c:\11\txt\</baseDir>
-                        <filesMask>**/EIP_*_PRODUCTREGISTERREC_*.txt</filesMask>
+                        <filesMask>EIP_*_PRODUCTREGISTERREC_*.txt</filesMask>
                         <transform>PRODUCTREGISTERREC</transform>
                     </file>
 
@@ -437,7 +437,7 @@
                         <taskName>PRODUCTPARTYROLE</taskName>
                         <tableName>PRODUCTPARTYROLEINST</tableName>
                         <baseDir>c:\11\txt\</baseDir>
-                        <filesMask>**/EIP_*_PRODUCTPARTYROLEINST_*.txt</filesMask>
+                        <filesMask>EIP_*_PRODUCTPARTYROLEINST_*.txt</filesMask>
                         <transform>PRODUCTPARTYROLE</transform>
                     </file>
 
@@ -445,7 +445,7 @@
                         <taskName>DEPOHIST</taskName>
                         <tableName>DEPOHISTPARAM</tableName>
                         <baseDir>c:\11\txt\</baseDir>
-                        <filesMask>**/EIP_*DEPOHISTPARAM*.TXT</filesMask>
+                        <filesMask>EIP_*DEPOHISTPARAM*.TXT</filesMask>
                         <transform>DEPOHIST</transform>
                     </file>
                     <!-- end Deposit files -->
@@ -455,7 +455,7 @@
                         <taskName>SPCOMMISSIONINVDET</taskName>
                         <tableName>SPCOMMISSIONINVDET</tableName>
                         <baseDir>c:\11\txt\</baseDir>
-                        <filesMask>**/EIP_*SPCOMMISSIONINVOICEDETAIL_*.txt</filesMask>
+                        <filesMask>EIP_*SPCOMMISSIONINVOICEDETAIL_*.txt</filesMask>
                         <transform>SPCOMMISSIONINVDET</transform>
                     </file>
 
@@ -463,7 +463,7 @@
                         <taskName>SPCOMMISSIONINV</taskName>
                         <tableName>SPCOMMISSIONINV</tableName>
                         <baseDir>c:\11\txt\</baseDir>
-                        <filesMask>**/EIP_*SPCOMMISSIONINVOICE_*.txt</filesMask>
+                        <filesMask>EIP_*SPCOMMISSIONINVOICE_*.txt</filesMask>
                         <transform>SPCOMMISSIONINV</transform>
                     </file>
 
@@ -471,7 +471,7 @@
                         <taskName>SPCOMMISSIONWRITEOFFDET</taskName>
                         <tableName>SPCOMMISSIONWRITEOFFDET</tableName>
                         <baseDir>c:\11\txt\</baseDir>
-                        <filesMask>**/EIP_*SPCOMMISSIONWRITEOFFDETAIL_*.txt</filesMask>
+                        <filesMask>EIP_*SPCOMMISSIONWRITEOFFDETAIL_*.txt</filesMask>
                         <transform>SPCOMMISSIONWRITEOFFDET</transform>
                     </file>
 
@@ -479,7 +479,7 @@
                         <taskName>SPCOMMISSIONWRITEOFFHIST</taskName>
                         <tableName>SPCOMMISSIONWRITEOFFHIST</tableName>
                         <baseDir>c:\11\txt\</baseDir>
-                        <filesMask>**/EIP_*SPCOMMISSIONWRITEOFFHISTORY_*.txt</filesMask>
+                        <filesMask>EIP_*SPCOMMISSIONWRITEOFFHISTORY_*.txt</filesMask>
                         <transform>SPCOMMISSIONWRITEOFFHIST</transform>
                     </file>
 
@@ -487,7 +487,7 @@
                         <taskName>SPPERFORMEDSERVICE</taskName>
                         <tableName>SPPERFORMEDSERVICE</tableName>
                         <baseDir>c:\11\txt\</baseDir>
-                        <filesMask>**/EIP_*SPPERFORMEDSERVICE_*.txt</filesMask>
+                        <filesMask>EIP_*SPPERFORMEDSERVICE_*.txt</filesMask>
                         <transform>SPPERFORMEDSERVICE</transform>
                     </file>
 
@@ -495,7 +495,7 @@
                         <taskName>SPPRODUCTPARTY</taskName>
                         <tableName>SPPRODUCTPARTY</tableName>
                         <baseDir>c:\11\txt\</baseDir>
-                        <filesMask>**/EIP_*SPPRODUCTPARTY_*.txt</filesMask>
+                        <filesMask>EIP_*SPPRODUCTPARTY_*.txt</filesMask>
                         <transform>SPPRODUCTPARTY</transform>
                     </file>
 
@@ -503,7 +503,7 @@
                         <taskName>SPWRITEOFFTOOL</taskName>
                         <tableName>SPWRITEOFFTOOL</tableName>
                         <baseDir>c:\11\txt\</baseDir>
-                        <filesMask>**/EIP_*SPWRITEOFFTOOL_*.txt</filesMask>
+                        <filesMask>EIP_*SPWRITEOFFTOOL_*.txt</filesMask>
                         <transform>SPWRITEOFFTOOL</transform>
                     </file>
                     <!-- end PU files -->
@@ -522,14 +522,14 @@
 
             </filesWithId>
         </type>
-        <!-- 
+        <!--
                 Настройки Ignite. Указать файл с описанием настройки клиента Ignite и расположение файла лицензии.
                 UPD: Файл лицензии указывать в настройке клиента Ignite
                 <property name="pluginConfigurations">
                         <list>
                                 <bean class="org.gridgain.grid.configuration.GridGainConfiguration">
-                                        <property name="rollingUpdatesEnabled" value="true" /> 
-                                        <property name="licenseUrl" value="/home/ftp_user/loader/gridgain-license.xml" /> 
+                                        <property name="rollingUpdatesEnabled" value="true" />
+                                        <property name="licenseUrl" value="/home/ftp_user/loader/gridgain-license.xml" />
                                 </bean>
                         </list>
                 </property>

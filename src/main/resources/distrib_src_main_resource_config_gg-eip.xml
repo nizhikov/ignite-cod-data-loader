@@ -43,6 +43,7 @@
             <use_kmd>true</use_kmd>
             <ver>6.4</ver>
         </table>
+
         <table>
             <name>DICT_PRODUCT</name>
             <cache_name>com.sbt.cdm.api.model.published.template.PublishedProduct</cache_name>
@@ -53,6 +54,7 @@
             <use_kmd>true</use_kmd>
             <ver>6.4</ver>
         </table>
+
         <table>
             <name>DICT_TEMPLATESUBPROCESS</name>
             <cache_name>com.sbt.cdm.api.model.published.template.PublishedTemplateSubProcess</cache_name>
@@ -118,6 +120,7 @@
             <use_kmd>true</use_kmd>
             <ver>6.4</ver>
         </table>
+
         <table>
             <name>OBJECTTYPE</name>
             <cache_name>com.sbt.cdm.api.model.published.dictionary.PublishedObjectType</cache_name>
@@ -128,6 +131,7 @@
             <use_kmd>true</use_kmd>
             <ver>6.4</ver>
         </table>
+
         <table>
             <name>DICTDATATYPE</name>
             <cache_name>com.sbt.cdm.api.model.published.dictionary.PublishedDictDataType</cache_name>
