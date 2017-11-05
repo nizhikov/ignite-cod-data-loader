@@ -70,8 +70,12 @@ class LoadTable(local: Boolean, tableName: String, dataRoot: String, pool: Execu
                 if (lineCount % batchSize == 0 && lineCount != 0) {
                     logger.info(s"[LoadTable][BatchSubmit][tableName:$tableName][file:$name][lineCount:$lineCount]")
                     pool.submit(new InsertBatchTask(batch, tableInfo, cache, lineCount, name))
+                    //new InsertBatchTask(batch, tableInfo, cache, lineCount, name).run()
+
                     batch = new Array[String](batchSize)
+
                     val currentBatchCnt = counter.incrementAndGet()
+
                     if (currentBatchCnt >= poolSize) {
                         lock.synchronized {
                             try {
@@ -100,8 +104,8 @@ class LoadTable(local: Boolean, tableName: String, dataRoot: String, pool: Execu
                 logger.info(s"[LoadTable][BatchPrepareStart][tableName:$tableName][file:$name][lineCount:$lineCount]")
                 val batchMap = new util.HashMap[Any, Any](batch.length, 1)
 
-                var avg = 0d
-                var avg2 = 0d
+//                var avg = 0d
+//                var avg2 = 0d
 
                 val keyBuilder: ObjectBuilder = value2builder(tableInfo.key)
                 val valueBuilder: ObjectBuilder = value2builder(tableInfo.value)
@@ -117,15 +121,15 @@ class LoadTable(local: Boolean, tableName: String, dataRoot: String, pool: Execu
                         val key = keyBuilder.build(line, tableInfo)
                         val value = valueBuilder.build(line, tableInfo)
 
-                        avg += (System.nanoTime() - start)/1000000.0
-                        avg2 += (System.nanoTime() - start2)/1000000.0
+//                        avg += (System.nanoTime() - start)/1000000.0
+//                        avg2 += (System.nanoTime() - start2)/1000000.0
 
                         batchMap.put(key, value)
                     }
                 }
 
-                logger.info(s"Avg = ${avg}")
-                logger.info(s"Avg2 = ${avg2}")
+//                logger.info(s"Avg = ${avg}")
+//                logger.info(s"Avg2 = ${avg2}")
                 //14:44:51.181 [pool-1-thread-1] INFO ru.sbrf.gg.load.LoadTable - Avg = 8798.218473998897
                 //14:44:51.181 [pool-1-thread-1] INFO ru.sbrf.gg.load.LoadTable - Avg2 = 6195.834078000055
 
