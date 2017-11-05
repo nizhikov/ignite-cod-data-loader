@@ -18,11 +18,14 @@
 package ru.sbrf.gg.load
 
 import java.io.{File, FileInputStream}
+import java.text.{DecimalFormat, NumberFormat}
 import java.util.concurrent.{ExecutorService, Executors, TimeUnit}
 
 import org.apache.ignite.Ignite
 import org.slf4j.LoggerFactory
-import ru.sbrf.gg.load.Config.{GENERATE_CONFIG, LOAD_TABLE}
+import ru.sbrf.gg.load.Config.{COUNT_LINES, GENERATE_BUILDER_CODE, GENERATE_CONFIG, LOAD_TABLE}
+
+import scala.io.Source
 
 /**
   */
@@ -52,7 +55,18 @@ object MainApp extends App {
                 opt[String]("tables-index").abbr("ti").action( (v, c) =>
                     c.copy(tablesIndexes = v.split(",").map(_.toInt).toSet) ).text("Indexes of tables in config. See tables.csv, comma separated")
             )
-
+        cmd(COUNT_LINES).action( (_, c) => c.copy(command = Some(COUNT_LINES)) ).
+            text("Print count of lines in each file.").
+            children(
+                opt[String]("data-root").abbr("dr").action( (v, c) =>
+                    c.copy(dataRoot = Some(v)) ).text("data root directory or path to zip file")
+            )
+        cmd(GENERATE_BUILDER_CODE).action( (_, c) => c.copy(command = Some(GENERATE_BUILDER_CODE)) ).
+            text("Generate builder for classes code.").
+            children(
+                opt[String]("data-root").abbr("dr").action( (v, c) =>
+                    c.copy(dataRoot = Some(v)) ).text("data root directory or path to zip file")
+            )
         checkConfig { c =>
             c.command match {
                 case Some(GENERATE_CONFIG) ⇒
@@ -65,6 +79,16 @@ object MainApp extends App {
                         failure(s"`data-root` is required parameters")
                     else
                         success
+                case Some(COUNT_LINES) ⇒
+                    if (c.dataRoot.isEmpty)
+                        failure(s"`data-root` is required parameters")
+                    else
+                        success
+                case Some(GENERATE_BUILDER_CODE) ⇒
+                    if (c.dataRoot.isEmpty)
+                        failure(s"`data-root` is required parameters")
+                    else
+                        success
             }
         }
     }
@@ -73,6 +97,8 @@ object MainApp extends App {
         case Some(config) => config.command match {
             case Some(GENERATE_CONFIG) ⇒ generateAddressesConfig(config.serversFile.get)
             case Some(LOAD_TABLE) ⇒ loadTable(config.local, config.dataRoot, config.poolSize, config.tablesIndexes)
+            case Some(COUNT_LINES) ⇒ countLines(config.dataRoot.get)
+            case Some(GENERATE_BUILDER_CODE) ⇒ generateCode(config.dataRoot.get)
         }
 
         case None =>
@@ -81,17 +107,15 @@ object MainApp extends App {
     def generateAddressesConfig(serversFile: String): Unit = {
         new CSVReader(new FileInputStream(serversFile)).foreach { line ⇒
             println(s"<value>${line(2)}:47500..47509</value>")
-        }
-    }
+        } }
 
     def loadTable(local: Boolean, dataRoot: Option[String], poolSizeOption: Option[Int],
         tablesIndexes: Set[Int]): Unit = {
-        val poolSize = poolSizeOption.getOrElse(8)
+        val poolSize = poolSizeOption.getOrElse(2)
 
         val pool: ExecutorService = Executors.newFixedThreadPool(poolSize)
 
-        logger.info(s"Loading tables using thread pool of size ${poolSize}, " +
-            s"tablesIndexes = ${tablesIndexes.mkString(", ")}")
+        logger.info(s"[ThreadPool.size:${poolSize}][TablesIndexes:${tablesIndexes.mkString(", ")}]")
 
         printTables(dataRoot.get)
 
@@ -100,17 +124,43 @@ object MainApp extends App {
         try {
             new CSVReader(getClass.getResourceAsStream("/tables.csv")).foreach { line ⇒
                 if (tablesIndexes(line(1).toInt))
-                    new LoadTable(local, line(0), dataRoot.get, pool, ignite).load()
+                    new LoadTable(local, line(0), dataRoot.get, pool, ignite, poolSize).load()
                 else
                     logger.warn(s"Skipping table ${line(0)} of index ${line(1)}")
             }
         } finally {
             pool.shutdown()
-            pool.awaitTermination(25, TimeUnit.HOURS)
+            pool.awaitTermination(23, TimeUnit.HOURS)
+            logger.info("Pool terminated. All tasks are done! Finish!")
             ignite.close()
         }
     }
 
+    def generateCode(dataRoot: String) =
+        new GenerateBuilderClasses(dataRoot).generate()
+
+    def countLines(dataRoot: String) = {
+        val pool: ExecutorService = Executors.newFixedThreadPool(8)
+
+        val fileIterator = if (new File(dataRoot).isDirectory)
+            directoryIterator(dataRoot)
+        else
+            zipIterator(dataRoot)
+
+        fileIterator.foreach { case (name, file) ⇒
+            val iter = Source.fromInputStream(file, "Cp1251")
+            var count = 0L
+            while (iter.hasNext) {
+                iter.next
+                count += 1
+
+            }
+
+            val df = new DecimalFormat()
+
+            logger.info(s"[$name.lineCount=${df.format(count)}]")
+        }
+    }
 
     def printTables(dataRoot: String) = {
         val fileIterator = if (new File(dataRoot).isDirectory)
@@ -121,6 +171,5 @@ object MainApp extends App {
         val tables = fileIterator.filter(_._1.contains('_')).map(file ⇒ file._1.substring(0, file._1.lastIndexOf('_'))).toSet
         logger.info(s"==== KNOWN TABLES START - ${tables.size} ====")
         tables.foreach(logger.info)
-        logger.info(s"====         KNOWN TABLES END            ====")
     }
 }

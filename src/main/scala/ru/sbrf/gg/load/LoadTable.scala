@@ -1,28 +1,30 @@
 package ru.sbrf.gg.load
 
 import java.io.{File, InputStream}
-import java.lang.reflect.Field
 import java.util
-import java.util.concurrent.ExecutorService
+import java.util.concurrent.atomic.AtomicInteger
+import java.util.concurrent.{ExecutorService, Phaser}
 
-import com.sbt.dpl.gridgain.AffinityParticleKey
 import org.apache.ignite.{Ignite, IgniteCache}
 import org.slf4j.LoggerFactory
-import ru.sbt.kmdtransform._
+import ru.sbrf.gg.load.builder._
 
-import scala.xml.{Node, XML}
+import scala.io.Source
 
 /**
   */
-class LoadTable(local: Boolean, tableName: String, dataRoot: String, pool: ExecutorService, val ignite: Ignite) {
-    val logResolution: Long = System.getProperty("LOG_RESOLUTION", "100000").toLong
+class LoadTable(local: Boolean, tableName: String, dataRoot: String, pool: ExecutorService, val ignite: Ignite, val poolSize: Int) {
+    private val logger = LoggerFactory.getLogger(this.getClass)
 
     val batchSize: Int = System.getProperty("BATCH_SIZE", "10000").toInt
 
-    private val logger = LoggerFactory.getLogger(this.getClass)
+    val doInsert: String = System.getProperty("INSERT_INTO_GG", "true")
+
+    val counter = new AtomicInteger()
+    val lock = new Object()
 
     def load(): Unit = {
-        logger.info(s"LoadTable.load: local=$local, tableName=$tableName, dataRoot=$dataRoot")
+        logger.info(s"[LoadTable][tableName:$tableName][local:$local][dataRoot:$dataRoot]")
 
         val tableInfo = findTableInfo(tableName)
 
@@ -34,136 +36,111 @@ class LoadTable(local: Boolean, tableName: String, dataRoot: String, pool: Execu
             zipIterator(dataRoot)
 
         val tableFiles = fileIterator.filter { case (name, stream) ⇒
-            name.matches(tableInfo.fileMask)
+            name.toLowerCase().matches(tableInfo.fileMask)
         }
 
         if (tableFiles.nonEmpty) {
             tableFiles.foreach { case (name, stream) ⇒
-                pool.submit(new Runnable {
-                    override def run(): Unit =
-                        try {
-                            loadFile(name, stream, tableInfo, cache)
-                        } catch {
-                            case e: Exception ⇒ logger.error(s"Error loading file $name:", e)
-                        }
-                })
+                try {
+                    loadFile(name, stream, tableInfo, cache)
+                } catch {
+                    case e: Exception ⇒ logger.error(s"Error loading file $name:", e)
+                }
             }
 
-            logger.info(s"All files for $tableName submitted for load")
+            logger.info(s"[LoadTable][tableName:$tableName] All files submitted for load")
         } else
-            logger.warn(s"No files for table $tableName")
+            logger.warn(s"[LoadTable][tableName:$tableName] No files for table")
     }
 
     private def loadFile(name: String, stream: InputStream, tableInfo: TableInfo, cache: IgniteCache[Any, Any]): Unit = {
-        logger.info(s"Start loading file $name")
+        logger.info(s"[LoadTable][FileLoadStart][tableName:$tableName][file:$name]")
         closeAfter(stream) { stream ⇒
-            val reader = new CSVReader(stream, "\\|", "Cp1251")
+            val reader = Source.fromInputStream(stream, "Cp1251").getLines
 
             var lineCount = 0
 
-            var batch = new util.HashMap[Any, Any]()
+            var batch = new Array[String](batchSize)
 
             for (line ← reader) {
+                batch(lineCount % batchSize) = line
+
                 lineCount += 1
-                if (lineCount % logResolution == 0)
-                    logger.info(s"Loading file $name - $lineCount")
 
                 if (lineCount % batchSize == 0 && lineCount != 0) {
-                    logger.debug(s"Inserting batch into $tableName, $name - " + lineCount)
-                    val start = System.nanoTime()
-                    cache.putAll(batch)
-                    logger.info(s"Batch inserted into $tableName, $name - " + lineCount +
-                        s", timeElapsed - ${(System.nanoTime() - start)/1000000.0} msec")
-                    batch = new util.HashMap[Any, Any]()
+                    logger.info(s"[LoadTable][BatchSubmit][tableName:$tableName][file:$name][lineCount:$lineCount]")
+                    pool.submit(new InsertBatchTask(batch, tableInfo, cache, lineCount, name))
+                    batch = new Array[String](batchSize)
+                    val currentBatchCnt = counter.incrementAndGet()
+                    if (currentBatchCnt >= poolSize) {
+                        lock.synchronized {
+                            try {
+                                //logger.info("All Threads are busy. Waiting batch finish...")
+                                lock.wait()
+                                //logger.info(s"Some batch finished. Continue to read file $name...")
+                            } catch {
+                                case e: InterruptedException  ⇒ e.printStackTrace()
+                            }
+                        }
+                    }
                 }
-
-                batch.put(buildKey(line, tableInfo.key, tableInfo.value), buildObject(line, tableInfo.value))
             }
 
             if (lineCount % batchSize != 0 && lineCount != 0)
-                cache.putAll(batch)
+                pool.submit(new InsertBatchTask(batch, tableInfo, cache, lineCount, name))
 
-            logger.info(s"File $name loaded - $lineCount")
+            logger.info(s"[LoadTable][FileLoadFinish][tableName:$tableName][file:$name][lineCount:$lineCount]")
         }
     }
 
-    private def findTableInfo(tableName: String): TableInfo = {
-        def findTransform0(fileTag: Node): TableInfo = {
-            val name = (fileTag \ "tableName").text
+    class InsertBatchTask(batch: Array[String], tableInfo: TableInfo, cache: IgniteCache[Any, Any], lineCount: Long,
+        name: String) extends Runnable {
+        override def run(): Unit =
+            try {
+                logger.info(s"[LoadTable][BatchPrepareStart][tableName:$tableName][file:$name][lineCount:$lineCount]")
+                val batchMap = new util.HashMap[Any, Any](batch.length, 1)
 
-            val transformConfig = XML.load(
-                getClass.getResourceAsStream("/distrib_src_main_resource_config_gg-eip.xml"))
+                var avg = 0d
+                var avg2 = 0d
 
-            val table = (transformConfig \ "tables" \ "table").find(node ⇒ (node \ "name").text == name)
+                val keyBuilder: ObjectBuilder = value2builder(tableInfo.key)
+                val valueBuilder: ObjectBuilder = value2builder(tableInfo.value)
 
-            table match {
-                case Some(t) ⇒
-                    val keyType = Class.forName((t \ "key_data_type").text)
-                    val valueType = Class.forName((t \ "object_data_type").text)
+                batch.foreach { str ⇒
+                    if (str != null) {
+                        val start = System.nanoTime()
 
-                    val fileMask = (fileTag \ "filesMask").text.replaceAll("\\*", ".*")
+                        val line = str.split("\\|", -1)
 
-                    TableInfo(keyType, valueType, (t \ "cache_name").text, fileMask)
-                case None ⇒
-                    throw new RuntimeException(s"Transform config for table $tableName not found")
+                        val start2 = System.nanoTime()
+
+                        val key = keyBuilder.build(line, tableInfo)
+                        val value = valueBuilder.build(line, tableInfo)
+
+                        avg += (System.nanoTime() - start)/1000000.0
+                        avg2 += (System.nanoTime() - start2)/1000000.0
+
+                        batchMap.put(key, value)
+                    }
+                }
+
+                logger.info(s"Avg = ${avg}")
+                logger.info(s"Avg2 = ${avg2}")
+                //14:44:51.181 [pool-1-thread-1] INFO ru.sbrf.gg.load.LoadTable - Avg = 8798.218473998897
+                //14:44:51.181 [pool-1-thread-1] INFO ru.sbrf.gg.load.LoadTable - Avg2 = 6195.834078000055
+
+                logger.info(s"[LoadTable][BatchPrepareFinish][tableName:$tableName][file:$name][lineCount:$lineCount]")
+
+                val start = System.nanoTime()
+                cache.putAll(batchMap)
+                logger.info(s"[LoadTable][BatchInserted][tableName:$tableName][file:$name]" +
+                    s"[lineCount:$lineCount][timeElapsed:${(System.nanoTime() - start)/1000000.0}]")
+                counter.decrementAndGet()
+                lock.synchronized {
+                    lock.notify()
+                }
+            } catch {
+                case e: Exception ⇒ logger.error(s"Error inserting batch. $name:", e)
             }
-        }
-
-        val loaderConfig = XML.load(
-            getClass.getResourceAsStream("/distrib_src_main_resource_config_LoaderConfig.xml"))
-
-        val fileTags = loaderConfig \ "loader" \ "type" \ "filesWithId" \ "files" \ "file"
-
-        val name2find = tableName.substring(tableName.lastIndexOf('_') + 1)
-
-        fileTags.find { node ⇒ name2find == (node \ "tableName").text } match {
-            case Some(fileTag) ⇒
-                findTransform0(fileTag)
-            case None ⇒
-                throw new RuntimeException(s"Settings for table $tableName not found")
-        }
-    }
-
-    def buildKey(line: Array[String], key: Class[_], value: Class[_]): Any = {
-        if (key != classOf[AffinityParticleKey])
-            throw new RuntimeException("Not AffinityParticle Key!!!")
-
-        val id = value.getFields.find(_.isAnnotationPresent(classOf[IdField])).map { f ⇒
-            fieldValue(line, f).asInstanceOf[Long]
-        }.getOrElse(throw new RuntimeException(s"Can't find IdField annotation for $value"))
-
-        val partitionId  = value.getFields.find(_.isAnnotationPresent(classOf[PartField])).map { f ⇒
-            fieldValue(line, f).asInstanceOf[Long]
-        }.getOrElse(throw new RuntimeException(s"Can't find PartField annotation for $value"))
-
-        val rootId  = value.getFields.find(_.isAnnotationPresent(classOf[RootField])).map { f ⇒
-            fieldValue(line, f).asInstanceOf[Long]
-        }.getOrElse(throw new RuntimeException(s"Can't find RootField annotation for $value"))
-
-        new AffinityParticleKey(id, partitionId, rootId)
-    }
-
-    def buildObject[T](line: Array[String], valueClazz: Class[T]): T = {
-        val result = valueClazz.newInstance
-
-        val fields = valueClazz.getFields.filter(f ⇒ f.isAnnotationPresent(classOf[InitOrder]))
-
-        fields.foreach { f ⇒ f.set(result, fieldValue(line, f)) }
-
-        result
-    }
-
-    def fieldValue(line: Array[String], field: Field): Any = {
-        var fieldValueStr = line(field.getAnnotation(classOf[InitOrder]).value().toInt - 1)
-
-        if (fieldValueStr == null || fieldValueStr == "" && field.isAnnotationPresent(classOf[Default]))
-            fieldValueStr = field.getAnnotation(classOf[Default]).value()
-
-        if (!field.isAnnotationPresent(classOf[DataType]))
-            throw new RuntimeException(s"there is no DatType annotation for field ${field.getName} " +
-                s"of class ${field.getDeclaringClass.getName}")
-
-        val dataType = field.getAnnotation(classOf[DataType]).value()
-        dataType.fromStr(fieldValueStr)
     }
 }

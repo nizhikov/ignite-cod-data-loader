@@ -12,6 +12,7 @@ import org.apache.ignite.{Ignite, Ignition}
 import org.slf4j.LoggerFactory
 
 import scala.collection.JavaConversions._
+import scala.xml.{Node, XML}
 
 /**
   */
@@ -101,9 +102,9 @@ package object load {
 
         val ignite = Ignition.start(cfg)
 
-        logger.info("Connected to cluster. Trying to activate it")
+        logger.info("[Cluster][Activation][Start]")
         ignite.active(true)
-        logger.info(" Done activating cluster")
+        logger.info("[Cluster][Activation][Finish]")
 
         ignite
     }
@@ -122,6 +123,43 @@ package object load {
                 val entry = entries.nextElement
                 (entry.getName, zipFile.getInputStream(entry))
             }
+        }
+    }
+
+    def findTableInfo(tableName: String): TableInfo = {
+        def findTransform0(fileTag: Node): TableInfo = {
+            val name = (fileTag \ "tableName").text
+
+            val transformConfig = XML.load(
+                getClass.getResourceAsStream("/distrib_src_main_resource_config_gg-eip.xml"))
+
+            val table = (transformConfig \ "tables" \ "table").find(node ⇒ (node \ "name").text == name)
+
+            table match {
+                case Some(t) ⇒
+                    val keyType = Class.forName((t \ "key_data_type").text)
+                    val valueType = Class.forName((t \ "object_data_type").text)
+
+                    val fileMask = (fileTag \ "filesMask").text.replaceAll("\\*", ".*").toLowerCase()
+
+                    TableInfo(keyType, valueType, (t \ "cache_name").text, fileMask)
+                case None ⇒
+                    throw new RuntimeException(s"Transform config for table $tableName not found")
+            }
+        }
+
+        val loaderConfig = XML.load(
+            getClass.getResourceAsStream("/distrib_src_main_resource_config_LoaderConfig.xml"))
+
+        val fileTags = loaderConfig \ "loader" \ "type" \ "filesWithId" \ "files" \ "file"
+
+        val name2find = tableName.substring(tableName.lastIndexOf('_') + 1)
+
+        fileTags.find { node ⇒ name2find == (node \ "tableName").text } match {
+            case Some(fileTag) ⇒
+                findTransform0(fileTag)
+            case None ⇒
+                throw new RuntimeException(s"Settings for table $tableName not found")
         }
     }
 }

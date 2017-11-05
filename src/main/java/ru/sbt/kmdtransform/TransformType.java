@@ -100,6 +100,7 @@ public enum TransformType {
         @Override public Object fromStr(String value) {
             return new StringBuilder(value);
         }
+
     },
 
     STRING {
