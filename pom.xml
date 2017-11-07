@@ -28,8 +28,6 @@
     <properties>
         <javax.cache.version>1.0.0</javax.cache.version>
         <scala.version>2.11.8</scala.version>
-        <gridgain.version>8.1.6</gridgain.version>
-        <ignite.version>2.1.6</ignite.version>
         <assembly.file.name>${project.artifactId}-bin-${project.version}</assembly.file.name>
     </properties>
 
@@ -63,18 +61,6 @@
             <groupId>com.github.scopt</groupId>
             <artifactId>scopt_2.11</artifactId>
             <version>3.7.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.gridgain</groupId>
-            <artifactId>gridgain-ultimate</artifactId>
-            <version>${gridgain.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.gridgain</groupId>
-            <artifactId>gridgain-core</artifactId>
-            <version>${gridgain.version}</version>
         </dependency>
 
         <dependency>
@@ -112,7 +98,6 @@
             <artifactId>ignite-spring-data</artifactId>
             <version>${ignite.version}</version>
         </dependency>
-
 
         <dependency>
             <groupId>ch.qos.logback</groupId>
@@ -181,6 +166,38 @@
 
     <profiles>
         <profile>
+            <id>ignite</id>
+
+            <properties>
+                <ignite.version>2.3.0</ignite.version>
+            </properties>
+
+        </profile>
+
+        <profile>
+            <id>grid-gain</id>
+
+            <properties>
+                <gridgain.version>8.1.6</gridgain.version>
+                <ignite.version>2.1.6</ignite.version>
+            </properties>
+
+            <dependencies>
+                <dependency>
+                    <groupId>org.gridgain</groupId>
+                    <artifactId>gridgain-ultimate</artifactId>
+                    <version>${gridgain.version}</version>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.gridgain</groupId>
+                    <artifactId>gridgain-core</artifactId>
+                    <version>${gridgain.version}</version>
+                </dependency>
+            </dependencies>
+        </profile>
+
+        <profile>
             <id>release</id>
             <build>
                 <plugins>
@@ -217,11 +234,12 @@
             </build>
         </profile>
     </profiles>
-
+<!--
     <repositories>
         <repository>
             <id>gridgain</id>
             <url>http://nexus.sigma.sbrf.ru:8099/nexus/content/repositories/gridgainsystems_proxy/</url>
         </repository>
     </repositories>
+-->
 </project>
