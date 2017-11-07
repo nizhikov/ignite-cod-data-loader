@@ -351,8 +351,8 @@ public class PublishedDeposit {
 
     @OraName(value = "D_PARTRATE")
     @InitOrder(value = "63")
-    @DataType(value = TransformType.INTEGER)
-    public Integer depositPartrate;
+    @DataType(value = TransformType.BIGDECIMAL)
+    public BigDecimal depositPartrate;
 
     @OraName(value = "D_PASSWORD")
     @InitOrder(value = "64")

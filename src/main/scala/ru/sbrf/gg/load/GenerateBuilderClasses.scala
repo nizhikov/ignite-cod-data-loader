@@ -4,6 +4,9 @@ import java.io.{File, PrintWriter}
 
 import com.sbt.dpl.gridgain.AffinityParticleKey
 import ru.sbt.kmdtransform.TransformType
+import ru.sbt.kmdtransform.TransformType._
+
+import scala.collection.JavaConversions._
 
 /**
   */
@@ -14,29 +17,32 @@ class GenerateBuilderClasses(dataRoot: String) {
         else
             zipIterator(dataRoot)
 
-
         val tables = fileIterator.filter(_._1.contains('_')).map(file ⇒ file._1.substring(0, file._1.lastIndexOf('_'))).toSet
         val mapCode = tables.map { t ⇒
             val tableInfo = findTableInfo(t)
             val className = generate4Table(tableInfo)
 
-            s"\t\tclassOf[${tableInfo.value.getName}] -> new $className()"
+            s"\t\tbuilders.put(${tableInfo.value.getName}.class, new $className());"
         }
 
-        val file = new File(s"./src/main/scala/ru/sbrf/gg/load/builder/package.scala")
+        val file = new File(s"./src/main/java/ru/sbrf/gg/load/builder/Builders.java")
 
         println(s"Writing $file")
         val output = new PrintWriter(file)
 
         output.println(
             s"""
-              | package ru.sbrf.gg.load
+              | package ru.sbrf.gg.load.builder;
               |
-              | package object builder {
-              |     val value2builder = Map[Class[_], ObjectBuilder](
-              |         classOf[${classOf[AffinityParticleKey].getName}] -> new AffinityParticleKeyBuilder(),
-              |         ${mapCode.mkString(",\n")}
-              |     )
+              | import java.util.Map;
+              | import java.util.HashMap;
+              |
+              | public class Builders {
+              |     public static Map<Class<?>, ObjectBuilder> builders = new HashMap<>();
+              |     static {
+              |         builders.put(com.sbt.dpl.gridgain.AffinityParticleKey.class, new AffinityParticleKeyBuilder());
+              |         ${mapCode.mkString("\n")}
+              |     }
               | }
             """.stripMargin)
         output.close()
@@ -46,30 +52,63 @@ class GenerateBuilderClasses(dataRoot: String) {
         val className = s"${tableInfo.value.getSimpleName}Builder"
 
         val fieldsSetters = tableInfo.valueFields.sortBy(_._2).map { f ⇒
-            val name = if (f._1.getName == "type")
-                "`type`" else f._1.getName
+            val name = f._1.getName
 
-            s"r.$name = ${f._4.name()}.fromStr(line(${f._2})).asInstanceOf[${f._1.getType.getName}]"
+            f._4 match {
+                case LONG ⇒
+                    s"r.$name = DelimetedStringParser._long(${f._2}, line, indexes);"
+                case INTEGER ⇒
+                    s"r.$name = DelimetedStringParser._int(${f._2}, line, indexes);"
+                case BIGDECIMAL ⇒
+                    s"r.$name = DelimetedStringParser.bigDecimal(${f._2}, line, indexes);"
+                case DATE_TIME ⇒
+                    s"r.$name = DelimetedStringParser.date(${f._2}, line, indexes);"
+                case STRING ⇒
+                    s"r.$name = DelimetedStringParser.str(${f._2}, line, indexes);"
+                case CSL_AFFINITYPARTICLES ⇒
+                    s"r.$name = DelimetedStringParser.strBuilder(${f._2}, line, indexes);"
+                case CSL_DICTS ⇒
+                    s"r.$name = DelimetedStringParser.strBuilder(${f._2}, line, indexes);"
+                case BOOLEAN ⇒
+                    s"r.$name = DelimetedStringParser.bool(${f._2}, line, indexes);"
+                case COMPOSEKEY ⇒
+                    s"r.$name = DelimetedStringParser._long(${f._2}, line, indexes);"
+                case ROOT ⇒
+                    s"r.$name = (${f._1.getType.getName})${f._4.name()}.fromStr(DelimetedStringParser.str(${f._2}, line, indexes));"
+                case PARTITION ⇒
+                    s"r.$name = (${f._1.getType.getName})${f._4.name()}.fromStr(DelimetedStringParser.str(${f._2}, line, indexes));"
+                case CSL_PARTICLES ⇒
+                    s"r.$name = (${f._1.getType.getName})${f._4.name()}.fromStr(DelimetedStringParser.str(${f._2}, line, indexes));"
+                case OBJ_TYPE ⇒
+                    s"r.$name = (${f._1.getType.getName})${f._4.name()}.fromStr(DelimetedStringParser.str(${f._2}, line, indexes));"
+            }
+
         }
 
-        val file = new File(s"./src/main/scala/ru/sbrf/gg/load/builder/$className.scala")
+        new File(s"./src/main/java/ru/sbrf/gg/load/builder/").mkdirs()
+        val file = new File(s"./src/main/java/ru/sbrf/gg/load/builder/$className.java")
+
         println(s"Writing $file")
         val output = new PrintWriter(file)
 
         output.println(
             s"""
-              | package ru.sbrf.gg.load.builder
+              | package ru.sbrf.gg.load.builder;
               |
-              | import ru.sbrf.gg.load.TableInfo
-              | import ${classOf[TransformType].getName}._
+              | import ru.sbrf.gg.load.TableInfo;
+              | import com.sbt.DelimetedStringParser;
+              | import ru.sbrf.gg.load.builder.ObjectBuilder;
               |
-              | class $className extends ObjectBuilder {
-              |     def build(line: Array[String], tableInfo: TableInfo): Any = {
-              |         val r = new ${tableInfo.value.getName}()
+              | import ${classOf[TransformType].getName}.*;
+              |
+              | public class $className implements ObjectBuilder {
+              |     @Override public Object build(String line, TableInfo tableInfo) {
+              |         ${tableInfo.value.getName} r = new ${tableInfo.value.getName}();
+              |         int[] indexes = new int[]{0, 0, line.length()};
               |
               |         ${fieldsSetters.mkString("\n")}
               |
-              |         r
+              |         return r;
               |     }
               | }
             """.stripMargin)

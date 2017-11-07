@@ -107,7 +107,8 @@ object MainApp extends App {
     def generateAddressesConfig(serversFile: String): Unit = {
         new CSVReader(new FileInputStream(serversFile)).foreach { line ⇒
             println(s"<value>${line(2)}:47500..47509</value>")
-        } }
+        }
+    }
 
     def loadTable(local: Boolean, dataRoot: Option[String], poolSizeOption: Option[Int],
         tablesIndexes: Set[Int]): Unit = {

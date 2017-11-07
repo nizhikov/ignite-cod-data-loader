@@ -142,7 +142,7 @@ package object load {
 
                     val fileMask = (fileTag \ "filesMask").text.replaceAll("\\*", ".*").toLowerCase()
 
-                    TableInfo(keyType, valueType, (t \ "cache_name").text, fileMask)
+                    new TableInfo(keyType, valueType, (t \ "cache_name").text, fileMask)
                 case None ⇒
                     throw new RuntimeException(s"Transform config for table $tableName not found")
             }
