@@ -72,6 +72,8 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
         <property name="selectorsCount" value="18"/>
         <property name="connectionsPerNode" value="1"/>
         <property name="messageQueueLimit" value="0"/>
+        <property name="localPort" value="48500" />
+        <property name="localPortRange" value="10" />
     </bean>
 
     <bean id="discoverySpi" class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
@@ -79,7 +81,7 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
             <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.multicast.TcpDiscoveryMulticastIpFinder">
                 <property name="addresses">
                     <list>
-                        <value>127.0.0.1:47500..47509</value>
+                        <value>127.0.0.1:48500..48509</value>
                     </list>
                 </property>
             </bean>
