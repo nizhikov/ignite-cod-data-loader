@@ -38,25 +38,6 @@ public class PublishedProductParty {
     @Default(value = "0")
     public Long affinityParent_DPL_id;
 
-//    @OraName(value = "templateId")
-//    @DataType(value = TransformType.LONG)
-//    public Long templateId;
-
-//    @OraName(value = "parentId")
-//    @InitOrder(value = "4")
-//    @DataType(value = TransformType.LONG)
-//    public Long parentId;
-
-//    @OraName(value = "product")
-//    @InitOrder(value = "5")
-//    @DataType(value = TransformType.LONG)
-//    @Default(value = "0")
-//    public Long product_DPL_id;
-//
-//    @DataType(value = TransformType.PARTITION)
-//    @PartForField(value = "product_DPL_id")
-//    public Long product_DPL_colocationKey;
-
     @OraName(value = "description")
     @InitOrder(value = "6")
     @DataType(value = TransformType.LONG)
@@ -247,8 +228,6 @@ public class PublishedProductParty {
     @InitOrder(value = "36")
     @DataType(value = TransformType.LONG)
     public Long partition_DPL_id;
-
-
 
     public String description;
 

@@ -85,15 +85,16 @@ package object load {
 
         val addresses =
             if (local)
-                List("127.0.0.1:47500..47509")
+                List("127.0.0.1:48501..48509")
             else
                 new CSVReader(getClass.getResourceAsStream("/addresses.csv")).map(_(0)).toList
         logger.info("Trying to connect to cluster with server nodes addresses:")
         addresses.foreach(logger.info)
 
         cfg.setDiscoverySpi(new TcpDiscoverySpi().setIpFinder(
-            new TcpDiscoveryMulticastIpFinder().setAddresses(
-                addresses)))
+            new TcpDiscoveryMulticastIpFinder()
+                .setMulticastPort(48501)
+                .setAddresses(List(addresses.head))))
 
         cfg.setBinaryConfiguration(new BinaryConfiguration()
             .setCompactFooter(true))

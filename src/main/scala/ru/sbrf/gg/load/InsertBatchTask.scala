@@ -14,7 +14,6 @@ class InsertBatchTask(batch: Array[String], tableInfo: TableInfo, cache: IgniteC
 
     override def run(): Unit =
         try {
-            logger.info(s"[LoadTable][BatchPrepareStart][tableName:$tableName][file:$name][lineCount:$lineCount]")
             val batchMap = new java.util.HashMap[Any, Any](batch.length, 1)
 
             val keyBuilder: ObjectBuilder = Builders.builders.get(tableInfo.key)
@@ -30,8 +29,6 @@ class InsertBatchTask(batch: Array[String], tableInfo: TableInfo, cache: IgniteC
                     batchMap.put(key, value)
                 }
             }
-
-            logger.info(s"[LoadTable][BatchPrepareFinish][tableName:$tableName][file:$name][lineCount:$lineCount][time2prepare:${(System.nanoTime()-wholeStart)/1000000.0}]")
 
             val start = System.nanoTime()
             cache.putAll(batchMap)

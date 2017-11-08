@@ -141,20 +141,17 @@ object MainApp extends App {
         new GenerateBuilderClasses(dataRoot).generate()
 
     def countLines(dataRoot: String) = {
-        val pool: ExecutorService = Executors.newFixedThreadPool(8)
-
         val fileIterator = if (new File(dataRoot).isDirectory)
             directoryIterator(dataRoot)
         else
             zipIterator(dataRoot)
 
         fileIterator.foreach { case (name, file) ⇒
-            val iter = Source.fromInputStream(file, "Cp1251")
-            var count = 0L
+            val iter = Source.fromInputStream(file, "Cp1251").getLines()
+            var count: Long = 0L
             while (iter.hasNext) {
                 iter.next
                 count += 1
-
             }
 
             val df = new DecimalFormat()

@@ -79,9 +79,10 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
     <bean id="discoverySpi" class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
         <property name="ipFinder">
             <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.multicast.TcpDiscoveryMulticastIpFinder">
+                <property name="multicastPort" value="48501" />
                 <property name="addresses">
                     <list>
-                        <value>127.0.0.1:48500..48509</value>
+                        <value>127.0.0.1:48501..48509</value>
                     </list>
                 </property>
             </bean>

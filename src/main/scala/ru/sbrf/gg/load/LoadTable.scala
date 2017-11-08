@@ -1,6 +1,7 @@
 package ru.sbrf.gg.load
 
-import java.io.{File, InputStream}
+import java.io._
+import java.util.Scanner
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.{ExecutorService, Phaser}
 
@@ -16,9 +17,7 @@ class LoadTable(local: Boolean, tableName: String, dataRoot: String, pool: Execu
 
     val batchSize: Int = System.getProperty("BATCH_SIZE", "10000").toInt
 
-    val doInsert: String = System.getProperty("INSERT_INTO_GG", "true")
-
-    val maxLines: Long = System.getProperty("MAX_LINES", "-1").toLong
+    val fileName: String = System.getProperty("FILE_NAME", "")
 
     val counter = new AtomicInteger()
     val lock = new Object()
@@ -41,10 +40,14 @@ class LoadTable(local: Boolean, tableName: String, dataRoot: String, pool: Execu
 
         if (tableFiles.nonEmpty) {
             tableFiles.foreach { case (name, stream) ⇒
-                try {
-                    loadFile(name, stream, tableInfo, cache)
-                } catch {
-                    case e: Exception ⇒ logger.error(s"Error loading file $name:", e)
+                if (fileName == "" || fileName == name)
+                    try {
+                        loadFile(name, stream, tableInfo, cache)
+                    } catch {
+                        case e: Exception ⇒ logger.error(s"Error loading file $name:", e)
+                    }
+                else {
+                    logger.info(s"[LoadTable][tableName:$tableName] Skip $name because loading only $fileName")
                 }
             }
 
@@ -56,30 +59,32 @@ class LoadTable(local: Boolean, tableName: String, dataRoot: String, pool: Execu
     private def loadFile(name: String, stream: InputStream, tableInfo: TableInfo, cache: IgniteCache[Any, Any]): Unit = {
         logger.info(s"[LoadTable][FileLoadStart][tableName:$tableName][file:$name]")
 
+        val reader = new BufferedReader(new InputStreamReader(stream, "Cp1251"), 4*1024*1024)
         try {
-            val reader = Source.fromInputStream(stream, "Cp1251").getLines
-
             var lineCount: Long = 0L
             var batchIndex: Int = 0
 
             var batch = new Array[String](batchSize)
 
-            while (reader.hasNext && (maxLines == -1 || maxLines >= lineCount)) {
-                batch(batchIndex) = reader.next
+            var line = reader.readLine()
+            while (line != null) {
+                batch(batchIndex) = line
 
                 lineCount += 1
                 batchIndex += 1
 
                 if (batchIndex == batchSize && lineCount != 0) {
-                    logger.info(s"[LoadTable][BatchSubmit][tableName:$tableName][file:$name][lineCount:$lineCount]")
+                    logger.debug(s"[LoadTable][BatchSubmit][tableName:$tableName][file:$name][lineCount:$lineCount]")
+
                     pool.execute(new InsertBatchTask(batch, tableInfo, cache, lineCount, name, tableName, lock, counter))
 
                     waitTasksToComplete
 
                     batch = new Array[String](batchSize)
                     batchIndex = 0
-
                 }
+
+                line = reader.readLine
             }
 
             if (lineCount % batchSize != 0 && lineCount != 0) {
@@ -90,6 +95,7 @@ class LoadTable(local: Boolean, tableName: String, dataRoot: String, pool: Execu
 
             logger.info(s"[LoadTable][FileLoadFinish][tableName:$tableName][file:$name][lineCount:$lineCount]")
         } finally {
+            reader.close
             stream.close
         }
     }
