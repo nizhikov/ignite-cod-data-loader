@@ -1,15 +1,11 @@
 package ru.sbrf.gg.load
 
 import java.io.{File, InputStream}
-import java.text.SimpleDateFormat
-import java.util
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.{ExecutorService, Phaser}
 
-import com.sbt.DelimetedStringParser
 import org.apache.ignite.{Ignite, IgniteCache}
 import org.slf4j.LoggerFactory
-import ru.sbrf.gg.load.builder.{Builders, ObjectBuilder, PublishedProductPartyBuilder}
 
 import scala.io.Source
 
@@ -22,7 +18,7 @@ class LoadTable(local: Boolean, tableName: String, dataRoot: String, pool: Execu
 
     val doInsert: String = System.getProperty("INSERT_INTO_GG", "true")
 
-    val maxLines = System.getProperty("MAX_LINES", "-1").toInt
+    val maxLines: Long = System.getProperty("MAX_LINES", "-1").toLong
 
     val counter = new AtomicInteger()
     val lock = new Object()
@@ -63,35 +59,37 @@ class LoadTable(local: Boolean, tableName: String, dataRoot: String, pool: Execu
         try {
             val reader = Source.fromInputStream(stream, "Cp1251").getLines
 
-            var lineCount = 0
+            var lineCount: Long = 0L
+            var batchIndex: Int = 0
 
             var batch = new Array[String](batchSize)
 
             while (reader.hasNext && (maxLines == -1 || maxLines >= lineCount)) {
-                batch(lineCount % batchSize) = reader.next
+                batch(batchIndex) = reader.next
 
                 lineCount += 1
+                batchIndex += 1
 
-                if (lineCount % batchSize == 0 && lineCount != 0) {
+                if (batchIndex == batchSize && lineCount != 0) {
                     logger.info(s"[LoadTable][BatchSubmit][tableName:$tableName][file:$name][lineCount:$lineCount]")
                     pool.execute(new InsertBatchTask(batch, tableInfo, cache, lineCount, name, tableName, lock, counter))
 
                     waitTasksToComplete
 
                     batch = new Array[String](batchSize)
+                    batchIndex = 0
 
                 }
             }
 
             if (lineCount % batchSize != 0 && lineCount != 0) {
-                waitTasksToComplete
                 pool.execute(new InsertBatchTask(batch, tableInfo, cache, lineCount, name, tableName, lock, counter))
 
+                waitTasksToComplete
             }
 
             logger.info(s"[LoadTable][FileLoadFinish][tableName:$tableName][file:$name][lineCount:$lineCount]")
-        }
-        finally {
+        } finally {
             stream.close
         }
     }
