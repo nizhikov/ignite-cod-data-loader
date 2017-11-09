@@ -85,7 +85,7 @@ public class PublishedHsDeposit {
 
     @OraName(value = "H_PROC_COUNT")
     @InitOrder(value = "10")
-    @DataType(value = TransformType.LONG)
+    @DataType(value = TransformType.BIGDECIMAL)
     public BigDecimal procCount;
 
     @OraName(value = "H_STATE")

@@ -1,13 +1,13 @@
 package ru.sbrf.gg.load
 
-import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.ExecutorService
+import java.util.concurrent.atomic.AtomicInteger
 
 import org.apache.ignite.{Ignite, IgniteCache}
 
 /**
   */
-class LoadTable(val local: Boolean, val tableName: String, val dataRoot: String, val pool: ExecutorService,
+class CheckTable(val local: Boolean, val tableName: String, val dataRoot: String, val pool: ExecutorService,
     val ignite: Ignite, val poolSize: Int) extends ProcessTableFile {
 
     val counter = new AtomicInteger()
@@ -16,14 +16,14 @@ class LoadTable(val local: Boolean, val tableName: String, val dataRoot: String,
 
     var cache: IgniteCache[Any, Any] = _
 
-    override def taskName: String = "LoadTable"
+    override def taskName: String = "CheckTable"
 
     override def start(tableInfo: TableInfo): Unit = {
         cache = ignite.getOrCreateCache(tableInfo.cacheName)
     }
 
     override def processBatch(batch: Array[String], tableInfo: TableInfo, lineCount: Long, name: String): Unit = {
-        pool.execute(new InsertBatchTask(batch, tableInfo, cache, lineCount, name, tableName, lock, counter))
+        pool.execute(new CheckBatchTask(batch, tableInfo, cache, lineCount, name, tableName, lock, counter))
 
         waitTasksToComplete()
     }

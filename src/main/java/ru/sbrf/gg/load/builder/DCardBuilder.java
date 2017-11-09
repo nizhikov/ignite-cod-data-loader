@@ -3,13 +3,15 @@
 
  import ru.sbrf.gg.load.TableInfo;
  import com.sbt.DelimetedStringParser;
+ import com.sbt.CompareUtils;
  import ru.sbrf.gg.load.builder.ObjectBuilder;
+ import com.sbt.cdm.model.extension.deposit.DCard;
 
  import ru.sbt.kmdtransform.TransformType.*;
 
  public class DCardBuilder implements ObjectBuilder {
      @Override public Object build(String line, TableInfo tableInfo) {
-         com.sbt.cdm.model.extension.deposit.DCard r = new com.sbt.cdm.model.extension.deposit.DCard();
+         DCard r = new DCard();
          int[] indexes = new int[]{0, 0, line.length()};
 
          r.id = DelimetedStringParser._long(0, line, indexes);
@@ -99,6 +101,99 @@ r.category_DPL_id = DelimetedStringParser._long(82, line, indexes);
 r.partition_DPL_id = DelimetedStringParser._long(83, line, indexes);
 
          return r;
+     }
+
+     @Override public int compare(Object first, Object second) {
+         DCard f = (DCard)first;
+         DCard s = (DCard)second;
+
+         if (CompareUtils.compare(f.id, s.id) != 0) return CompareUtils.compare(f.id, s.id);
+if (CompareUtils.compare(f.objectId, s.objectId) != 0) return CompareUtils.compare(f.objectId, s.objectId);
+if (CompareUtils.compare(f.colocationKey, s.colocationKey) != 0) return CompareUtils.compare(f.colocationKey, s.colocationKey);
+if (CompareUtils.compare(f.rootParticle_DPL_id, s.rootParticle_DPL_id) != 0) return CompareUtils.compare(f.rootParticle_DPL_id, s.rootParticle_DPL_id);
+if (CompareUtils.compare(f.plasticCardInst_DPL_id, s.plasticCardInst_DPL_id) != 0) return CompareUtils.compare(f.plasticCardInst_DPL_id, s.plasticCardInst_DPL_id);
+if (CompareUtils.compare(f.dcardAircode, s.dcardAircode) != 0) return CompareUtils.compare(f.dcardAircode, s.dcardAircode);
+if (CompareUtils.compare(f.dcardAirnumber, s.dcardAirnumber) != 0) return CompareUtils.compare(f.dcardAirnumber, s.dcardAirnumber);
+if (CompareUtils.compare(f.dcardAutopaymentState, s.dcardAutopaymentState) != 0) return CompareUtils.compare(f.dcardAutopaymentState, s.dcardAutopaymentState);
+if (CompareUtils.compare(f.dcardAutopaymentSumma, s.dcardAutopaymentSumma) != 0) return CompareUtils.compare(f.dcardAutopaymentSumma, s.dcardAutopaymentSumma);
+if (CompareUtils.compare(f.dcardBlockcode, s.dcardBlockcode) != 0) return CompareUtils.compare(f.dcardBlockcode, s.dcardBlockcode);
+if (CompareUtils.compare(f.dcardBlockdate, s.dcardBlockdate) != 0) return CompareUtils.compare(f.dcardBlockdate, s.dcardBlockdate);
+if (CompareUtils.compare(f.dcard_branchno, s.dcard_branchno) != 0) return CompareUtils.compare(f.dcard_branchno, s.dcard_branchno);
+if (CompareUtils.compare(f.dcardCardmadeenddate, s.dcardCardmadeenddate) != 0) return CompareUtils.compare(f.dcardCardmadeenddate, s.dcardCardmadeenddate);
+if (CompareUtils.compare(f.dcardCardmadeloaddate, s.dcardCardmadeloaddate) != 0) return CompareUtils.compare(f.dcardCardmadeloaddate, s.dcardCardmadeloaddate);
+if (CompareUtils.compare(f.dcardCardmadenumber, s.dcardCardmadenumber) != 0) return CompareUtils.compare(f.dcardCardmadenumber, s.dcardCardmadenumber);
+if (CompareUtils.compare(f.dcardChangeBranchno, s.dcardChangeBranchno) != 0) return CompareUtils.compare(f.dcardChangeBranchno, s.dcardChangeBranchno);
+if (CompareUtils.compare(f.dcardChangeClerk, s.dcardChangeClerk) != 0) return CompareUtils.compare(f.dcardChangeClerk, s.dcardChangeClerk);
+if (CompareUtils.compare(f.dcardChangeDay, s.dcardChangeDay) != 0) return CompareUtils.compare(f.dcardChangeDay, s.dcardChangeDay);
+if (CompareUtils.compare(f.dcardChangeOffice, s.dcardChangeOffice) != 0) return CompareUtils.compare(f.dcardChangeOffice, s.dcardChangeOffice);
+if (CompareUtils.compare(f.dcardChangeType, s.dcardChangeType) != 0) return CompareUtils.compare(f.dcardChangeType, s.dcardChangeType);
+if (CompareUtils.compare(f.dcardClaimdate, s.dcardClaimdate) != 0) return CompareUtils.compare(f.dcardClaimdate, s.dcardClaimdate);
+if (CompareUtils.compare(f.dcardClaimiask, s.dcardClaimiask) != 0) return CompareUtils.compare(f.dcardClaimiask, s.dcardClaimiask);
+if (CompareUtils.compare(f.dcardClient, s.dcardClient) != 0) return CompareUtils.compare(f.dcardClient, s.dcardClient);
+if (CompareUtils.compare(f.dcardCodecard, s.dcardCodecard) != 0) return CompareUtils.compare(f.dcardCodecard, s.dcardCodecard);
+if (CompareUtils.compare(f.dcardCodefortariff, s.dcardCodefortariff) != 0) return CompareUtils.compare(f.dcardCodefortariff, s.dcardCodefortariff);
+if (CompareUtils.compare(f.dcardCodetariffchange, s.dcardCodetariffchange) != 0) return CompareUtils.compare(f.dcardCodetariffchange, s.dcardCodetariffchange);
+if (CompareUtils.compare(f.dcardContrdate, s.dcardContrdate) != 0) return CompareUtils.compare(f.dcardContrdate, s.dcardContrdate);
+if (CompareUtils.compare(f.dcardCurissue, s.dcardCurissue) != 0) return CompareUtils.compare(f.dcardCurissue, s.dcardCurissue);
+if (CompareUtils.compare(f.dcardDaylimcard, s.dcardDaylimcard) != 0) return CompareUtils.compare(f.dcardDaylimcard, s.dcardDaylimcard);
+if (CompareUtils.compare(f.dcardDepokind, s.dcardDepokind) != 0) return CompareUtils.compare(f.dcardDepokind, s.dcardDepokind);
+if (CompareUtils.compare(f.dcardDeposubkind, s.dcardDeposubkind) != 0) return CompareUtils.compare(f.dcardDeposubkind, s.dcardDeposubkind);
+if (CompareUtils.compare(f.dcardDrn, s.dcardDrn) != 0) return CompareUtils.compare(f.dcardDrn, s.dcardDrn);
+if (CompareUtils.compare(f.dcardEndcontrdate, s.dcardEndcontrdate) != 0) return CompareUtils.compare(f.dcardEndcontrdate, s.dcardEndcontrdate);
+if (CompareUtils.compare(f.dcardHashcard, s.dcardHashcard) != 0) return CompareUtils.compare(f.dcardHashcard, s.dcardHashcard);
+if (CompareUtils.compare(f.dcardHelpdate, s.dcardHelpdate) != 0) return CompareUtils.compare(f.dcardHelpdate, s.dcardHelpdate);
+if (CompareUtils.compare(f.dcardHoldercode, s.dcardHoldercode) != 0) return CompareUtils.compare(f.dcardHoldercode, s.dcardHoldercode);
+if (CompareUtils.compare(f.dcard_tb, s.dcard_tb) != 0) return CompareUtils.compare(f.dcard_tb, s.dcard_tb);
+if (CompareUtils.compare(f.dcardInsurcard, s.dcardInsurcard) != 0) return CompareUtils.compare(f.dcardInsurcard, s.dcardInsurcard);
+if (CompareUtils.compare(f.dcardIschange, s.dcardIschange) != 0) return CompareUtils.compare(f.dcardIschange, s.dcardIschange);
+if (CompareUtils.compare(f.dcardIsclnpresent, s.dcardIsclnpresent) != 0) return CompareUtils.compare(f.dcardIsclnpresent, s.dcardIsclnpresent);
+if (CompareUtils.compare(f.dcardIssalary, s.dcardIssalary) != 0) return CompareUtils.compare(f.dcardIssalary, s.dcardIssalary);
+if (CompareUtils.compare(f.dcardIssueby, s.dcardIssueby) != 0) return CompareUtils.compare(f.dcardIssueby, s.dcardIssueby);
+if (CompareUtils.compare(f.dcardIsvip, s.dcardIsvip) != 0) return CompareUtils.compare(f.dcardIsvip, s.dcardIsvip);
+if (CompareUtils.compare(f.dcardLimcard, s.dcardLimcard) != 0) return CompareUtils.compare(f.dcardLimcard, s.dcardLimcard);
+if (CompareUtils.compare(f.dcardMarklock, s.dcardMarklock) != 0) return CompareUtils.compare(f.dcardMarklock, s.dcardMarklock);
+if (CompareUtils.compare(f.dcardMarklockdate, s.dcardMarklockdate) != 0) return CompareUtils.compare(f.dcardMarklockdate, s.dcardMarklockdate);
+if (CompareUtils.compare(f.dcardMarklockstr, s.dcardMarklockstr) != 0) return CompareUtils.compare(f.dcardMarklockstr, s.dcardMarklockstr);
+if (CompareUtils.compare(f.dcardMbOperator, s.dcardMbOperator) != 0) return CompareUtils.compare(f.dcardMbOperator, s.dcardMbOperator);
+if (CompareUtils.compare(f.dcardMbPhone, s.dcardMbPhone) != 0) return CompareUtils.compare(f.dcardMbPhone, s.dcardMbPhone);
+if (CompareUtils.compare(f.dcardMbType, s.dcardMbType) != 0) return CompareUtils.compare(f.dcardMbType, s.dcardMbType);
+if (CompareUtils.compare(f.dcardMonthlimcard, s.dcardMonthlimcard) != 0) return CompareUtils.compare(f.dcardMonthlimcard, s.dcardMonthlimcard);
+if (CompareUtils.compare(f.dcardNumbancard, s.dcardNumbancard) != 0) return CompareUtils.compare(f.dcardNumbancard, s.dcardNumbancard);
+if (CompareUtils.compare(f.dcardNumcard, s.dcardNumcard) != 0) return CompareUtils.compare(f.dcardNumcard, s.dcardNumcard);
+if (CompareUtils.compare(f.dcardNumcardclaim, s.dcardNumcardclaim) != 0) return CompareUtils.compare(f.dcardNumcardclaim, s.dcardNumcardclaim);
+if (CompareUtils.compare(f.dcardNumcardold, s.dcardNumcardold) != 0) return CompareUtils.compare(f.dcardNumcardold, s.dcardNumcardold);
+if (CompareUtils.compare(f.dcardNumcontrcard, s.dcardNumcontrcard) != 0) return CompareUtils.compare(f.dcardNumcontrcard, s.dcardNumcontrcard);
+if (CompareUtils.compare(f.dcardNumpaycard, s.dcardNumpaycard) != 0) return CompareUtils.compare(f.dcardNumpaycard, s.dcardNumpaycard);
+if (CompareUtils.compare(f.dcardOffice, s.dcardOffice) != 0) return CompareUtils.compare(f.dcardOffice, s.dcardOffice);
+if (CompareUtils.compare(f.dcardOverdraft, s.dcardOverdraft) != 0) return CompareUtils.compare(f.dcardOverdraft, s.dcardOverdraft);
+if (CompareUtils.compare(f.dcardPayissue, s.dcardPayissue) != 0) return CompareUtils.compare(f.dcardPayissue, s.dcardPayissue);
+if (CompareUtils.compare(f.dcardPresenceallow, s.dcardPresenceallow) != 0) return CompareUtils.compare(f.dcardPresenceallow, s.dcardPresenceallow);
+if (CompareUtils.compare(f.dcardPresenceclaim, s.dcardPresenceclaim) != 0) return CompareUtils.compare(f.dcardPresenceclaim, s.dcardPresenceclaim);
+if (CompareUtils.compare(f.dcardQuaopercard, s.dcardQuaopercard) != 0) return CompareUtils.compare(f.dcardQuaopercard, s.dcardQuaopercard);
+if (CompareUtils.compare(f.dcardReasonchange, s.dcardReasonchange) != 0) return CompareUtils.compare(f.dcardReasonchange, s.dcardReasonchange);
+if (CompareUtils.compare(f.dcardReturndate, s.dcardReturndate) != 0) return CompareUtils.compare(f.dcardReturndate, s.dcardReturndate);
+if (CompareUtils.compare(f.dcardRptallow, s.dcardRptallow) != 0) return CompareUtils.compare(f.dcardRptallow, s.dcardRptallow);
+if (CompareUtils.compare(f.dcardRptinternet, s.dcardRptinternet) != 0) return CompareUtils.compare(f.dcardRptinternet, s.dcardRptinternet);
+if (CompareUtils.compare(f.dcardRptpost, s.dcardRptpost) != 0) return CompareUtils.compare(f.dcardRptpost, s.dcardRptpost);
+if (CompareUtils.compare(f.dcardSin, s.dcardSin) != 0) return CompareUtils.compare(f.dcardSin, s.dcardSin);
+if (CompareUtils.compare(f.dcardSnils, s.dcardSnils) != 0) return CompareUtils.compare(f.dcardSnils, s.dcardSnils);
+if (CompareUtils.compare(f.dcardSubcard, s.dcardSubcard) != 0) return CompareUtils.compare(f.dcardSubcard, s.dcardSubcard);
+if (CompareUtils.compare(f.dcardSumbancard, s.dcardSumbancard) != 0) return CompareUtils.compare(f.dcardSumbancard, s.dcardSumbancard);
+if (CompareUtils.compare(f.dcardSumpaycard, s.dcardSumpaycard) != 0) return CompareUtils.compare(f.dcardSumpaycard, s.dcardSumpaycard);
+if (CompareUtils.compare(f.dcardTariffservcur, s.dcardTariffservcur) != 0) return CompareUtils.compare(f.dcardTariffservcur, s.dcardTariffservcur);
+if (CompareUtils.compare(f.dcardTariffservnext, s.dcardTariffservnext) != 0) return CompareUtils.compare(f.dcardTariffservnext, s.dcardTariffservnext);
+if (CompareUtils.compare(f.dcardTextcontrol, s.dcardTextcontrol) != 0) return CompareUtils.compare(f.dcardTextcontrol, s.dcardTextcontrol);
+if (CompareUtils.compare(f.dcardTypeSbnkd, s.dcardTypeSbnkd) != 0) return CompareUtils.compare(f.dcardTypeSbnkd, s.dcardTypeSbnkd);
+if (CompareUtils.compare(f.dcardTypecard, s.dcardTypecard) != 0) return CompareUtils.compare(f.dcardTypecard, s.dcardTypecard);
+if (CompareUtils.compare(f.dcardUecClaimNumber, s.dcardUecClaimNumber) != 0) return CompareUtils.compare(f.dcardUecClaimNumber, s.dcardUecClaimNumber);
+if (CompareUtils.compare(f.dcardUecClaimSeries, s.dcardUecClaimSeries) != 0) return CompareUtils.compare(f.dcardUecClaimSeries, s.dcardUecClaimSeries);
+if (CompareUtils.compare(f.dcardUsebio, s.dcardUsebio) != 0) return CompareUtils.compare(f.dcardUsebio, s.dcardUsebio);
+if (CompareUtils.compare(f.dcardUsepin, s.dcardUsepin) != 0) return CompareUtils.compare(f.dcardUsepin, s.dcardUsepin);
+if (CompareUtils.compare(f.dcardDcardMain, s.dcardDcardMain) != 0) return CompareUtils.compare(f.dcardDcardMain, s.dcardDcardMain);
+if (CompareUtils.compare(f.category_DPL_id, s.category_DPL_id) != 0) return CompareUtils.compare(f.category_DPL_id, s.category_DPL_id);
+if (CompareUtils.compare(f.partition_DPL_id, s.partition_DPL_id) != 0) return CompareUtils.compare(f.partition_DPL_id, s.partition_DPL_id);
+
+         return 0;
      }
  }
             

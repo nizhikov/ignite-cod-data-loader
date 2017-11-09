@@ -3,13 +3,15 @@
 
  import ru.sbrf.gg.load.TableInfo;
  import com.sbt.DelimetedStringParser;
+ import com.sbt.CompareUtils;
  import ru.sbrf.gg.load.builder.ObjectBuilder;
+ import com.sbt.cdm.model.extension.deposit.Accreditive;
 
  import ru.sbt.kmdtransform.TransformType.*;
 
  public class AccreditiveBuilder implements ObjectBuilder {
      @Override public Object build(String line, TableInfo tableInfo) {
-         com.sbt.cdm.model.extension.deposit.Accreditive r = new com.sbt.cdm.model.extension.deposit.Accreditive();
+         Accreditive r = new Accreditive();
          int[] indexes = new int[]{0, 0, line.length()};
 
          r.id = DelimetedStringParser._long(0, line, indexes);
@@ -52,6 +54,52 @@ r.category_DPL_id = DelimetedStringParser._long(35, line, indexes);
 r.partition_DPL_id = DelimetedStringParser._long(36, line, indexes);
 
          return r;
+     }
+
+     @Override public int compare(Object first, Object second) {
+         Accreditive f = (Accreditive)first;
+         Accreditive s = (Accreditive)second;
+
+         if (CompareUtils.compare(f.id, s.id) != 0) return CompareUtils.compare(f.id, s.id);
+if (CompareUtils.compare(f.objectId, s.objectId) != 0) return CompareUtils.compare(f.objectId, s.objectId);
+if (CompareUtils.compare(f.colocationKey, s.colocationKey) != 0) return CompareUtils.compare(f.colocationKey, s.colocationKey);
+if (CompareUtils.compare(f.rootParticle_DPL_id, s.rootParticle_DPL_id) != 0) return CompareUtils.compare(f.rootParticle_DPL_id, s.rootParticle_DPL_id);
+if (CompareUtils.compare(f.docInst_DPL_id, s.docInst_DPL_id) != 0) return CompareUtils.compare(f.docInst_DPL_id, s.docInst_DPL_id);
+if (CompareUtils.compare(f.accreditivePayDocNo, s.accreditivePayDocNo) != 0) return CompareUtils.compare(f.accreditivePayDocNo, s.accreditivePayDocNo);
+if (CompareUtils.compare(f.accreditivePayDocDate, s.accreditivePayDocDate) != 0) return CompareUtils.compare(f.accreditivePayDocDate, s.accreditivePayDocDate);
+if (CompareUtils.compare(f.accreditivePayerAccount, s.accreditivePayerAccount) != 0) return CompareUtils.compare(f.accreditivePayerAccount, s.accreditivePayerAccount);
+if (CompareUtils.compare(f.accreditivePayeeAccount, s.accreditivePayeeAccount) != 0) return CompareUtils.compare(f.accreditivePayeeAccount, s.accreditivePayeeAccount);
+if (CompareUtils.compare(f.accreditiveAccrSum, s.accreditiveAccrSum) != 0) return CompareUtils.compare(f.accreditiveAccrSum, s.accreditiveAccrSum);
+if (CompareUtils.compare(f.accreditivePlClosedate, s.accreditivePlClosedate) != 0) return CompareUtils.compare(f.accreditivePlClosedate, s.accreditivePlClosedate);
+if (CompareUtils.compare(f.accreditiveActClosedate, s.accreditiveActClosedate) != 0) return CompareUtils.compare(f.accreditiveActClosedate, s.accreditiveActClosedate);
+if (CompareUtils.compare(f.accreditiveDepositAccount, s.accreditiveDepositAccount) != 0) return CompareUtils.compare(f.accreditiveDepositAccount, s.accreditiveDepositAccount);
+if (CompareUtils.compare(f.accreditiveOffBalAccount, s.accreditiveOffBalAccount) != 0) return CompareUtils.compare(f.accreditiveOffBalAccount, s.accreditiveOffBalAccount);
+if (CompareUtils.compare(f.accreditiveStatus, s.accreditiveStatus) != 0) return CompareUtils.compare(f.accreditiveStatus, s.accreditiveStatus);
+if (CompareUtils.compare(f.accreditiveLetterNo, s.accreditiveLetterNo) != 0) return CompareUtils.compare(f.accreditiveLetterNo, s.accreditiveLetterNo);
+if (CompareUtils.compare(f.accreditiveBranch, s.accreditiveBranch) != 0) return CompareUtils.compare(f.accreditiveBranch, s.accreditiveBranch);
+if (CompareUtils.compare(f.accreditiveOffice, s.accreditiveOffice) != 0) return CompareUtils.compare(f.accreditiveOffice, s.accreditiveOffice);
+if (CompareUtils.compare(f.accreditiveCreateDate, s.accreditiveCreateDate) != 0) return CompareUtils.compare(f.accreditiveCreateDate, s.accreditiveCreateDate);
+if (CompareUtils.compare(f.accreditiveReserveId, s.accreditiveReserveId) != 0) return CompareUtils.compare(f.accreditiveReserveId, s.accreditiveReserveId);
+if (CompareUtils.compare(f.accreditivePurpose, s.accreditivePurpose) != 0) return CompareUtils.compare(f.accreditivePurpose, s.accreditivePurpose);
+if (CompareUtils.compare(f.accreditivePaymentDoc, s.accreditivePaymentDoc) != 0) return CompareUtils.compare(f.accreditivePaymentDoc, s.accreditivePaymentDoc);
+if (CompareUtils.compare(f.accreditivePaymentCond, s.accreditivePaymentCond) != 0) return CompareUtils.compare(f.accreditivePaymentCond, s.accreditivePaymentCond);
+if (CompareUtils.compare(f.accreditiveAddCond, s.accreditiveAddCond) != 0) return CompareUtils.compare(f.accreditiveAddCond, s.accreditiveAddCond);
+if (CompareUtils.compare(f.accreditiveAccreditiveType, s.accreditiveAccreditiveType) != 0) return CompareUtils.compare(f.accreditiveAccreditiveType, s.accreditiveAccreditiveType);
+if (CompareUtils.compare(f.accreditivePayeeName, s.accreditivePayeeName) != 0) return CompareUtils.compare(f.accreditivePayeeName, s.accreditivePayeeName);
+if (CompareUtils.compare(f.accreditivePayeeInn, s.accreditivePayeeInn) != 0) return CompareUtils.compare(f.accreditivePayeeInn, s.accreditivePayeeInn);
+if (CompareUtils.compare(f.accreditiveGarageAddress, s.accreditiveGarageAddress) != 0) return CompareUtils.compare(f.accreditiveGarageAddress, s.accreditiveGarageAddress);
+if (CompareUtils.compare(f.accreditiveContractNumber, s.accreditiveContractNumber) != 0) return CompareUtils.compare(f.accreditiveContractNumber, s.accreditiveContractNumber);
+if (CompareUtils.compare(f.accreditiveContractDate, s.accreditiveContractDate) != 0) return CompareUtils.compare(f.accreditiveContractDate, s.accreditiveContractDate);
+if (CompareUtils.compare(f.accreditivePayeeKpp, s.accreditivePayeeKpp) != 0) return CompareUtils.compare(f.accreditivePayeeKpp, s.accreditivePayeeKpp);
+if (CompareUtils.compare(f.accreditiveProlongationDate, s.accreditiveProlongationDate) != 0) return CompareUtils.compare(f.accreditiveProlongationDate, s.accreditiveProlongationDate);
+if (CompareUtils.compare(f.accreditiveCoverageType, s.accreditiveCoverageType) != 0) return CompareUtils.compare(f.accreditiveCoverageType, s.accreditiveCoverageType);
+if (CompareUtils.compare(f.accreditivePaymentDocNew, s.accreditivePaymentDocNew) != 0) return CompareUtils.compare(f.accreditivePaymentDocNew, s.accreditivePaymentDocNew);
+if (CompareUtils.compare(f.accreditiveIsActual, s.accreditiveIsActual) != 0) return CompareUtils.compare(f.accreditiveIsActual, s.accreditiveIsActual);
+if (CompareUtils.compare(f.accreditiveChangeDate, s.accreditiveChangeDate) != 0) return CompareUtils.compare(f.accreditiveChangeDate, s.accreditiveChangeDate);
+if (CompareUtils.compare(f.category_DPL_id, s.category_DPL_id) != 0) return CompareUtils.compare(f.category_DPL_id, s.category_DPL_id);
+if (CompareUtils.compare(f.partition_DPL_id, s.partition_DPL_id) != 0) return CompareUtils.compare(f.partition_DPL_id, s.partition_DPL_id);
+
+         return 0;
      }
  }
             

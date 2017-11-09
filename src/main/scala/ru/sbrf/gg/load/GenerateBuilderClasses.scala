@@ -82,7 +82,31 @@ class GenerateBuilderClasses(dataRoot: String) {
                 case OBJ_TYPE ⇒
                     s"r.$name = (${f._1.getType.getName})${f._4.name()}.fromStr(DelimetedStringParser.str(${f._2}, line, indexes));"
             }
+        }
 
+        val fieldsComparators = tableInfo.valueFields.sortBy(_._2).map { f ⇒
+            val name = f._1.getName
+
+            val regularCompare = () ⇒ s"if (CompareUtils.compare(f.$name, s.$name) != 0) return CompareUtils.compare(f.$name, s.$name);"
+
+            val strBuilderCompare = () ⇒ s"if (CompareUtils.compare(f.$name==null ? null : f.$name.toString(), s.$name==null ? null : s.$name.toString()) != 0) " +
+                    s"return CompareUtils.compare(f.$name==null ? null : f.$name.toString(), s.$name==null ? null : s.$name.toString());"
+
+            f._4 match {
+                case LONG ⇒ regularCompare()
+                case INTEGER ⇒ regularCompare()
+                case BIGDECIMAL ⇒ regularCompare()
+                case DATE_TIME ⇒ regularCompare()
+                case STRING ⇒ regularCompare()
+                case BOOLEAN ⇒ regularCompare()
+                case COMPOSEKEY ⇒ regularCompare()
+                case ROOT ⇒ regularCompare()
+                case PARTITION ⇒ regularCompare()
+                case CSL_PARTICLES ⇒ regularCompare()
+                case OBJ_TYPE ⇒ regularCompare()
+                case CSL_AFFINITYPARTICLES ⇒ strBuilderCompare()
+                case CSL_DICTS ⇒ strBuilderCompare()
+            }
         }
 
         new File(s"./src/main/java/ru/sbrf/gg/load/builder/").mkdirs()
@@ -97,18 +121,29 @@ class GenerateBuilderClasses(dataRoot: String) {
               |
               | import ru.sbrf.gg.load.TableInfo;
               | import com.sbt.DelimetedStringParser;
+              | import com.sbt.CompareUtils;
               | import ru.sbrf.gg.load.builder.ObjectBuilder;
+              | import ${tableInfo.value.getName};
               |
               | import ${classOf[TransformType].getName}.*;
               |
               | public class $className implements ObjectBuilder {
               |     @Override public Object build(String line, TableInfo tableInfo) {
-              |         ${tableInfo.value.getName} r = new ${tableInfo.value.getName}();
+              |         ${tableInfo.value.getSimpleName} r = new ${tableInfo.value.getSimpleName}();
               |         int[] indexes = new int[]{0, 0, line.length()};
               |
               |         ${fieldsSetters.mkString("\n")}
               |
               |         return r;
+              |     }
+              |
+              |     @Override public int compare(Object first, Object second) {
+              |         ${tableInfo.value.getSimpleName} f = (${tableInfo.value.getSimpleName})first;
+              |         ${tableInfo.value.getSimpleName} s = (${tableInfo.value.getSimpleName})second;
+              |
+              |         ${fieldsComparators.mkString("\n")}
+              |
+              |         return 0;
               |     }
               | }
             """.stripMargin)

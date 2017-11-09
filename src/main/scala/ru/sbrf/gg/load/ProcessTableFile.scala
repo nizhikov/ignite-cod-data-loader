@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory
 /**
   * @author NIzhikov
   */
-trait ProcessTable {
+trait ProcessTableFile {
     val logger = LoggerFactory.getLogger(this.getClass)
 
     val batchSize: Int = System.getProperty("BATCH_SIZE", "10000").toInt
@@ -53,10 +53,10 @@ trait ProcessTable {
         finish(tableInfo)
     }
 
-    private def loadFile(name: String, stream: InputStream, tableInfo: TableInfo): Unit = {
-        logger.info(s"[$taskName][FileLoadStart][tableName:$tableName][file:$name]")
+    private def loadFile(fileName: String, stream: InputStream, tableInfo: TableInfo): Unit = {
+        logger.info(s"[$taskName][FileLoadStart][tableName:$tableName][file:$fileName]")
 
-        val reader = new BufferedReader(new InputStreamReader(stream, "Cp1251"), 4*1024*1024)
+        val reader = new BufferedReader(new InputStreamReader(stream, fileEncoding), 4*1024*1024)
         try {
             var lineCount: Long = 0L
             var batchIndex: Int = 0
@@ -71,9 +71,9 @@ trait ProcessTable {
                 batchIndex += 1
 
                 if (batchIndex == batchSize && lineCount != 0) {
-                    logger.debug(s"[LoadTable][BatchSubmit][tableName:$tableName][file:$name][lineCount:$lineCount]")
+                    logger.debug(s"[$taskName][BatchSubmit][tableName:$tableName][file:$fileName][lineCount:$lineCount]")
 
-                    processBatch(batch, tableInfo, lineCount, name)
+                    processBatch(batch, tableInfo, lineCount, fileName)
 
                     batch = new Array[String](batchSize)
                     batchIndex = 0
@@ -83,9 +83,9 @@ trait ProcessTable {
             }
 
             if (lineCount % batchSize != 0 && lineCount != 0)
-                processBatch(batch, tableInfo, lineCount, name)
+                processBatch(batch, tableInfo, lineCount, fileName)
 
-            logger.info(s"[$fileName][FileLoadFinish][tableName:$tableName][file:$name][lineCount:$lineCount]")
+            logger.info(s"[$fileName][FileLoadFinish][tableName:$tableName][file:$fileName][lineCount:$lineCount]")
         } finally {
             reader.close
             stream.close

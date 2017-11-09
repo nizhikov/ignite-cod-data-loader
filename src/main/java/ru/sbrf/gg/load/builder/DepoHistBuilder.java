@@ -3,13 +3,15 @@
 
  import ru.sbrf.gg.load.TableInfo;
  import com.sbt.DelimetedStringParser;
+ import com.sbt.CompareUtils;
  import ru.sbrf.gg.load.builder.ObjectBuilder;
+ import com.sbt.cdm.model.extension.deposit.DepoHist;
 
  import ru.sbt.kmdtransform.TransformType.*;
 
  public class DepoHistBuilder implements ObjectBuilder {
      @Override public Object build(String line, TableInfo tableInfo) {
-         com.sbt.cdm.model.extension.deposit.DepoHist r = new com.sbt.cdm.model.extension.deposit.DepoHist();
+         DepoHist r = new DepoHist();
          int[] indexes = new int[]{0, 0, line.length()};
 
          r.id = DelimetedStringParser._long(0, line, indexes);
@@ -127,6 +129,127 @@ r.enrollType = DelimetedStringParser._int(111, line, indexes);
 r.partition_DPL_id = DelimetedStringParser._long(112, line, indexes);
 
          return r;
+     }
+
+     @Override public int compare(Object first, Object second) {
+         DepoHist f = (DepoHist)first;
+         DepoHist s = (DepoHist)second;
+
+         if (CompareUtils.compare(f.id, s.id) != 0) return CompareUtils.compare(f.id, s.id);
+if (CompareUtils.compare(f.objectId, s.objectId) != 0) return CompareUtils.compare(f.objectId, s.objectId);
+if (CompareUtils.compare(f.colocationKey, s.colocationKey) != 0) return CompareUtils.compare(f.colocationKey, s.colocationKey);
+if (CompareUtils.compare(f.rootParticle_DPL_id, s.rootParticle_DPL_id) != 0) return CompareUtils.compare(f.rootParticle_DPL_id, s.rootParticle_DPL_id);
+if (CompareUtils.compare(f.operationRun_DPL_id, s.operationRun_DPL_id) != 0) return CompareUtils.compare(f.operationRun_DPL_id, s.operationRun_DPL_id);
+if (CompareUtils.compare(f.cardhistAtmid, s.cardhistAtmid) != 0) return CompareUtils.compare(f.cardhistAtmid, s.cardhistAtmid);
+if (CompareUtils.compare(f.cardhistAuthcode, s.cardhistAuthcode) != 0) return CompareUtils.compare(f.cardhistAuthcode, s.cardhistAuthcode);
+if (CompareUtils.compare(f.cardhistAuthkind, s.cardhistAuthkind) != 0) return CompareUtils.compare(f.cardhistAuthkind, s.cardhistAuthkind);
+if (CompareUtils.compare(f.cardhistCardno, s.cardhistCardno) != 0) return CompareUtils.compare(f.cardhistCardno, s.cardhistCardno);
+if (CompareUtils.compare(f.cardhistMerchantno, s.cardhistMerchantno) != 0) return CompareUtils.compare(f.cardhistMerchantno, s.cardhistMerchantno);
+if (CompareUtils.compare(f.cardhistTxcash, s.cardhistTxcash) != 0) return CompareUtils.compare(f.cardhistTxcash, s.cardhistTxcash);
+if (CompareUtils.compare(f.cardhistTxcurrency, s.cardhistTxcurrency) != 0) return CompareUtils.compare(f.cardhistTxcurrency, s.cardhistTxcurrency);
+if (CompareUtils.compare(f.cardhistTxid, s.cardhistTxid) != 0) return CompareUtils.compare(f.cardhistTxid, s.cardhistTxid);
+if (CompareUtils.compare(f.cardhistTxtime, s.cardhistTxtime) != 0) return CompareUtils.compare(f.cardhistTxtime, s.cardhistTxtime);
+if (CompareUtils.compare(f.depohistAssignday, s.depohistAssignday) != 0) return CompareUtils.compare(f.depohistAssignday, s.depohistAssignday);
+if (CompareUtils.compare(f.depohistAssminbalance, s.depohistAssminbalance) != 0) return CompareUtils.compare(f.depohistAssminbalance, s.depohistAssminbalance);
+if (CompareUtils.compare(f.depohistBalance, s.depohistBalance) != 0) return CompareUtils.compare(f.depohistBalance, s.depohistBalance);
+if (CompareUtils.compare(f.depohistBalanceOwn, s.depohistBalanceOwn) != 0) return CompareUtils.compare(f.depohistBalanceOwn, s.depohistBalanceOwn);
+if (CompareUtils.compare(f.depohistSubsidy, s.depohistSubsidy) != 0) return CompareUtils.compare(f.depohistSubsidy, s.depohistSubsidy);
+if (CompareUtils.compare(f.depohist_branchno, s.depohist_branchno) != 0) return CompareUtils.compare(f.depohist_branchno, s.depohist_branchno);
+if (CompareUtils.compare(f.depohistCardrptday, s.depohistCardrptday) != 0) return CompareUtils.compare(f.depohistCardrptday, s.depohistCardrptday);
+if (CompareUtils.compare(f.depohistCashsource, s.depohistCashsource) != 0) return CompareUtils.compare(f.depohistCashsource, s.depohistCashsource);
+if (CompareUtils.compare(f.depohistChequecnt, s.depohistChequecnt) != 0) return CompareUtils.compare(f.depohistChequecnt, s.depohistChequecnt);
+if (CompareUtils.compare(f.depohistClerk, s.depohistClerk) != 0) return CompareUtils.compare(f.depohistClerk, s.depohistClerk);
+if (CompareUtils.compare(f.depohistConverCurrency, s.depohistConverCurrency) != 0) return CompareUtils.compare(f.depohistConverCurrency, s.depohistConverCurrency);
+if (CompareUtils.compare(f.depohistConverOpcash, s.depohistConverOpcash) != 0) return CompareUtils.compare(f.depohistConverOpcash, s.depohistConverOpcash);
+if (CompareUtils.compare(f.depohistCreditaccount, s.depohistCreditaccount) != 0) return CompareUtils.compare(f.depohistCreditaccount, s.depohistCreditaccount);
+if (CompareUtils.compare(f.depohistDebitaccount, s.depohistDebitaccount) != 0) return CompareUtils.compare(f.depohistDebitaccount, s.depohistDebitaccount);
+if (CompareUtils.compare(f.depohistDepositrate, s.depohistDepositrate) != 0) return CompareUtils.compare(f.depohistDepositrate, s.depohistDepositrate);
+if (CompareUtils.compare(f.depohistExpirationday, s.depohistExpirationday) != 0) return CompareUtils.compare(f.depohistExpirationday, s.depohistExpirationday);
+if (CompareUtils.compare(f.depohistExpminbalance, s.depohistExpminbalance) != 0) return CompareUtils.compare(f.depohistExpminbalance, s.depohistExpminbalance);
+if (CompareUtils.compare(f.depohistExproverdraft, s.depohistExproverdraft) != 0) return CompareUtils.compare(f.depohistExproverdraft, s.depohistExproverdraft);
+if (CompareUtils.compare(f.depohistExproverdraftint, s.depohistExproverdraftint) != 0) return CompareUtils.compare(f.depohistExproverdraftint, s.depohistExproverdraftint);
+if (CompareUtils.compare(f.depohistExternalkind, s.depohistExternalkind) != 0) return CompareUtils.compare(f.depohistExternalkind, s.depohistExternalkind);
+if (CompareUtils.compare(f.depohistFlagCash, s.depohistFlagCash) != 0) return CompareUtils.compare(f.depohistFlagCash, s.depohistFlagCash);
+if (CompareUtils.compare(f.depohistGrantOper, s.depohistGrantOper) != 0) return CompareUtils.compare(f.depohistGrantOper, s.depohistGrantOper);
+if (CompareUtils.compare(f.depohistHeirno, s.depohistHeirno) != 0) return CompareUtils.compare(f.depohistHeirno, s.depohistHeirno);
+if (CompareUtils.compare(f.depohist_tb, s.depohist_tb) != 0) return CompareUtils.compare(f.depohist_tb, s.depohist_tb);
+if (CompareUtils.compare(f.depohistInserttime, s.depohistInserttime) != 0) return CompareUtils.compare(f.depohistInserttime, s.depohistInserttime);
+if (CompareUtils.compare(f.depohistInterest, s.depohistInterest) != 0) return CompareUtils.compare(f.depohistInterest, s.depohistInterest);
+if (CompareUtils.compare(f.depohistInterestf, s.depohistInterestf) != 0) return CompareUtils.compare(f.depohistInterestf, s.depohistInterestf);
+if (CompareUtils.compare(f.depohistIscashdispenser, s.depohistIscashdispenser) != 0) return CompareUtils.compare(f.depohistIscashdispenser, s.depohistIscashdispenser);
+if (CompareUtils.compare(f.depohistIsmanual, s.depohistIsmanual) != 0) return CompareUtils.compare(f.depohistIsmanual, s.depohistIsmanual);
+if (CompareUtils.compare(f.depohistIsmoffice, s.depohistIsmoffice) != 0) return CompareUtils.compare(f.depohistIsmoffice, s.depohistIsmoffice);
+if (CompareUtils.compare(f.depohistJrnno, s.depohistJrnno) != 0) return CompareUtils.compare(f.depohistJrnno, s.depohistJrnno);
+if (CompareUtils.compare(f.depohistMaxamount, s.depohistMaxamount) != 0) return CompareUtils.compare(f.depohistMaxamount, s.depohistMaxamount);
+if (CompareUtils.compare(f.depohistMaxamountrate, s.depohistMaxamountrate) != 0) return CompareUtils.compare(f.depohistMaxamountrate, s.depohistMaxamountrate);
+if (CompareUtils.compare(f.depohistNDprice, s.depohistNDprice) != 0) return CompareUtils.compare(f.depohistNDprice, s.depohistNDprice);
+if (CompareUtils.compare(f.depohistOffcashbalanceb, s.depohistOffcashbalanceb) != 0) return CompareUtils.compare(f.depohistOffcashbalanceb, s.depohistOffcashbalanceb);
+if (CompareUtils.compare(f.depohistOffice, s.depohistOffice) != 0) return CompareUtils.compare(f.depohistOffice, s.depohistOffice);
+if (CompareUtils.compare(f.depohistOfficetransday, s.depohistOfficetransday) != 0) return CompareUtils.compare(f.depohistOfficetransday, s.depohistOfficetransday);
+if (CompareUtils.compare(f.depohistOpcash, s.depohistOpcash) != 0) return CompareUtils.compare(f.depohistOpcash, s.depohistOpcash);
+if (CompareUtils.compare(f.depohistOpcashcost, s.depohistOpcashcost) != 0) return CompareUtils.compare(f.depohistOpcashcost, s.depohistOpcashcost);
+if (CompareUtils.compare(f.depohistOpcode, s.depohistOpcode) != 0) return CompareUtils.compare(f.depohistOpcode, s.depohistOpcode);
+if (CompareUtils.compare(f.depohistOpday, s.depohistOpday) != 0) return CompareUtils.compare(f.depohistOpday, s.depohistOpday);
+if (CompareUtils.compare(f.depohistOpencash, s.depohistOpencash) != 0) return CompareUtils.compare(f.depohistOpencash, s.depohistOpencash);
+if (CompareUtils.compare(f.depohistOpkind, s.depohistOpkind) != 0) return CompareUtils.compare(f.depohistOpkind, s.depohistOpkind);
+if (CompareUtils.compare(f.depohistOpno, s.depohistOpno) != 0) return CompareUtils.compare(f.depohistOpno, s.depohistOpno);
+if (CompareUtils.compare(f.depohistOptransday, s.depohistOptransday) != 0) return CompareUtils.compare(f.depohistOptransday, s.depohistOptransday);
+if (CompareUtils.compare(f.depohistOrderno, s.depohistOrderno) != 0) return CompareUtils.compare(f.depohistOrderno, s.depohistOrderno);
+if (CompareUtils.compare(f.depohistMinBalanceMonth, s.depohistMinBalanceMonth) != 0) return CompareUtils.compare(f.depohistMinBalanceMonth, s.depohistMinBalanceMonth);
+if (CompareUtils.compare(f.depohistBalanceOwnProlong, s.depohistBalanceOwnProlong) != 0) return CompareUtils.compare(f.depohistBalanceOwnProlong, s.depohistBalanceOwnProlong);
+if (CompareUtils.compare(f.depohistOverdraft, s.depohistOverdraft) != 0) return CompareUtils.compare(f.depohistOverdraft, s.depohistOverdraft);
+if (CompareUtils.compare(f.depohistOverdraftint, s.depohistOverdraftint) != 0) return CompareUtils.compare(f.depohistOverdraftint, s.depohistOverdraftint);
+if (CompareUtils.compare(f.depohistPairAccount, s.depohistPairAccount) != 0) return CompareUtils.compare(f.depohistPairAccount, s.depohistPairAccount);
+if (CompareUtils.compare(f.depohistPartrate, s.depohistPartrate) != 0) return CompareUtils.compare(f.depohistPartrate, s.depohistPartrate);
+if (CompareUtils.compare(f.depohistPayrollday, s.depohistPayrollday) != 0) return CompareUtils.compare(f.depohistPayrollday, s.depohistPayrollday);
+if (CompareUtils.compare(f.depohistPayAddFirst, s.depohistPayAddFirst) != 0) return CompareUtils.compare(f.depohistPayAddFirst, s.depohistPayAddFirst);
+if (CompareUtils.compare(f.depohistPercentsrate, s.depohistPercentsrate) != 0) return CompareUtils.compare(f.depohistPercentsrate, s.depohistPercentsrate);
+if (CompareUtils.compare(f.depohistPinacceptflag, s.depohistPinacceptflag) != 0) return CompareUtils.compare(f.depohistPinacceptflag, s.depohistPinacceptflag);
+if (CompareUtils.compare(f.depohistProlongday, s.depohistProlongday) != 0) return CompareUtils.compare(f.depohistProlongday, s.depohistProlongday);
+if (CompareUtils.compare(f.depohistRatesource, s.depohistRatesource) != 0) return CompareUtils.compare(f.depohistRatesource, s.depohistRatesource);
+if (CompareUtils.compare(f.depohistReason, s.depohistReason) != 0) return CompareUtils.compare(f.depohistReason, s.depohistReason);
+if (CompareUtils.compare(f.depohistSbookendday, s.depohistSbookendday) != 0) return CompareUtils.compare(f.depohistSbookendday, s.depohistSbookendday);
+if (CompareUtils.compare(f.depohistSourcedocday, s.depohistSourcedocday) != 0) return CompareUtils.compare(f.depohistSourcedocday, s.depohistSourcedocday);
+if (CompareUtils.compare(f.depohistSourcedocno, s.depohistSourcedocno) != 0) return CompareUtils.compare(f.depohistSourcedocno, s.depohistSourcedocno);
+if (CompareUtils.compare(f.depohistSourcedocoriginator, s.depohistSourcedocoriginator) != 0) return CompareUtils.compare(f.depohistSourcedocoriginator, s.depohistSourcedocoriginator);
+if (CompareUtils.compare(f.depohistState, s.depohistState) != 0) return CompareUtils.compare(f.depohistState, s.depohistState);
+if (CompareUtils.compare(f.depohistSubsys, s.depohistSubsys) != 0) return CompareUtils.compare(f.depohistSubsys, s.depohistSubsys);
+if (CompareUtils.compare(f.depohistSumobnaloperation, s.depohistSumobnaloperation) != 0) return CompareUtils.compare(f.depohistSumobnaloperation, s.depohistSumobnaloperation);
+if (CompareUtils.compare(f.depohistTaxableprofit, s.depohistTaxableprofit) != 0) return CompareUtils.compare(f.depohistTaxableprofit, s.depohistTaxableprofit);
+if (CompareUtils.compare(f.depohistTaxableprofitcost, s.depohistTaxableprofitcost) != 0) return CompareUtils.compare(f.depohistTaxableprofitcost, s.depohistTaxableprofitcost);
+if (CompareUtils.compare(f.depohistTermsok, s.depohistTermsok) != 0) return CompareUtils.compare(f.depohistTermsok, s.depohistTermsok);
+if (CompareUtils.compare(f.depohistTurncode, s.depohistTurncode) != 0) return CompareUtils.compare(f.depohistTurncode, s.depohistTurncode);
+if (CompareUtils.compare(f.depohistUsedtaxexemptions, s.depohistUsedtaxexemptions) != 0) return CompareUtils.compare(f.depohistUsedtaxexemptions, s.depohistUsedtaxexemptions);
+if (CompareUtils.compare(f.depohistVHzap2, s.depohistVHzap2) != 0) return CompareUtils.compare(f.depohistVHzap2, s.depohistVHzap2);
+if (CompareUtils.compare(f.depohistWarrantkind, s.depohistWarrantkind) != 0) return CompareUtils.compare(f.depohistWarrantkind, s.depohistWarrantkind);
+if (CompareUtils.compare(f.depohistWarrantno, s.depohistWarrantno) != 0) return CompareUtils.compare(f.depohistWarrantno, s.depohistWarrantno);
+if (CompareUtils.compare(f.offcashcompInfo, s.offcashcompInfo) != 0) return CompareUtils.compare(f.offcashcompInfo, s.offcashcompInfo);
+if (CompareUtils.compare(f.offcashcompOpday, s.offcashcompOpday) != 0) return CompareUtils.compare(f.offcashcompOpday, s.offcashcompOpday);
+if (CompareUtils.compare(f.offcashcompOpno, s.offcashcompOpno) != 0) return CompareUtils.compare(f.offcashcompOpno, s.offcashcompOpno);
+if (CompareUtils.compare(f.offcashcompOrdno, s.offcashcompOrdno) != 0) return CompareUtils.compare(f.offcashcompOrdno, s.offcashcompOrdno);
+if (CompareUtils.compare(f.offcashcompSsagency, s.offcashcompSsagency) != 0) return CompareUtils.compare(f.offcashcompSsagency, s.offcashcompSsagency);
+if (CompareUtils.compare(f.offcashcompSsn, s.offcashcompSsn) != 0) return CompareUtils.compare(f.offcashcompSsn, s.offcashcompSsn);
+if (CompareUtils.compare(f.offcashcompVDnum1, s.offcashcompVDnum1) != 0) return CompareUtils.compare(f.offcashcompVDnum1, s.offcashcompVDnum1);
+if (CompareUtils.compare(f.offcashcompVDsum1, s.offcashcompVDsum1) != 0) return CompareUtils.compare(f.offcashcompVDsum1, s.offcashcompVDsum1);
+if (CompareUtils.compare(f.offcashcompVDsum2, s.offcashcompVDsum2) != 0) return CompareUtils.compare(f.offcashcompVDsum2, s.offcashcompVDsum2);
+if (CompareUtils.compare(f.offcashcompVDsum3, s.offcashcompVDsum3) != 0) return CompareUtils.compare(f.offcashcompVDsum3, s.offcashcompVDsum3);
+if (CompareUtils.compare(f.offcashcompVDsum4, s.offcashcompVDsum4) != 0) return CompareUtils.compare(f.offcashcompVDsum4, s.offcashcompVDsum4);
+if (CompareUtils.compare(f.offcashcompVDsum5, s.offcashcompVDsum5) != 0) return CompareUtils.compare(f.offcashcompVDsum5, s.offcashcompVDsum5);
+if (CompareUtils.compare(f.offcashcompVDsum6, s.offcashcompVDsum6) != 0) return CompareUtils.compare(f.offcashcompVDsum6, s.offcashcompVDsum6);
+if (CompareUtils.compare(f.offcashcompVDsum7, s.offcashcompVDsum7) != 0) return CompareUtils.compare(f.offcashcompVDsum7, s.offcashcompVDsum7);
+if (CompareUtils.compare(f.category_DPL_id, s.category_DPL_id) != 0) return CompareUtils.compare(f.category_DPL_id, s.category_DPL_id);
+if (CompareUtils.compare(f.depohistrgCpBalance, s.depohistrgCpBalance) != 0) return CompareUtils.compare(f.depohistrgCpBalance, s.depohistrgCpBalance);
+if (CompareUtils.compare(f.depohistrgCpOpcash, s.depohistrgCpOpcash) != 0) return CompareUtils.compare(f.depohistrgCpOpcash, s.depohistrgCpOpcash);
+if (CompareUtils.compare(f.depohistrgSprBalance, s.depohistrgSprBalance) != 0) return CompareUtils.compare(f.depohistrgSprBalance, s.depohistrgSprBalance);
+if (CompareUtils.compare(f.depohistrgSprOpcash, s.depohistrgSprOpcash) != 0) return CompareUtils.compare(f.depohistrgSprOpcash, s.depohistrgSprOpcash);
+if (CompareUtils.compare(f.depohistrgCn1Balance, s.depohistrgCn1Balance) != 0) return CompareUtils.compare(f.depohistrgCn1Balance, s.depohistrgCn1Balance);
+if (CompareUtils.compare(f.depohistrgCn1Opcash, s.depohistrgCn1Opcash) != 0) return CompareUtils.compare(f.depohistrgCn1Opcash, s.depohistrgCn1Opcash);
+if (CompareUtils.compare(f.depohistrgCn2Balance, s.depohistrgCn2Balance) != 0) return CompareUtils.compare(f.depohistrgCn2Balance, s.depohistrgCn2Balance);
+if (CompareUtils.compare(f.depohistrgCn2Opcash, s.depohistrgCn2Opcash) != 0) return CompareUtils.compare(f.depohistrgCn2Opcash, s.depohistrgCn2Opcash);
+if (CompareUtils.compare(f.enrollType, s.enrollType) != 0) return CompareUtils.compare(f.enrollType, s.enrollType);
+if (CompareUtils.compare(f.partition_DPL_id, s.partition_DPL_id) != 0) return CompareUtils.compare(f.partition_DPL_id, s.partition_DPL_id);
+
+         return 0;
      }
  }
             

@@ -45,4 +45,3 @@
 		builders.put(com.sbt.cdm.api.model.published.instance.PublishedContractLink.class, new PublishedContractLinkBuilder());
      }
  }
-            

@@ -23,12 +23,18 @@ public class ReflectionBuilder implements ObjectBuilder {
 
             return result;
         }
-        catch (InstantiationException e) {
+        catch (InstantiationException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
-        catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
+    }
+
+    @Override public int compare(Object first, Object second) {
+        if (first == null || second == null)
+            return first == null && second == null ? 0 : -1;
+        else if (!first.equals(second))
+            return -1;
+        else
+            return 0;
     }
 
     protected Object fieldValue(String line, Tuple4<Field, Integer, String, TransformType> field, int[] indexes) {

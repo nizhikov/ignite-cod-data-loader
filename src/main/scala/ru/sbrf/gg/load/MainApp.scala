@@ -18,7 +18,7 @@
 package ru.sbrf.gg.load
 
 import java.io.{File, FileInputStream}
-import java.text.{DecimalFormat, NumberFormat}
+import java.text.DecimalFormat
 import java.util.concurrent.{ExecutorService, Executors, TimeUnit}
 
 import org.apache.ignite.Ignite
@@ -116,6 +116,7 @@ object MainApp extends App {
         case Some(config) => config.command match {
             case Some(GENERATE_CONFIG) ⇒ generateAddressesConfig(config.serversFile.get)
             case Some(LOAD_TABLE) ⇒ loadTable(config.local, config.dataRoot, config.poolSize, config.tablesIndexes)
+            case Some(CHECK_TABLE) ⇒ checkTable(config.local, config.dataRoot, config.poolSize, config.tablesIndexes)
             case Some(COUNT_LINES) ⇒ countLines(config.dataRoot.get)
             case Some(GENERATE_BUILDER_CODE) ⇒ generateCode(config.dataRoot.get)
         }
@@ -125,7 +126,7 @@ object MainApp extends App {
 
     def generateAddressesConfig(serversFile: String): Unit = {
         new CSVReader(new FileInputStream(serversFile)).foreach { line ⇒
-            println(s"<value>${line(2)}:47500..47509</value>")
+            println(s"<value>${line(2)}:48500..48509</value>")
         }
     }
 
@@ -156,17 +157,43 @@ object MainApp extends App {
         }
     }
 
-    def generateCode(dataRoot: String) =
+    def checkTable(local: Boolean, dataRoot: Option[String], poolSizeOption: Option[Int], tablesIndexes: Set[Int]): Unit = {
+        val poolSize = poolSizeOption.getOrElse(2)
+
+        val pool: ExecutorService = Executors.newFixedThreadPool(poolSize)
+
+        logger.info(s"[ThreadPool.size:${poolSize}][TablesIndexes:${tablesIndexes.mkString(", ")}]")
+
+        printTables(dataRoot.get)
+
+        val ignite: Ignite = startClient(local)
+
+        try {
+            new CSVReader(getClass.getResourceAsStream("/tables.csv")).foreach { line ⇒
+                if (tablesIndexes(line(1).toInt))
+                    new CheckTable(local, line(0), dataRoot.get, pool, ignite, poolSize).process()
+                else
+                    logger.warn(s"Skipping table ${line(0)} of index ${line(1)}")
+            }
+        } finally {
+            pool.shutdown()
+            pool.awaitTermination(23, TimeUnit.HOURS)
+            logger.info("Pool terminated. All tasks are done! Finish!")
+            ignite.close()
+        }
+    }
+
+    def generateCode(dataRoot: String): Unit =
         new GenerateBuilderClasses(dataRoot).generate()
 
-    def countLines(dataRoot: String) = {
+    def countLines(dataRoot: String): Unit = {
         val fileIterator = if (new File(dataRoot).isDirectory)
             directoryIterator(dataRoot)
         else
             zipIterator(dataRoot)
 
         fileIterator.foreach { case (name, file) ⇒
-            val iter = Source.fromInputStream(file, "Cp1251").getLines()
+            val iter = Source.fromInputStream(file, fileEncoding).getLines()
             var count: Long = 0L
             while (iter.hasNext) {
                 iter.next

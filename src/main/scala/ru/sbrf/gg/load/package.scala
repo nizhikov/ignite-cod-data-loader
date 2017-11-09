@@ -19,17 +19,6 @@ import scala.xml.{Node, XML}
 package object load {
     private val logger = LoggerFactory.getLogger(this.getClass)
 
-    object closeAfter {
-        def apply[R <: AutoCloseable, T](r: R)(c: (R) ⇒ T) = {
-            try {
-                c(r)
-            }
-            finally {
-                r.close
-            }
-        }
-    }
-
     def filesList(dir: String): Seq[File] = {
         val d = new File(dir)
         if (d.exists() && d.isDirectory)
@@ -163,4 +152,6 @@ package object load {
                 throw new RuntimeException(s"Settings for table $tableName not found")
         }
     }
+
+    def fileEncoding: String = System.getProperty("FILE_ENCODING", "Cp1251")
 }
