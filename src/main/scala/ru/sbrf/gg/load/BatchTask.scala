@@ -7,12 +7,12 @@ import org.slf4j.LoggerFactory
 import ru.sbrf.gg.load.builder.{Builders, ObjectBuilder}
 
 /**
+  * @author NIzhikov
   */
-class InsertBatchTask(batch: Array[String], tableInfo: TableInfo, cache: IgniteCache[Any, Any],
-    lineCount: Long, name: String, tableName: String, lock: Object, counter: AtomicInteger) extends Runnable {
+trait BatchTask extends Runnable {
     val logger = LoggerFactory.getLogger(this.getClass)
 
-    override def run(): Unit =
+    override def run(): Unit = {
         try {
             val batchMap = new java.util.HashMap[Any, Any](batch.length, 1)
 
@@ -31,7 +31,7 @@ class InsertBatchTask(batch: Array[String], tableInfo: TableInfo, cache: IgniteC
             }
 
             val start = System.nanoTime()
-            cache.putAll(batchMap)
+            cache.putAll(batchMap) //TODO: implement me.
             logger.info(s"[LoadTable][BatchInserted][tableName:$tableName][file:$name]" +
                 s"[lineCount:$lineCount][timeElapsed:${(System.nanoTime() - start)/1000000.0}]")
         } catch {
@@ -42,4 +42,21 @@ class InsertBatchTask(batch: Array[String], tableInfo: TableInfo, cache: IgniteC
                 lock.notify()
             }
         }
+    }
+
+    def batch: Array[String]
+
+    def tableInfo: TableInfo
+
+    def cache: IgniteCache[Any, Any]
+
+    def lineCount: Long
+
+    def name: String
+
+    def tableName: String
+
+    def lock: Object
+
+    def counter: AtomicInteger
 }

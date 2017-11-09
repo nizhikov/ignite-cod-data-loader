@@ -23,7 +23,7 @@ import java.util.concurrent.{ExecutorService, Executors, TimeUnit}
 
 import org.apache.ignite.Ignite
 import org.slf4j.LoggerFactory
-import ru.sbrf.gg.load.Config.{COUNT_LINES, GENERATE_BUILDER_CODE, GENERATE_CONFIG, LOAD_TABLE}
+import ru.sbrf.gg.load.Config._
 
 import scala.io.Source
 
@@ -42,6 +42,20 @@ object MainApp extends App {
                     c.copy(serversFile = Some(v)) ).text("path to csv file with servers info")
             )
         cmd(LOAD_TABLE).action( (_, c) => c.copy(command = Some(LOAD_TABLE)) ).
+            text("loads table data to cluster.").
+            children(
+                opt[Unit]("local").abbr("l").action( (v, c) =>
+                    c.copy(local = true) ).text("use config for local cluster"),
+                opt[Unit]("cluster").abbr("c").action( (v, c) =>
+                    c.copy(local = false) ).text("use config for test cluster"),
+                opt[String]("data-root").abbr("dr").action( (v, c) =>
+                    c.copy(dataRoot = Some(v)) ).text("data root directory or path to zip file"),
+                opt[Int]("pool-size").abbr("ps").action( (v, c) =>
+                    c.copy(poolSize = Some(v)) ).text("Size of thread pool to load files"),
+                opt[String]("tables-index").abbr("ti").action( (v, c) =>
+                    c.copy(tablesIndexes = v.split(",").map(_.toInt).toSet) ).text("Indexes of tables in config. See tables.csv, comma separated")
+            )
+        cmd(CHECK_TABLE).action( (_, c) => c.copy(command = Some(CHECK_TABLE)) ).
             text("loads table data to cluster.").
             children(
                 opt[Unit]("local").abbr("l").action( (v, c) =>
@@ -75,6 +89,11 @@ object MainApp extends App {
                     else
                         success
                 case Some(LOAD_TABLE) ⇒
+                    if (c.dataRoot.isEmpty)
+                        failure(s"`data-root` is required parameters")
+                    else
+                        success
+                case Some(CHECK_TABLE) ⇒
                     if (c.dataRoot.isEmpty)
                         failure(s"`data-root` is required parameters")
                     else
@@ -125,7 +144,7 @@ object MainApp extends App {
         try {
             new CSVReader(getClass.getResourceAsStream("/tables.csv")).foreach { line ⇒
                 if (tablesIndexes(line(1).toInt))
-                    new LoadTable(local, line(0), dataRoot.get, pool, ignite, poolSize).load()
+                    new LoadTable(local, line(0), dataRoot.get, pool, ignite, poolSize).process()
                 else
                     logger.warn(s"Skipping table ${line(0)} of index ${line(1)}")
             }
