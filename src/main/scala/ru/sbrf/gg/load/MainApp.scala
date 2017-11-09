@@ -32,6 +32,8 @@ import scala.io.Source
 object MainApp extends App {
     private val logger = LoggerFactory.getLogger(this.getClass)
 
+    val DEFAULT_POOL_SIZE = 2
+
     val parser = new scopt.OptionParser[Config]("java -jar ignite-cod-data-loader.jar") {
         head("ignite-cod-data-loader", "0.0.1")
 
@@ -130,58 +132,13 @@ object MainApp extends App {
         }
     }
 
-    def loadTable(local: Boolean, dataRoot: Option[String], poolSizeOption: Option[Int],
-        tablesIndexes: Set[Int]): Unit = {
-        val poolSize = poolSizeOption.getOrElse(2)
+    def loadTable(local: Boolean, dataRoot: Option[String], poolSizeOption: Option[Int], tablesIndexes: Set[Int]): Unit =
+        processFiles(local, dataRoot, poolSizeOption, tablesIndexes,
+            (tableName, pool, ignite) ⇒ new LoadTable(tableName, dataRoot.get, pool, ignite, poolSizeOption.getOrElse(DEFAULT_POOL_SIZE)))
 
-        val pool: ExecutorService = Executors.newFixedThreadPool(poolSize)
-
-        logger.info(s"[ThreadPool.size:${poolSize}][TablesIndexes:${tablesIndexes.mkString(", ")}]")
-
-        printTables(dataRoot.get)
-
-        val ignite: Ignite = startClient(local)
-
-        try {
-            new CSVReader(getClass.getResourceAsStream("/tables.csv")).foreach { line ⇒
-                if (tablesIndexes(line(1).toInt))
-                    new LoadTable(local, line(0), dataRoot.get, pool, ignite, poolSize).process()
-                else
-                    logger.warn(s"Skipping table ${line(0)} of index ${line(1)}")
-            }
-        } finally {
-            pool.shutdown()
-            pool.awaitTermination(23, TimeUnit.HOURS)
-            logger.info("Pool terminated. All tasks are done! Finish!")
-            ignite.close()
-        }
-    }
-
-    def checkTable(local: Boolean, dataRoot: Option[String], poolSizeOption: Option[Int], tablesIndexes: Set[Int]): Unit = {
-        val poolSize = poolSizeOption.getOrElse(2)
-
-        val pool: ExecutorService = Executors.newFixedThreadPool(poolSize)
-
-        logger.info(s"[ThreadPool.size:${poolSize}][TablesIndexes:${tablesIndexes.mkString(", ")}]")
-
-        printTables(dataRoot.get)
-
-        val ignite: Ignite = startClient(local)
-
-        try {
-            new CSVReader(getClass.getResourceAsStream("/tables.csv")).foreach { line ⇒
-                if (tablesIndexes(line(1).toInt))
-                    new CheckTable(local, line(0), dataRoot.get, pool, ignite, poolSize).process()
-                else
-                    logger.warn(s"Skipping table ${line(0)} of index ${line(1)}")
-            }
-        } finally {
-            pool.shutdown()
-            pool.awaitTermination(23, TimeUnit.HOURS)
-            logger.info("Pool terminated. All tasks are done! Finish!")
-            ignite.close()
-        }
-    }
+    def checkTable(local: Boolean, dataRoot: Option[String], poolSizeOption: Option[Int], tablesIndexes: Set[Int]): Unit =
+        processFiles(local, dataRoot, poolSizeOption, tablesIndexes,
+            (tableName, pool, ignite) ⇒ new CheckTable(tableName, dataRoot.get, pool, ignite, poolSizeOption.getOrElse(DEFAULT_POOL_SIZE)))
 
     def generateCode(dataRoot: String): Unit =
         new GenerateBuilderClasses(dataRoot).generate()
@@ -215,5 +172,32 @@ object MainApp extends App {
         val tables = fileIterator.filter(_._1.contains('_')).map(file ⇒ file._1.substring(0, file._1.lastIndexOf('_'))).toSet
         logger.info(s"==== KNOWN TABLES START - ${tables.size} ====")
         tables.foreach(logger.info)
+    }
+
+    def processFiles(local: Boolean, dataRoot: Option[String], poolSizeOption: Option[Int],
+        tablesIndexes: Set[Int], taskGenerator: (String, ExecutorService, Ignite) ⇒ ProcessTableFile): Unit = {
+        val poolSize = poolSizeOption.getOrElse(DEFAULT_POOL_SIZE)
+
+        val pool: ExecutorService = Executors.newFixedThreadPool(poolSize)
+
+        logger.info(s"[ThreadPool.size:${poolSize}][TablesIndexes:${tablesIndexes.mkString(", ")}]")
+
+        printTables(dataRoot.get)
+
+        val ignite: Ignite = startClient(local)
+
+        try {
+            new CSVReader(getClass.getResourceAsStream("/tables.csv")).foreach { line ⇒
+                if (tablesIndexes(line(1).toInt))
+                    taskGenerator(line(0), pool, ignite).process()
+                else
+                    logger.warn(s"Skipping table ${line(0)} of index ${line(1)}")
+            }
+        } finally {
+            pool.shutdown()
+            pool.awaitTermination(23, TimeUnit.HOURS)
+            logger.info("Pool terminated. All tasks are done! Finish!")
+            ignite.close()
+        }
     }
 }

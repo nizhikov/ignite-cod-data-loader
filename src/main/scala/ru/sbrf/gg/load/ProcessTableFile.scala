@@ -1,24 +1,22 @@
 package ru.sbrf.gg.load
 
 import java.io.{BufferedReader, File, InputStream, InputStreamReader}
-import java.util.concurrent.ExecutorService
-import java.util.concurrent.atomic.AtomicInteger
-
-import org.apache.ignite.{Ignite, IgniteCache}
-import org.slf4j.LoggerFactory
+import org.slf4j.{Logger, LoggerFactory}
 
 /**
   * @author NIzhikov
   */
 trait ProcessTableFile {
-    val logger = LoggerFactory.getLogger(this.getClass)
+    val logger: Logger = LoggerFactory.getLogger(this.getClass)
 
-    val batchSize: Int = System.getProperty("BATCH_SIZE", "10000").toInt
+    val batchSize: Int = System.getProperty("BATCH_SIZE", "5000").toInt
 
     val fileName: String = System.getProperty("FILE_NAME", "")
 
+    val maxLines: Long = System.getProperty("MAX_LINES", "-1").toLong
+
     def process(): Unit = {
-        logger.info(s"[$taskName][tableName:$tableName][local:$local][dataRoot:$dataRoot]")
+        logger.info(s"[$taskName][tableName:$tableName][dataRoot:$dataRoot]")
 
         val tableInfo = findTableInfo(tableName)
 
@@ -46,7 +44,7 @@ trait ProcessTableFile {
                 }
             }
 
-            logger.info(s"[$taskName][tableName:$tableName] All files submitted for load")
+            logger.info(s"[$taskName][tableName:$tableName] All files submitted for processing")
         } else
             logger.warn(s"[$taskName][tableName:$tableName] No files for table")
 
@@ -64,7 +62,7 @@ trait ProcessTableFile {
             var batch = new Array[String](batchSize)
 
             var line = reader.readLine()
-            while (line != null) {
+            while (line != null && (maxLines == -1L || lineCount < maxLines)) {
                 batch(batchIndex) = line
 
                 lineCount += 1
@@ -99,8 +97,6 @@ trait ProcessTableFile {
     def processBatch(batch: Array[String], tableInfo: TableInfo, lineCount: Long, name: String): Unit
 
     def finish(tableInfo: TableInfo): Unit
-
-    def local: Boolean
 
     def tableName: String
 

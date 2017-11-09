@@ -7,7 +7,7 @@ import org.apache.ignite.{Ignite, IgniteCache}
 
 /**
   */
-class LoadTable(val local: Boolean, val tableName: String, val dataRoot: String, val pool: ExecutorService,
+class LoadTable(val tableName: String, val dataRoot: String, val pool: ExecutorService,
     val ignite: Ignite, val poolSize: Int) extends ProcessTableFile {
 
     val counter = new AtomicInteger()

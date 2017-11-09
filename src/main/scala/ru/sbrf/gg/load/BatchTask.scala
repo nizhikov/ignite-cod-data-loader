@@ -2,14 +2,14 @@ package ru.sbrf.gg.load
 
 import java.util.concurrent.atomic.AtomicInteger
 
-import org.slf4j.LoggerFactory
+import org.slf4j.{Logger, LoggerFactory}
 import ru.sbrf.gg.load.builder.{Builders, ObjectBuilder}
 
 /**
   * @author NIzhikov
   */
 trait BatchTask extends Runnable {
-    val logger = LoggerFactory.getLogger(this.getClass)
+    val logger: Logger = LoggerFactory.getLogger(this.getClass)
 
     override def run(): Unit = {
         try {
