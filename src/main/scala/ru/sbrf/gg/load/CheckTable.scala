@@ -23,7 +23,7 @@ class CheckTable(val tableName: String, val dataRoot: String, val pool: Executor
     }
 
     override def processBatch(batch: Array[String], tableInfo: TableInfo, lineCount: Long, name: String): Unit = {
-        pool.execute(new CheckBatchTask(batch, tableInfo, cache, lineCount, name, tableName, lock, counter))
+        pool.execute(new CheckBatchTask(batch, tableInfo, ignite, cache, lineCount, name, tableName, lock, counter))
 
         waitTasksToComplete()
     }

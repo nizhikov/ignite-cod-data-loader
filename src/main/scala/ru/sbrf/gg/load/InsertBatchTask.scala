@@ -2,13 +2,13 @@ package ru.sbrf.gg.load
 
 import java.util.concurrent.atomic.AtomicInteger
 
-import org.apache.ignite.IgniteCache
-import org.slf4j.LoggerFactory
-import ru.sbrf.gg.load.builder.{Builders, ObjectBuilder}
+import org.apache.ignite.transactions.TransactionConcurrency.PESSIMISTIC
+import org.apache.ignite.transactions.TransactionIsolation.REPEATABLE_READ
+import org.apache.ignite.{Ignite, IgniteCache}
 
 /**
   */
-class InsertBatchTask(val batch: Array[String], val tableInfo: TableInfo, val cache: IgniteCache[Any, Any],
+class InsertBatchTask(val batch: Array[String], val tableInfo: TableInfo, val ignite: Ignite, val cache: IgniteCache[Any, Any],
     val lineCount: Long, val fileName: String, val tableName: String, val lock: Object, val counter: AtomicInteger) extends BatchTask {
 
     def processBatch(): Unit = {
@@ -23,7 +23,15 @@ class InsertBatchTask(val batch: Array[String], val tableInfo: TableInfo, val ca
             }
         }
 
-        cache.putAll(batchMap)
+        val txMgr = ignite.transactions()
+
+        val tx = txMgr.txStart(PESSIMISTIC, REPEATABLE_READ)
+        try {
+            cache.putAll(batchMap)
+            tx.commit();
+        } finally {
+            tx.close()
+        }
     }
 
     override def taskName = "LoadTable"

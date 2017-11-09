@@ -3,6 +3,9 @@ package ru.sbrf.gg.load
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.ExecutorService
 
+import org.apache.ignite.cache.CacheAtomicityMode.TRANSACTIONAL
+import org.apache.ignite.cache.CacheMode.PARTITIONED
+import org.apache.ignite.configuration.CacheConfiguration
 import org.apache.ignite.{Ignite, IgniteCache}
 
 /**
@@ -19,11 +22,15 @@ class LoadTable(val tableName: String, val dataRoot: String, val pool: ExecutorS
     override def taskName: String = "LoadTable"
 
     override def start(tableInfo: TableInfo): Unit = {
-        cache = ignite.getOrCreateCache(tableInfo.cacheName)
+        cache = ignite.getOrCreateCache(
+            new CacheConfiguration[Any, Any]()
+                .setAtomicityMode(TRANSACTIONAL)
+                .setCacheMode(PARTITIONED)
+                .setName(tableInfo.cacheName))
     }
 
     override def processBatch(batch: Array[String], tableInfo: TableInfo, lineCount: Long, name: String): Unit = {
-        pool.execute(new InsertBatchTask(batch, tableInfo, cache, lineCount, name, tableName, lock, counter))
+        pool.execute(new InsertBatchTask(batch, tableInfo, ignite, cache, lineCount, name, tableName, lock, counter))
 
         waitTasksToComplete()
     }
@@ -46,5 +53,4 @@ class LoadTable(val tableName: String, val dataRoot: String, val pool: ExecutorS
             }
         }
     }
-
 }

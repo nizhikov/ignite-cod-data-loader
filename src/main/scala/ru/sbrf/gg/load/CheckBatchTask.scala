@@ -2,12 +2,13 @@ package ru.sbrf.gg.load
 
 import java.util.concurrent.atomic.AtomicInteger
 
-import org.apache.ignite.IgniteCache
+import org.apache.ignite.{Ignite, IgniteCache}
+
 import scala.collection.JavaConversions._
 
 /**
   */
-class CheckBatchTask(val batch: Array[String], val tableInfo: TableInfo, val cache: IgniteCache[Any, Any],
+class CheckBatchTask(val batch: Array[String], val tableInfo: TableInfo, ignite: Ignite, val cache: IgniteCache[Any, Any],
     val lineCount: Long, val fileName: String, val tableName: String, val lock: Object, val counter: AtomicInteger) extends BatchTask {
 
     var errorFound = false
