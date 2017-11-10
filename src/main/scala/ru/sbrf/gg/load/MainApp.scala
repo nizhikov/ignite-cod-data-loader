@@ -77,7 +77,7 @@ object MainApp extends App {
                 opt[Unit]("local").abbr("l").action( (v, c) =>
                     c.copy(local = true) ).text("use config for local cluster"),
                 opt[Unit]("cluster").abbr("c").action( (v, c) =>
-                    c.copy(local = false) ).text("use config for test cluster"),
+                    c.copy(local = false) ).text("use config for test cluster")
             )
         cmd(COUNT_LINES).action( (_, c) => c.copy(command = Some(COUNT_LINES)) ).
             text("Print count of lines in each file.").
@@ -154,7 +154,11 @@ object MainApp extends App {
     def startComputeJob(local: Boolean) = {
         val ignite: Ignite = startClient(local)
 
-        //ignite.compute().
+        try {
+            new StartComputeJob(ignite).run()
+        } finally {
+            ignite.close()
+        }
     }
 
     def generateCode(dataRoot: String): Unit =
