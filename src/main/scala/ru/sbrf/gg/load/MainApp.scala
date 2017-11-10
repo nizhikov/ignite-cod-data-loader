@@ -71,6 +71,14 @@ object MainApp extends App {
                 opt[String]("tables-index").abbr("ti").action( (v, c) =>
                     c.copy(tablesIndexes = v.split(",").map(_.toInt).toSet) ).text("Indexes of tables in config. See tables.csv, comma separated")
             )
+        cmd(START_COMPUTE_JOB).action( (_, c) => c.copy(command = Some(START_COMPUTE_JOB)) ).
+            text("starts compute job throw already loaded data.").
+            children(
+                opt[Unit]("local").abbr("l").action( (v, c) =>
+                    c.copy(local = true) ).text("use config for local cluster"),
+                opt[Unit]("cluster").abbr("c").action( (v, c) =>
+                    c.copy(local = false) ).text("use config for test cluster"),
+            )
         cmd(COUNT_LINES).action( (_, c) => c.copy(command = Some(COUNT_LINES)) ).
             text("Print count of lines in each file.").
             children(
@@ -100,6 +108,8 @@ object MainApp extends App {
                         failure(s"`data-root` is required parameters")
                     else
                         success
+                case Some(START_COMPUTE_JOB) ⇒
+                        success
                 case Some(COUNT_LINES) ⇒
                     if (c.dataRoot.isEmpty)
                         failure(s"`data-root` is required parameters")
@@ -119,6 +129,7 @@ object MainApp extends App {
             case Some(GENERATE_CONFIG) ⇒ generateAddressesConfig(config.serversFile.get)
             case Some(LOAD_TABLE) ⇒ loadTable(config.local, config.dataRoot, config.poolSize, config.tablesIndexes)
             case Some(CHECK_TABLE) ⇒ checkTable(config.local, config.dataRoot, config.poolSize, config.tablesIndexes)
+            case Some(START_COMPUTE_JOB) ⇒ startComputeJob(config.local)
             case Some(COUNT_LINES) ⇒ countLines(config.dataRoot.get)
             case Some(GENERATE_BUILDER_CODE) ⇒ generateCode(config.dataRoot.get)
         }
@@ -139,6 +150,12 @@ object MainApp extends App {
     def checkTable(local: Boolean, dataRoot: Option[String], poolSizeOption: Option[Int], tablesIndexes: Set[Int]): Unit =
         processFiles(local, dataRoot, poolSizeOption, tablesIndexes,
             (tableName, pool, ignite) ⇒ new CheckTable(tableName, dataRoot.get, pool, ignite, poolSizeOption.getOrElse(DEFAULT_POOL_SIZE)))
+
+    def startComputeJob(local: Boolean) = {
+        val ignite: Ignite = startClient(local)
+
+        //ignite.compute().
+    }
 
     def generateCode(dataRoot: String): Unit =
         new GenerateBuilderClasses(dataRoot).generate()

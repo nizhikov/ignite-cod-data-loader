@@ -19,4 +19,5 @@ object Config {
     val CHECK_TABLE = "check-table"
     val COUNT_LINES = "count-lines"
     val GENERATE_BUILDER_CODE = "generate-builder-code"
+    val START_COMPUTE_JOB = "start-compute-job"
 }
