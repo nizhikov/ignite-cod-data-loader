@@ -13,9 +13,9 @@ public class AffinityParticleKeyBuilder extends ReflectionBuilder implements Obj
 
         int[] indexes = new int[]{0, 0, line.length()};
 
-        Long id = DelimetedStringParser._long(tableInfo.id._2(), line, indexes);
-        Long partitionId = DelimetedStringParser._long(tableInfo.partitionId._2(), line, indexes);
-        Long rootId = DelimetedStringParser._long(tableInfo.rootId._2(), line, indexes);
+        Long id = DelimetedStringParser._long(tableInfo.id.idx, line, indexes);
+        Long partitionId = DelimetedStringParser._long(tableInfo.partitionId.idx, line, indexes);
+        Long rootId = DelimetedStringParser._long(tableInfo.rootId.idx, line, indexes);
 
         return new AffinityParticleKey(id, partitionId, rootId);
     }

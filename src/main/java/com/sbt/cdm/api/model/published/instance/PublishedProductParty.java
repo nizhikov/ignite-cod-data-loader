@@ -5,6 +5,7 @@
  */
 package com.sbt.cdm.api.model.published.instance;
 
+import java.math.BigDecimal;
 import ru.sbt.kmdtransform.*;
 
 import java.util.Date;
@@ -253,6 +254,8 @@ public class PublishedProductParty {
     @InitOrder(value = "1")
     @DataType(value = TransformType.LONG)
     public Long objectId;
+
+    public BigDecimal sum;
 
     public boolean isDeleted=false;
 	public Long lastChangeDate = System.currentTimeMillis();

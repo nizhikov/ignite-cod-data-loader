@@ -51,48 +51,48 @@ class GenerateBuilderClasses(dataRoot: String) {
     def generate4Table(tableInfo: TableInfo): String  = {
         val className = s"${tableInfo.value.getSimpleName}Builder"
 
-        val fieldsSetters = tableInfo.valueFields.sortBy(_._2).map { f ⇒
-            val name = f._1.getName
+        val fieldsSetters = tableInfo.valueFields.sortBy(_.idx).map { f ⇒
+            val name = f.f.getName
 
-            f._4 match {
+            f.trans match {
                 case LONG ⇒
-                    s"r.$name = DelimetedStringParser._long(${f._2}, line, indexes);"
+                    s"r.$name = DelimetedStringParser._long(${f.idx}, line, indexes);"
                 case INTEGER ⇒
-                    s"r.$name = DelimetedStringParser._int(${f._2}, line, indexes);"
+                    s"r.$name = DelimetedStringParser._int(${f.idx}, line, indexes);"
                 case BIGDECIMAL ⇒
-                    s"r.$name = DelimetedStringParser.bigDecimal(${f._2}, line, indexes);"
+                    s"r.$name = DelimetedStringParser.bigDecimal(${f.idx}, line, indexes);"
                 case DATE_TIME ⇒
-                    s"r.$name = DelimetedStringParser.date(${f._2}, line, indexes);"
+                    s"r.$name = DelimetedStringParser.date(${f.idx}, line, indexes);"
                 case STRING ⇒
-                    s"r.$name = DelimetedStringParser.str(${f._2}, line, indexes);"
+                    s"r.$name = DelimetedStringParser.str(${f.idx}, line, indexes);"
                 case CSL_AFFINITYPARTICLES ⇒
-                    s"r.$name = DelimetedStringParser.strBuilder(${f._2}, line, indexes);"
+                    s"r.$name = DelimetedStringParser.strBuilder(${f.idx}, line, indexes);"
                 case CSL_DICTS ⇒
-                    s"r.$name = DelimetedStringParser.strBuilder(${f._2}, line, indexes);"
+                    s"r.$name = DelimetedStringParser.strBuilder(${f.idx}, line, indexes);"
                 case BOOLEAN ⇒
-                    s"r.$name = DelimetedStringParser.bool(${f._2}, line, indexes);"
+                    s"r.$name = DelimetedStringParser.bool(${f.idx}, line, indexes);"
                 case COMPOSEKEY ⇒
-                    s"r.$name = DelimetedStringParser._long(${f._2}, line, indexes);"
+                    s"r.$name = DelimetedStringParser._long(${f.idx}, line, indexes);"
                 case ROOT ⇒
-                    s"r.$name = (${f._1.getType.getName})${f._4.name()}.fromStr(DelimetedStringParser.str(${f._2}, line, indexes));"
+                    s"r.$name = (${f.f.getType.getName})${f.trans.name()}.fromStr(DelimetedStringParser.str(${f.idx}, line, indexes));"
                 case PARTITION ⇒
-                    s"r.$name = (${f._1.getType.getName})${f._4.name()}.fromStr(DelimetedStringParser.str(${f._2}, line, indexes));"
+                    s"r.$name = (${f.f.getType.getName})${f.trans.name()}.fromStr(DelimetedStringParser.str(${f.idx}, line, indexes));"
                 case CSL_PARTICLES ⇒
-                    s"r.$name = (${f._1.getType.getName})${f._4.name()}.fromStr(DelimetedStringParser.str(${f._2}, line, indexes));"
+                    s"r.$name = (${f.f.getType.getName})${f.trans.name()}.fromStr(DelimetedStringParser.str(${f.idx}, line, indexes));"
                 case OBJ_TYPE ⇒
-                    s"r.$name = (${f._1.getType.getName})${f._4.name()}.fromStr(DelimetedStringParser.str(${f._2}, line, indexes));"
+                    s"r.$name = (${f.f.getType.getName})${f.trans.name()}.fromStr(DelimetedStringParser.str(${f.idx}, line, indexes));"
             }
         }
 
-        val fieldsComparators = tableInfo.valueFields.sortBy(_._2).map { f ⇒
-            val name = f._1.getName
+        val fieldsComparators = tableInfo.valueFields.sortBy(_.idx).map { f ⇒
+            val name = f.f.getName
 
             val regularCompare = () ⇒ s"if (CompareUtils.compare(f.$name, s.$name) != 0) return CompareUtils.compare(f.$name, s.$name);"
 
             val strBuilderCompare = () ⇒ s"if (CompareUtils.compare(f.$name==null ? null : f.$name.toString(), s.$name==null ? null : s.$name.toString()) != 0) " +
                     s"return CompareUtils.compare(f.$name==null ? null : f.$name.toString(), s.$name==null ? null : s.$name.toString());"
 
-            f._4 match {
+            f.trans match {
                 case LONG ⇒ regularCompare()
                 case INTEGER ⇒ regularCompare()
                 case BIGDECIMAL ⇒ regularCompare()

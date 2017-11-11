@@ -11,7 +11,6 @@ import ru.sbt.kmdtransform.InitOrder;
 import ru.sbt.kmdtransform.PartField;
 import ru.sbt.kmdtransform.RootField;
 import ru.sbt.kmdtransform.TransformType;
-import scala.Tuple4;
 
 /**
  */
@@ -21,11 +20,11 @@ public class TableInfo {
     public String cacheName;
     public String fileMask;
 
-    public Tuple4<Field, Integer, String, TransformType> id;
-    public Tuple4<Field, Integer, String, TransformType> partitionId;
-    public Tuple4<Field, Integer, String, TransformType> rootId;
+    public FieldInfo id;
+    public FieldInfo partitionId;
+    public FieldInfo rootId;
 
-    public List<Tuple4<Field, Integer, String, TransformType>> valueFields = new ArrayList<>();
+    public List<FieldInfo> valueFields = new ArrayList<>();
 
     public TableInfo(Class key, Class value, String cacheName, String fileMask) {
         this.key = key;
@@ -46,7 +45,7 @@ public class TableInfo {
 
     }
 
-    private Tuple4<Field,Integer,String,TransformType> findWithAnnotion(Field[] fields, Class<? extends Annotation> annotation) {
+    private FieldInfo findWithAnnotion(Field[] fields, Class<? extends Annotation> annotation) {
         for (Field field : fields) {
             if (field.isAnnotationPresent(annotation))
                 return fieldInfo(field);
@@ -55,11 +54,26 @@ public class TableInfo {
         return null;
     }
 
-    private Tuple4<Field, Integer, String, TransformType> fieldInfo(Field f) {
-        return new Tuple4<>(
+    private FieldInfo fieldInfo(Field f) {
+        return new FieldInfo(
             f,
             Integer.valueOf(f.getAnnotation(InitOrder.class).value()) - 1,
             f.isAnnotationPresent(Default.class) ?  f.getAnnotation(Default.class).value() : null,
             f.getAnnotation(DataType.class).value());
+    }
+
+    public static class FieldInfo {
+        public Field f;
+        public int idx;
+        public String def;
+        public TransformType trans;
+
+        public FieldInfo(Field f, int idx, String def, TransformType trans) {
+
+            this.f = f;
+            this.idx = idx;
+            this.def = def;
+            this.trans = trans;
+        }
     }
 }

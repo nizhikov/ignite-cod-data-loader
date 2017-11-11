@@ -4,6 +4,7 @@ import com.sbt.DelimetedStringParser;
 import java.lang.reflect.Field;
 import java.util.List;
 import ru.sbrf.gg.load.TableInfo;
+import ru.sbrf.gg.load.TableInfo.FieldInfo;
 import ru.sbt.kmdtransform.TransformType;
 import scala.Tuple4;
 
@@ -15,10 +16,10 @@ public class ReflectionBuilder implements ObjectBuilder {
             Object result = tableInfo.value.newInstance();
             int[] indexes = new int[] {0, 0, line.length()};
 
-            final List<Tuple4<Field, Integer, String, TransformType>> tuple4s = tableInfo.valueFields;
+            final List<FieldInfo> tuple4s = tableInfo.valueFields;
 
-            for (Tuple4<Field, Integer, String, TransformType> f : tuple4s) {
-                f._1().set(result, fieldValue(line, f, indexes));
+            for (FieldInfo fi : tuple4s) {
+                fi.f.set(result, fieldValue(line, fi, indexes));
             }
 
             return result;
@@ -37,12 +38,12 @@ public class ReflectionBuilder implements ObjectBuilder {
             return 0;
     }
 
-    protected Object fieldValue(String line, Tuple4<Field, Integer, String, TransformType> field, int[] indexes) {
-        String fieldValueStr = DelimetedStringParser.str(field._2(), line, indexes);
+    protected Object fieldValue(String line, FieldInfo fi, int[] indexes) {
+        String fieldValueStr = DelimetedStringParser.str(fi.idx, line, indexes);
 
         if (fieldValueStr == null || fieldValueStr.equals(""))
-            fieldValueStr = field._3();
+            fieldValueStr = fi.def;
 
-        return field._4().fromStr(fieldValueStr);
+        return fi.trans.fromStr(fieldValueStr);
     }
 }
