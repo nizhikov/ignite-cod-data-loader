@@ -26,6 +26,7 @@ class LoadTable(val tableName: String, val dataRoot: String, val pool: ExecutorS
             new CacheConfiguration[Any, Any]()
                 .setAtomicityMode(TRANSACTIONAL)
                 .setCacheMode(PARTITIONED)
+                .setBackups(3)
                 .setName(tableInfo.cacheName))
     }
 
