@@ -121,7 +121,7 @@ package object load {
             val name = (fileTag \ "tableName").text
 
             val transformConfig = XML.load(
-                getClass.getResourceAsStream("/distrib_src_main_resource_config_gg-eip.xml"))
+                getClass.getResourceAsStream("/gg-eip.xml"))
 
             val table = (transformConfig \ "tables" \ "table").find(node ⇒ (node \ "name").text == name)
 
@@ -139,7 +139,7 @@ package object load {
         }
 
         val loaderConfig = XML.load(
-            getClass.getResourceAsStream("/distrib_src_main_resource_config_LoaderConfig.xml"))
+            getClass.getResourceAsStream("/LoaderConfig.xml"))
 
         val fileTags = loaderConfig \ "loader" \ "type" \ "filesWithId" \ "files" \ "file"
 

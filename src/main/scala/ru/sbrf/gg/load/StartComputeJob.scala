@@ -22,7 +22,7 @@ class StartComputeJob(ignite: Ignite) extends Runnable {
 
     private val waitForParts = System.getProperty("WAIT_FOR_PARTS", "60000").toLong
 
-    private val waitForJobs = System.getProperty("WAIT_FOR_JOBS", "10000").toLong
+    private val waitForJobs = System.getProperty("WAIT_FOR_JOBS", "2500").toLong
 
 
     override def run(): Unit = {
