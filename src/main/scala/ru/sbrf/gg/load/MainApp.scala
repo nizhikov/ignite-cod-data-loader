@@ -43,6 +43,18 @@ object MainApp extends App {
                 opt[String]("servers-file").abbr("sf").action( (v, c) =>
                     c.copy(serversFile = Some(v)) ).text("path to csv file with servers info")
             )
+        cmd(CREATE_CACHES).action( (_, c) => c.copy(command = Some(CREATE_CACHES)) ).
+            text("loads table data to cluster.").
+            children(
+                opt[Unit]("local").abbr("l").action( (v, c) =>
+                    c.copy(local = true) ).text("use config for local cluster"),
+                opt[Unit]("cluster").abbr("c").action( (v, c) =>
+                    c.copy(local = false) ).text("use config for test cluster"),
+                opt[String]("data-root").abbr("dr").action( (v, c) =>
+                    c.copy(dataRoot = Some(v)) ).text("data root directory or path to zip file"),
+                opt[String]("tables-index").abbr("ti").action( (v, c) =>
+                    c.copy(tablesIndexes = v.split(",").map(_.toInt).toSet) ).text("Indexes of tables in config. See tables.csv, comma separated")
+            )
         cmd(LOAD_TABLE).action( (_, c) => c.copy(command = Some(LOAD_TABLE)) ).
             text("loads table data to cluster.").
             children(
@@ -98,6 +110,11 @@ object MainApp extends App {
                         failure(s"File ${c.serversFile.map(new File(_).getAbsoluteFile)} doesn't exists")
                     else
                         success
+                case Some(CREATE_CACHES) ⇒
+                    if (c.dataRoot.isEmpty)
+                        failure(s"`data-root` is required parameters")
+                    else
+                        success
                 case Some(LOAD_TABLE) ⇒
                     if (c.dataRoot.isEmpty)
                         failure(s"`data-root` is required parameters")
@@ -127,6 +144,7 @@ object MainApp extends App {
     parser.parse(args, Config()) match {
         case Some(config) => config.command match {
             case Some(GENERATE_CONFIG) ⇒ generateAddressesConfig(config.serversFile.get)
+            case Some(CREATE_CACHES) ⇒ createCaches(config.local, config.dataRoot, config.tablesIndexes)
             case Some(LOAD_TABLE) ⇒ loadTable(config.local, config.dataRoot, config.poolSize, config.tablesIndexes)
             case Some(CHECK_TABLE) ⇒ checkTable(config.local, config.dataRoot, config.poolSize, config.tablesIndexes)
             case Some(START_COMPUTE_JOB) ⇒ startComputeJob(config.local)
@@ -142,6 +160,10 @@ object MainApp extends App {
             println(s"<value>${line(2)}:48500..48509</value>")
         }
     }
+
+    def createCaches(local: Boolean, dataRoot: Option[String], tablesIndexes: Set[Int]): Unit =
+        processFiles(local, dataRoot, None, tablesIndexes,
+            (tableName, pool, ignite) ⇒ new CreateCaches(tableName, dataRoot.get, ignite))
 
     def loadTable(local: Boolean, dataRoot: Option[String], poolSizeOption: Option[Int], tablesIndexes: Set[Int]): Unit =
         processFiles(local, dataRoot, poolSizeOption, tablesIndexes,

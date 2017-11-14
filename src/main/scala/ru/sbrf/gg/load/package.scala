@@ -1,6 +1,7 @@
 package ru.sbrf.gg
 
 import java.io.{File, FileInputStream, InputStream}
+import java.net.NetworkInterface
 import java.text.SimpleDateFormat
 import java.util
 import java.util.zip.{ZipEntry, ZipFile}
@@ -82,8 +83,8 @@ package object load {
 
         cfg.setDiscoverySpi(new TcpDiscoverySpi().setIpFinder(
             new TcpDiscoveryMulticastIpFinder()
-                .setMulticastPort(48501)
-                .setAddresses(List(addresses.head))))
+                .setMulticastPort(System.getProperty("IGNITE.MULTICAST_PORT", "47502").toInt)
+                .setAddresses(if(local) addresses else findLocalServer(addresses))))
 
         cfg.setBinaryConfiguration(new BinaryConfiguration()
             .setCompactFooter(true))
@@ -97,6 +98,19 @@ package object load {
         logger.info("[Cluster][Activation][Finish]")
 
         ignite
+    }
+
+    def findLocalServer(addresses: List[String]): List[String] = {
+        val inetAddresses = NetworkInterface.getNetworkInterfaces.map(_.getInetAddresses).flatten
+
+        val localServerAddress = inetAddresses.find(ia ⇒ addresses.contains(ia.getHostAddress))
+
+        val ip = localServerAddress.map(_.getHostAddress)
+            .getOrElse(System.getProperty("SERVER_NODE_IP", addresses.head))
+
+        logger.info(s"Connecting to $ip")
+
+        List(ip)
     }
 
     def directoryIterator(dir: String): Iterator[(String, InputStream)] =

@@ -9,7 +9,8 @@ import org.apache.ignite.{Ignite, IgniteCache}
 /**
   */
 class InsertBatchTask(val batch: Array[String], val tableInfo: TableInfo, val ignite: Ignite, val cache: IgniteCache[Any, Any],
-    val lineCount: Long, val fileName: String, val tableName: String, val lock: Object, val counter: AtomicInteger) extends BatchTask {
+    val lineCount: Long, val fileName: String, val tableName: String, val lock: Object, val counter: AtomicInteger,
+    txTimeout: Long) extends BatchTask {
 
     def processBatch(): Unit = {
         val batchMap = new java.util.HashMap[Any, Any](batch.length, 1)
@@ -25,7 +26,7 @@ class InsertBatchTask(val batch: Array[String], val tableInfo: TableInfo, val ig
 
         val txMgr = ignite.transactions()
 
-        val tx = txMgr.txStart(PESSIMISTIC, REPEATABLE_READ)
+        val tx = txMgr.txStart(PESSIMISTIC, REPEATABLE_READ, txTimeout, batchMap.size())
         try {
             cache.putAll(batchMap)
             tx.commit();

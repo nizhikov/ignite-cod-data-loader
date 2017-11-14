@@ -15,6 +15,7 @@ case class Config(
 
 object Config {
     val GENERATE_CONFIG = "generate-config"
+    val CREATE_CACHES = "create-caches"
     val LOAD_TABLE = "load-table"
     val CHECK_TABLE = "check-table"
     val COUNT_LINES = "count-lines"

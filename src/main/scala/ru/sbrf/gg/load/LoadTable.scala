@@ -19,6 +19,8 @@ class LoadTable(val tableName: String, val dataRoot: String, val pool: ExecutorS
 
     var cache: IgniteCache[Any, Any] = _
 
+    val txTimeout = System.getProperty("TX_TIMEOUT", "120000").toLong
+
     override def taskName: String = "LoadTable"
 
     override def start(tableInfo: TableInfo): Unit = {
@@ -31,7 +33,8 @@ class LoadTable(val tableName: String, val dataRoot: String, val pool: ExecutorS
     }
 
     override def processBatch(batch: Array[String], tableInfo: TableInfo, lineCount: Long, name: String): Unit = {
-        pool.execute(new InsertBatchTask(batch, tableInfo, ignite, cache, lineCount, name, tableName, lock, counter))
+        pool.execute(new InsertBatchTask(batch, tableInfo, ignite, cache, lineCount, name, tableName, lock, counter,
+            txTimeout))
 
         waitTasksToComplete()
     }

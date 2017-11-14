@@ -20,7 +20,13 @@ trait BatchTask extends Runnable {
             logger.info(s"[$taskName][$batchTaskName][tableName:$tableName][file:$fileName]" +
                 s"[lineCount:$lineCount][timeElapsed:${(System.nanoTime() - start)/1000000.0}]")
         } catch {
-            case e: Exception ⇒ logger.error(s"Error inserting batch. $fileName:", e)
+            case e: Exception ⇒ {
+                var root: Throwable = e
+                while (root != null) {
+                    logger.error(s"Error inserting batch. $fileName:", root)
+                    root = root.getCause
+                }
+            }
         } finally {
             lock.synchronized {
                 counter.getAndDecrement()

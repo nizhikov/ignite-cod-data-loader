@@ -77,7 +77,7 @@ public class RecordJob implements IgniteCallable<Integer> {
 
         IgniteAtomicSequence idGen = ignite.atomicSequence("IG_GENERATOR", 22_08_1984L, true);
 
-        try (Transaction tx = txMgr.txStart(PESSIMISTIC, REPEATABLE_READ)) {
+        try (Transaction tx = txMgr.txStart(PESSIMISTIC, REPEATABLE_READ, 2*60000L, 40)) {
             AffinityParticleKey _key = key; //.deserialize();
             PublishedProductParty product = productCache.get(_key);
 
