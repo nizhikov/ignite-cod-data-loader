@@ -10,7 +10,7 @@ import org.apache.ignite.configuration.{BinaryConfiguration, IgniteConfiguration
 import org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi
 import org.apache.ignite.spi.discovery.tcp.ipfinder.multicast.TcpDiscoveryMulticastIpFinder
 import org.apache.ignite.{Ignite, Ignition}
-import org.slf4j.LoggerFactory
+import org.apache.log4j.Logger
 
 import scala.collection.JavaConversions._
 import scala.xml.{Node, XML}
@@ -18,7 +18,7 @@ import scala.xml.{Node, XML}
 /**
   */
 package object load {
-    private val logger = LoggerFactory.getLogger(this.getClass)
+    private val logger = Logger.getLogger(this.getClass)
 
     def filesList(dir: String): Seq[File] = {
         val d = new File(dir)
@@ -83,7 +83,7 @@ package object load {
 
         cfg.setDiscoverySpi(new TcpDiscoverySpi().setIpFinder(
             new TcpDiscoveryMulticastIpFinder()
-                .setMulticastPort(System.getProperty("IGNITE.MULTICAST_PORT", "47502").toInt)
+                .setMulticastPort(System.getProperty("IGNITE.MULTICAST_PORT", "48501").toInt)
                 .setAddresses(if(local) addresses else findLocalServer(addresses))))
 
         cfg.setBinaryConfiguration(new BinaryConfiguration()

@@ -2,12 +2,12 @@ package ru.sbrf.gg.load
 
 import java.io.{File, InputStream}
 
-import org.slf4j.LoggerFactory
+import org.apache.log4j.Logger
 
 import scala.io.Source
 
 class CSVReader(file: InputStream, delim: String = ";", encoding: String = "ISO-8859-1") extends Iterable[Array[String]] {
-    private val logger = LoggerFactory.getLogger(this.getClass)
+    private val logger = Logger.getLogger(this.getClass)
 
     val maxLines = System.getProperty("MAX_LINES", "-1").toInt
 

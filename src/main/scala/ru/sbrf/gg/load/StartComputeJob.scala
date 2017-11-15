@@ -4,7 +4,7 @@ import java.util
 
 import org.apache.ignite.Ignite
 import org.apache.ignite.lang.IgniteFuture
-import org.slf4j.LoggerFactory
+import org.apache.log4j.Logger
 import ru.sbt.PartitionJob
 
 import scala.collection.JavaConversions._
@@ -12,7 +12,7 @@ import scala.collection.JavaConversions._
 /**
   */
 class StartComputeJob(ignite: Ignite) extends Runnable {
-    private val logger = LoggerFactory.getLogger(this.getClass)
+    private val logger = Logger.getLogger(this.getClass)
 
     private val processOneOf: Int = System.getProperty("ONE_OF", "3").toInt
 

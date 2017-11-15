@@ -1,13 +1,14 @@
 package ru.sbrf.gg.load
 
 import java.io.{BufferedReader, File, InputStream, InputStreamReader}
-import org.slf4j.{Logger, LoggerFactory}
+
+import org.apache.log4j.Logger
 
 /**
   * @author NIzhikov
   */
 trait ProcessTableFile {
-    val logger: Logger = LoggerFactory.getLogger(this.getClass)
+    val logger: Logger = Logger.getLogger(this.getClass)
 
     val batchSize: Int = System.getProperty("BATCH_SIZE", "5000").toInt
 

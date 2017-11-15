@@ -22,7 +22,7 @@ import java.text.DecimalFormat
 import java.util.concurrent.{ExecutorService, Executors, TimeUnit}
 
 import org.apache.ignite.Ignite
-import org.slf4j.LoggerFactory
+import org.apache.log4j.Logger
 import ru.sbrf.gg.load.Config._
 
 import scala.io.Source
@@ -30,7 +30,7 @@ import scala.io.Source
 /**
   */
 object MainApp extends App {
-    private val logger = LoggerFactory.getLogger(this.getClass)
+    private val logger = Logger.getLogger(this.getClass)
 
     val DEFAULT_POOL_SIZE = 2
 

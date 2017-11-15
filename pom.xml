@@ -100,9 +100,15 @@
         </dependency>
 
         <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>1.2.3</version>
+            <groupId>org.apache.ignite</groupId>
+            <artifactId>ignite-log4j</artifactId>
+            <version>${ignite.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.logstash.log4j</groupId>
+            <artifactId>jsonevent-layout</artifactId>
+            <version>1.7</version>
         </dependency>
     </dependencies>
 
@@ -146,7 +152,6 @@
                 <executions>
                     <execution>
                         <goals>
-                            <!-- Need to specify this explicitly, otherwise plugin won't be called when doing e.g. mvn compile -->
                             <goal>compile</goal>
                             <goal>testCompile</goal>
                         </goals>
@@ -200,6 +205,11 @@
                 <repository>
                     <id>gridgain</id>
                     <url>http://nexus.sigma.sbrf.ru:8099/nexus/content/repositories/gridgainsystems_proxy/</url>
+                </repository>
+
+                <repository>
+                    <id>mvnrepository</id>
+                    <url>http://central.maven.org/maven2/</url>
                 </repository>
             </repositories>
         </profile>
