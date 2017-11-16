@@ -4,15 +4,15 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans.xsd">
     <bean id="walArchivePath" class="java.lang.String">
-        <constructor-arg index="0" value="/gridgain/sas/nizhikov/walArchive" />
+        <constructor-arg index="0" value="/gridgain/ssd/nizhikov/walArchive" />
     </bean>
 
     <bean id="walStorePath" class="java.lang.String">
-        <constructor-arg index="0" value="/gridgain/sas/nizhikov/walStore" />
+        <constructor-arg index="0" value="/gridgain/ssd/nizhikov/walStore" />
     </bean>
 
     <bean id="snapshotsPath" class="java.lang.String">
-        <constructor-arg index="0" value="/gridgain/sas/nizhikov/snapshot" />
+        <constructor-arg index="0" value="/gridgain/ssd/nizhikov/snapshot" />
     </bean>
 
     <bean id="igniteConfiguration" class="org.apache.ignite.configuration.IgniteConfiguration">
@@ -72,10 +72,11 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
         <property name="selectorsCount" value="18"/>
         <property name="connectionsPerNode" value="1"/>
         <property name="messageQueueLimit" value="0"/>
-        <property name="localPort" value="48500"/>
+        <property name="localPort" value="48100"/>
     </bean>
 
     <bean id="discoverySpi" class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
+        <property name="localPort" value="48500" />
         <property name="ipFinder">
             <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.multicast.TcpDiscoveryMulticastIpFinder">
                 <property name="multicastPort" value="48501" />
@@ -93,6 +94,7 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
     </bean>
 
     <bean id="connectorConfiguration" class="org.apache.ignite.configuration.ConnectorConfiguration">
+        <property name="port" value="11311" />
         <property name="idleTimeout" value="180000"/>
     </bean>
 
@@ -108,15 +110,19 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="memoryPolicyConfiguration" class="org.apache.ignite.configuration.MemoryPolicyConfiguration">
         <property name="name" value="dpl_mem_plc"/>
+
+        <property name="initialSize" value="#{200 * 1024 * 1024 * 1024L}"/>
+        <property name="maxSize" value="#{600 * 1024 * 1024 * 1024L}"/>
     </bean>
 
     <bean id="persistentStoreConfiguration" class="org.apache.ignite.configuration.PersistentStoreConfiguration">
         <property name="checkpointingFrequency" value="10000"/>
-        <property name="WalHistorySize" value="100"/>
-        <property name="walMode" value="BACKGROUND"/>
+        <property name="walMode" value="LOG_ONLY"/>
+        <property name="tlbSize" value="10485760"/>
+        <property name="checkpointingPageBufferSize" value="#{16 * 1024 * 1024 * 1024L}" />
+
         <property name="walArchivePath" ref="walArchivePath" />
         <property name="walStorePath" ref="walStorePath" />
-        <property name="tlbSize" value="10485760"/>
     </bean>
 
     <bean id="transactionConfiguration" class="org.apache.ignite.configuration.TransactionConfiguration">

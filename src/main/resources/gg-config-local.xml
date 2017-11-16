@@ -4,15 +4,15 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans.xsd">
     <bean id="walArchivePath" class="java.lang.String">
-        <constructor-arg index="0" value="/gridgain/sas/storage/walArchive" />
+        <constructor-arg index="0" value="/gridgain/ssd/nizhikov/walArchive" />
     </bean>
 
     <bean id="walStorePath" class="java.lang.String">
-        <constructor-arg index="0" value="/gridgain/sas/storage/walStore" />
+        <constructor-arg index="0" value="/gridgain/ssd/nizhikov/walStore" />
     </bean>
 
     <bean id="snapshotsPath" class="java.lang.String">
-        <constructor-arg index="0" value="/opt/pprb/server/work/snapshot" />
+        <constructor-arg index="0" value="/gridgain/ssd/nizhikov/snapshot" />
     </bean>
 
     <bean id="igniteConfiguration" class="org.apache.ignite.configuration.IgniteConfiguration">
@@ -72,10 +72,11 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
         <property name="selectorsCount" value="18"/>
         <property name="connectionsPerNode" value="1"/>
         <property name="messageQueueLimit" value="0"/>
-        <property name="localPort" value="48500" />
+        <property name="localPort" value="48100"/>
     </bean>
 
     <bean id="discoverySpi" class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
+        <property name="localPort" value="48500" />
         <property name="ipFinder">
             <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.multicast.TcpDiscoveryMulticastIpFinder">
                 <property name="multicastPort" value="48501" />
