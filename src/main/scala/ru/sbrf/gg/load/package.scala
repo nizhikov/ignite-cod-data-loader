@@ -11,6 +11,7 @@ import org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi
 import org.apache.ignite.spi.discovery.tcp.ipfinder.multicast.TcpDiscoveryMulticastIpFinder
 import org.apache.ignite.{Ignite, Ignition}
 import org.apache.log4j.Logger
+import org.gridgain.grid.configuration.GridGainConfiguration
 
 import scala.collection.JavaConversions._
 import scala.xml.{Node, XML}
@@ -90,6 +91,10 @@ package object load {
             .setCompactFooter(true))
 
         cfg.setPeerClassLoadingEnabled(true)
+
+        cfg.setPluginConfigurations(new GridGainConfiguration()
+            .setLicenseUrl(System.getProperty("GG_LICENSE",
+                "/gridgain/ssd/nizhikov/bin/gridgain-ultimate-fabric-8.1.6/gridgain-license.xml")))
 
         val ignite = Ignition.start(cfg)
 
