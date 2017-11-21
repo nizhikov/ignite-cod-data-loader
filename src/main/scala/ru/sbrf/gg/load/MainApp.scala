@@ -23,6 +23,7 @@ import java.util.concurrent.{ExecutorService, Executors, TimeUnit}
 
 import org.apache.ignite.Ignite
 import org.apache.log4j.Logger
+import org.apache.log4j.xml.DOMConfigurator
 import ru.sbrf.gg.load.Config._
 
 import scala.io.Source
@@ -30,6 +31,8 @@ import scala.io.Source
 /**
   */
 object MainApp extends App {
+    DOMConfigurator.configure(this.getClass.getResource("/ext/log4j.xml"))
+
     private val logger = Logger.getLogger(this.getClass)
 
     val DEFAULT_POOL_SIZE = 2

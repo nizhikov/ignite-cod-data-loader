@@ -58,7 +58,7 @@ class StartComputeJob(ignite: Ignite) extends Runnable {
         }
 
         logger.info(s"[TaskForAllPartitionSubmitted][partitionsCount:$partitionsCount]")
-
+        waitJobs2Finish(jobs, 1)
         logger.info(s"[AllJobsAreDone]")
     }
 

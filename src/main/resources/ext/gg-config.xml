@@ -16,7 +16,7 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
     </bean>
 
     <bean id="igniteConfiguration" class="org.apache.ignite.configuration.IgniteConfiguration">
-        <property name="failureDetectionTimeout" value="1800000"/>
+        <property name="failureDetectionTimeout" value="1800 000"/>
         <property name="metricsLogFrequency" value="30000"/>
         <property name="publicThreadPoolSize" value="256"/>
         <property name="systemThreadPoolSize" value="256"/>

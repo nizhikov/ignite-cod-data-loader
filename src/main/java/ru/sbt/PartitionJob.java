@@ -69,9 +69,6 @@ public class PartitionJob implements IgniteRunnable {
 
                     jobs.add(fut);
 
-                    if (jobsStarted == 3)
-                        break;
-
                     if (jobsStarted % 1_000 == 0)
                         igniteLogger.info("[Remote][partition:" + partition + "]" +
                             "[jobsStarted:" + jobsStarted + "]");
