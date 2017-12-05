@@ -6,10 +6,10 @@ import org.apache.log4j.Logger
 
 import scala.io.Source
 
-class CSVReader(file: InputStream, delim: String = ";", encoding: String = "ISO-8859-1") extends Iterable[Array[String]] {
+class CSVReader(file: InputStream, delim: String = ";", encoding: String = "ISO-8859-1", _maxLines: Option[Int] = None) extends Iterable[Array[String]] {
     private val logger = Logger.getLogger(this.getClass)
 
-    val maxLines = System.getProperty("MAX_LINES", "-1").toInt
+    val maxLines = _maxLines.getOrElse(System.getProperty("MAX_LINES", "-1").toInt)
 
     {
         if (maxLines != -1)

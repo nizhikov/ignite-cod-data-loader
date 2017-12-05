@@ -10,7 +10,7 @@ case class Config(
     local: Boolean = true,
     dataRoot: Option[String] = None,
     poolSize: Option[Int] = None,
-    tablesIndexes: Set[Int] = Set(1))
+    tablesIndexes: Set[Int] = Set(1, 2, 3, 4, 5, 6))
 {}
 
 object Config {

@@ -233,7 +233,7 @@ object MainApp extends App {
         val ignite: Ignite = startClient(local)
 
         try {
-            new CSVReader(getClass.getResourceAsStream("/tables.csv")).foreach { line ⇒
+            new CSVReader(getClass.getResourceAsStream("/tables.csv"), _maxLines = Some(-1)).foreach { line ⇒
                 if (tablesIndexes(line(1).toInt))
                     taskGenerator(line(0), pool, ignite).process()
                 else

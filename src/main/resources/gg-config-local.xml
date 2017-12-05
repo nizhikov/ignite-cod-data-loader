@@ -4,15 +4,15 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans.xsd">
     <bean id="walArchivePath" class="java.lang.String">
-        <constructor-arg index="0" value="/gridgain/ssd/nizhikov/walArchive" />
+        <constructor-arg index="0" value="/home/dragon/tmp/walArchive" />
     </bean>
 
     <bean id="walStorePath" class="java.lang.String">
-        <constructor-arg index="0" value="/gridgain/ssd/nizhikov/walStore" />
+        <constructor-arg index="0" value="/home/dragon/tmp/walStore" />
     </bean>
 
     <bean id="snapshotsPath" class="java.lang.String">
-        <constructor-arg index="0" value="/gridgain/ssd/nizhikov/snapshot" />
+        <constructor-arg index="0" value="/home/dragon/tmp/snapshot" />
     </bean>
 
     <bean id="igniteConfiguration" class="org.apache.ignite.configuration.IgniteConfiguration">
@@ -55,11 +55,13 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
             <ref bean="persistentStoreConfiguration"/>
         </property>
 
+<!--
         <property name="pluginConfigurations">
             <list>
                 <ref bean="gridGainConfiguration"/>
             </list>
         </property>
+-->
     </bean>
 
     <bean id="tcpCommunicationSpi" class="org.apache.ignite.spi.communication.tcp.TcpCommunicationSpi">
@@ -129,7 +131,7 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
         <property name="atomicSequenceReserveSize" value="50000"/>
         <property name="cacheMode" value="REPLICATED"/>
     </bean>
-
+<!--
     <bean id="gridGainConfiguration" class="org.gridgain.grid.configuration.GridGainConfiguration">
         <property name="snapshotConfiguration">
             <bean class="org.gridgain.grid.configuration.SnapshotConfiguration">
@@ -137,4 +139,5 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
             </bean>
         </property>
     </bean>
+-->
 </beans>
