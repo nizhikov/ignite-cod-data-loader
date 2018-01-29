@@ -24,12 +24,14 @@ class LoadTable(val tableName: String, val dataRoot: String, val pool: ExecutorS
     override def taskName: String = "LoadTable"
 
     override def start(tableInfo: TableInfo): Unit = {
-        cache = ignite.getOrCreateCache(
-            new CacheConfiguration[Any, Any]()
-                .setAtomicityMode(TRANSACTIONAL)
-                .setCacheMode(PARTITIONED)
-                .setBackups(3)
-                .setName(tableInfo.cacheName))
+        val cacheConfigProvider =
+            Class.forName(
+                System.getProperty("CACHE_CONFIG_PROVIDER", classOf[DefaultConfigurationProvider[Any, Any]].getName))
+
+        val cacheConfig = cacheConfigProvider.newInstance().asInstanceOf[CacheConfigurationProvider[Any, Any]]
+            .create(tableInfo.cacheName)
+
+        cache = ignite.getOrCreateCache(cacheConfig)
     }
 
     override def processBatch(batch: Array[String], tableInfo: TableInfo, lineCount: Long, name: String): Unit = {

@@ -18,12 +18,14 @@ class CreateCaches(val tableName: String, val dataRoot: String, val ignite: Igni
 
         logger.info(s"[$taskName][tableName:$tableName][cacheName:${tableInfo.cacheName}]")
 
-        ignite.getOrCreateCache(
-            new CacheConfiguration[Any, Any]()
-                .setAtomicityMode(TRANSACTIONAL)
-                .setCacheMode(PARTITIONED)
-                .setBackups(3)
-                .setName(tableInfo.cacheName))
+        val cacheConfigProvider =
+            Class.forName(
+                System.getProperty("CACHE_CONFIG_PROVIDER", classOf[DefaultConfigurationProvider[Any, Any]].getName))
+
+        val cacheConfig = cacheConfigProvider.newInstance().asInstanceOf[CacheConfigurationProvider[Any, Any]]
+            .create(tableInfo.cacheName)
+
+        ignite.getOrCreateCache(cacheConfig)
     }
 
     override def start(tableInfo: TableInfo): Unit = {
