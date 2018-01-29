@@ -28,7 +28,14 @@ class InsertBatchTask(val batch: Array[String], val tableInfo: TableInfo, val ig
 
         val tx = txMgr.txStart(PESSIMISTIC, REPEATABLE_READ, txTimeout, batchMap.size())
         try {
-            cache.putAll(batchMap)
+            if (batchMap.size() == 1) {
+                val entry = batchMap.entrySet.iterator.next
+
+                cache.put(entry.getKey, entry.getValue);
+            }
+            else
+                cache.putAll(batchMap)
+
             tx.commit();
         } finally {
             tx.close()
