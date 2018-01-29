@@ -28,6 +28,7 @@
     <properties>
         <javax.cache.version>1.0.0</javax.cache.version>
         <scala.version>2.11.8</scala.version>
+        <ignite.version>2.3.0</ignite.version>
         <assembly.file.name>${project.artifactId}-bin-${project.version}</assembly.file.name>
     </properties>
 
