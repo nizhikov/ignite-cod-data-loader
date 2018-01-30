@@ -26,6 +26,8 @@
     <version>0.0.1-SNAPSHOT</version>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <javac.target>1.8</javac.target>
         <javax.cache.version>1.0.0</javax.cache.version>
         <scala.version>2.11.8</scala.version>
         <ignite.version>2.3.0</ignite.version>
@@ -101,12 +103,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.apache.ignite</groupId>
-            <artifactId>ignite-log4j</artifactId>
-            <version>${ignite.version}</version>
-        </dependency>
-
-        <dependency>
             <groupId>net.logstash.log4j</groupId>
             <artifactId>jsonevent-layout</artifactId>
             <version>1.7</version>
@@ -118,6 +114,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
+                <version>3.0.0</version>
                 <executions>
                     <execution>
                         <id>add-source</id>
@@ -162,6 +159,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.7.0</version>
                 <configuration>
                     <source>1.7</source>
                     <target>1.7</target>
