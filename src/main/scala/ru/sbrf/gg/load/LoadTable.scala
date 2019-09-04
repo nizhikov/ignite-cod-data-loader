@@ -29,7 +29,7 @@ class LoadTable(val tableName: String, val dataRoot: String, val pool: ExecutorS
                 System.getProperty("CACHE_CONFIG_PROVIDER", classOf[DefaultConfigurationProvider[Any, Any]].getName))
 
         val cacheConfig = cacheConfigProvider.newInstance().asInstanceOf[CacheConfigurationProvider[Any, Any]]
-            .create(tableInfo.cacheName)
+            .create(tableInfo.cacheName, tableInfo.key, tableInfo.value)
 
         cache = ignite.getOrCreateCache(cacheConfig)
     }
