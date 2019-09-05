@@ -1,13 +1,10 @@
 
  package ru.sbrf.gg.load.builder;
 
- import ru.sbrf.gg.load.TableInfo;
- import com.sbt.DelimetedStringParser;
  import com.sbt.CompareUtils;
- import ru.sbrf.gg.load.builder.ObjectBuilder;
+ import com.sbt.DelimetedStringParser;
  import com.sbt.cdm.model.extension.deposit.DepoHist;
-
- import ru.sbt.kmdtransform.TransformType.*;
+ import ru.sbrf.gg.load.TableInfo;
 
  public class DepoHistBuilder implements ObjectBuilder {
      @Override public Object build(String line, TableInfo tableInfo) {
